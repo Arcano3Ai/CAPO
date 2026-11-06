@@ -131,6 +131,16 @@
         <audio id="bg-music" autoplay loop preload="auto">
             <source src="assets/modo-patron-activado.mp3" type="audio/mpeg">
         </audio>
+        <script>
+            try {
+                var bgAudio = document.getElementById('bg-music');
+                if (bgAudio) {
+                    bgAudio.volume = 0.65;
+                    var p = bgAudio.play();
+                    if (p !== undefined) p.catch(function(){});
+                }
+            } catch(e) {}
+        </script>
         <div class="player-controls">
             <button id="play-btn" class="btn-audio" aria-label="Reproducir o pausar soundtrack">
                 <i class="fas fa-play"></i>

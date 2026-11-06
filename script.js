@@ -2589,9 +2589,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const playerWidget = document.getElementById('audio-player-widget');
 
     if (audio && playBtn && playerWidget) {
-        audio.volume = 0.55;
+        audio.volume = 0.65;
         const playIcon = playBtn.querySelector('i');
         const playText = playBtn.querySelector('.btn-audio-text');
+        let userManuallyPaused = false;
 
         const updateAudioState = (isPlaying) => {
             if (isPlaying) {
@@ -2610,38 +2611,58 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.addEventListener('play', () => updateAudioState(true));
         audio.addEventListener('pause', () => updateAudioState(false));
 
-        const autoplayEvents = ['click', 'touchstart', 'pointerdown', 'scroll', 'wheel', 'keydown'];
-        const triggerAutoplay = () => {
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
+        const unlockEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'keydown'];
+
+        const removeListeners = () => {
+            unlockEvents.forEach(evt => {
+                window.removeEventListener(evt, handleGestureAutoplay, true);
+                document.removeEventListener(evt, handleGestureAutoplay, true);
+            });
+        };
+
+        const tryPlay = () => {
+            if (userManuallyPaused) return;
+            const p = audio.play();
+            if (p !== undefined) {
+                p.then(() => {
                     updateAudioState(true);
-                    autoplayEvents.forEach(evt => {
-                        window.removeEventListener(evt, triggerAutoplay);
-                        document.removeEventListener(evt, triggerAutoplay);
-                    });
+                    removeListeners();
                 }).catch(() => {
                     updateAudioState(false);
                 });
             }
         };
 
-        // 1. Intento de inicio automático inmediato al cargar la web
-        triggerAutoplay();
+        function handleGestureAutoplay() {
+            if (userManuallyPaused) return;
+            if (!audio.paused) {
+                removeListeners();
+                return;
+            }
+            tryPlay();
+        }
 
-        // 2. Si la política de autoplay del navegador requiere interacción del usuario,
-        // reproducir al primer contacto físico, toque, scroll o tecla
-        autoplayEvents.forEach(evt => {
-            window.addEventListener(evt, triggerAutoplay, { once: true, passive: true });
-            document.addEventListener(evt, triggerAutoplay, { once: true, passive: true });
+        // 1. Intento inmediato al cargar
+        tryPlay();
+
+        // 2. Intentos al completar la carga y navegación
+        window.addEventListener('load', tryPlay, { once: true });
+        window.addEventListener('pageshow', tryPlay, { once: true });
+
+        // 3. Activación garantizada en el primer contacto táctil o clic
+        unlockEvents.forEach(evt => {
+            window.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
+            document.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
         });
 
-        // 3. Control manual con el botón flotante
+        // 4. Control manual con el botón flotante
         playBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (audio.paused) {
+                userManuallyPaused = false;
                 audio.play().then(() => updateAudioState(true)).catch(e => console.log('Audio error:', e));
             } else {
+                userManuallyPaused = true;
                 audio.pause();
                 updateAudioState(false);
             }
