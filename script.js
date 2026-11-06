@@ -918,6 +918,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     const CatalogEngine = {
         mainGrid: document.getElementById('main-product-grid'),
+        secondaryGrid: document.getElementById('secondary-product-grid'),
+        breakSection: document.getElementById('cinematic-break-section'),
         filterTabs: document.querySelectorAll('.filter-tab'),
         sortSelect: document.getElementById('catalog-sort-select'),
         countBadge: document.getElementById('catalog-count-badge'),
@@ -965,54 +967,78 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 0; // featured default
             });
 
-            // Render HTML cards
-            this.mainGrid.innerHTML = filtered.map(p => {
-                const stock = window.CapoSync ? window.CapoSync.InventoryManager.getStock(p.sku, p.stock) : (p.stock || 4);
-                const isSoldOut = stock <= 0;
-                const formattedPrice = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.price) : `$${p.price} MXN`;
-                const formattedOrig = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.originalPrice) : `$${p.originalPrice} MXN`;
+            // Split into first 10 items, interstitial video break, and remaining items
+            const first10 = filtered.slice(0, 10);
+            const remaining = filtered.slice(10);
 
-                return `
-                <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-image="${p.images[0]}" data-category="${p.category}" data-desc="${p.description}">
-                    <div class="product-badge ${isSoldOut ? 'sold-out' : (p.category === 'oro' ? 'gold-badge' : '')}">
-                        ${isSoldOut ? 'AGOTADO' : p.badge}
-                    </div>
-                    <button type="button" class="btn-wishlist-card ${WishlistState.has(p.id) ? 'active' : ''}" data-id="${p.id}" aria-label="Guardar en favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="product-image">
-                        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
-                        <div class="card-action-overlay">
-                            <button type="button" class="btn-quick-view" data-action="quick-view">DETALLES</button>
-                            ${isSoldOut ? `
-                                <button type="button" class="btn-add-cart sold-out" disabled>AGOTADO</button>
-                            ` : `
-                                <button type="button" class="btn-add-cart" data-action="add-cart">AGREGAR ${formattedPrice}</button>
-                            `}
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="product-meta-row" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:0.4rem;">
-                            <span class="product-category">${p.collectionLabel || p.categoryLabel}</span>
-                            <span style="font-size:0.75rem; color:#888;">★ ${p.rating} (${p.reviewCount})</span>
-                        </div>
-                        <h3>${p.name}</h3>
-                        <p class="price" style="display:flex; justify-content:center; align-items:baseline; gap:6px;">${formattedPrice} <span class="original-price" style="font-size:0.85rem;">${formattedOrig}</span></p>
-                        ${isSoldOut ? `
-                            <button type="button" class="btn-notify-stock" data-sku="${p.sku}" data-name="${p.name}">
-                                <i class="fas fa-bell"></i> AVÍSAME AL REABASTECER
-                            </button>
-                        ` : ''}
-                    </div>
-                </article>
-                `;
-            }).join('');
+            this.mainGrid.innerHTML = first10.map(p => this.renderCardHTML(p)).join('');
+
+            if (this.secondaryGrid) {
+                if (remaining.length > 0) {
+                    this.secondaryGrid.style.display = '';
+                    if (this.breakSection) this.breakSection.style.display = '';
+                    this.secondaryGrid.innerHTML = remaining.map(p => this.renderCardHTML(p)).join('');
+                } else {
+                    this.secondaryGrid.innerHTML = '';
+                    this.secondaryGrid.style.display = 'none';
+                    if (this.breakSection) this.breakSection.style.display = '';
+                }
+            }
 
             if (this.countBadge) {
                 this.countBadge.textContent = `MOSTRANDO ${filtered.length} ${filtered.length === 1 ? 'PIEZA' : 'PIEZAS'}`;
             }
 
             WishlistState.syncUI();
+        },
+
+        renderCardHTML(p) {
+            const stock = window.CapoSync ? window.CapoSync.InventoryManager.getStock(p.sku, p.stock) : (p.stock || 4);
+            const isSoldOut = stock <= 0;
+            const formattedPrice = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.price) : `$${p.price} MXN`;
+            const formattedOrig = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.originalPrice) : `$${p.originalPrice} MXN`;
+
+            return `
+            <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-image="${p.images[0]}" data-category="${p.category}" data-desc="${p.description}">
+                <div class="product-badge ${isSoldOut ? 'sold-out' : (p.category === 'oro' ? 'gold-badge' : '')}">
+                    ${isSoldOut ? 'AGOTADO' : p.badge}
+                </div>
+                <button type="button" class="btn-wishlist-card ${WishlistState.has(p.id) ? 'active' : ''}" data-id="${p.id}" aria-label="Guardar en favoritos">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="product-image">
+                    <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <div class="product-meta-row" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:0.4rem;">
+                        <span class="product-category">${p.collectionLabel || p.categoryLabel}</span>
+                        <span style="font-size:0.75rem; color:#888;">★ ${p.rating} (${p.reviewCount})</span>
+                    </div>
+                    <h3>${p.name}</h3>
+                    <p class="price" style="display:flex; justify-content:center; align-items:baseline; gap:6px;">${formattedPrice} <span class="original-price" style="font-size:0.85rem;">${formattedOrig}</span></p>
+                </div>
+                <!-- BOTONES ABAJO DEL PRODUCTO (NO CORTADOS) -->
+                <div class="product-actions-bottom">
+                    <button type="button" class="btn-card-action btn-card-details" data-action="quick-view">
+                        <i class="fas fa-eye"></i> DETALLES
+                    </button>
+                    ${isSoldOut ? `
+                        <button type="button" class="btn-card-action btn-card-add sold-out" disabled>
+                            <i class="fas fa-ban"></i> AGOTADO
+                        </button>
+                    ` : `
+                        <button type="button" class="btn-card-action btn-card-add" data-action="add-cart">
+                            <i class="fas fa-shopping-bag"></i> AGREGAR
+                        </button>
+                    `}
+                </div>
+                ${isSoldOut ? `
+                    <button type="button" class="btn-notify-stock" data-sku="${p.sku}" data-name="${p.name}" style="margin-top:0.6rem;">
+                        <i class="fas fa-bell"></i> AVÍSAME AL REABASTECER
+                    </button>
+                ` : ''}
+            </article>
+            `;
         }
     };
 

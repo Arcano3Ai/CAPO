@@ -283,8 +283,27 @@
                 </div>
             </div>
             
-            <!-- Dynamic Grid populated via JS or pre-rendered -->
+            <!-- Dynamic Grid: Primeros 10 productos -->
             <div class="product-grid" id="main-product-grid">
+                <!-- Products injected dynamically from products.json -->
+            </div>
+
+            <!-- Interstitial Video Showcase: Video Project 48 sin opacidad -->
+            <div class="cinematic-break" id="cinematic-break-section">
+                <div class="cinematic-break-video-wrap">
+                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/capo-showcase-poster.webp">
+                        <source src="assets/capo-showcase.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cinematic-break-content">
+                    <span class="cinematic-break-tag"><i class="fas fa-crown"></i> CAPO SYNDICATE</span>
+                    <h2>EL PODER NO SE PIDE. SE TOMA.</h2>
+                    <p>EDICIÓN LIMITADA 2026 // ALTA INGENIERÍA TEXTIL</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid: Resto de los productos -->
+            <div class="product-grid" id="secondary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
         </div>
