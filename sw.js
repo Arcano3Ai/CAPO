@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v9';
+const CACHE_NAME = 'capo-store-v10';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -34,7 +34,27 @@ const ASSETS_TO_CACHE = [
     './assets/capo-hoodie-micro-gold.webp',
     './assets/capo-hoodie-arch-heritage.webp',
     './assets/capo-hoodie-sleeves-gold.webp',
-    './assets/capo-hoodie-giant-chest.webp'
+    './assets/capo-hoodie-giant-chest.webp',
+    './assets/capo-pulsera-sodalita.webp',
+    './assets/capo-pulsera-pirita.webp',
+    './assets/capo-pulsera-lapislazuli.webp',
+    './assets/capo-pulsera-onix-mate.webp',
+    './assets/capo-pulsera-obsidiana.webp',
+    './assets/capo-pulsera-ojo-de-tigre.webp',
+    './assets/capo-pulsera-lava-volcanica.webp',
+    './assets/capo-pulsera-malaquita.webp',
+    './assets/capo-pulsera-hematita.webp',
+    './assets/capo-pulsera-jaspe-rojo.webp',
+    './assets/capo-pulsera-cuarzo-rosa.webp',
+    './assets/capo-pulsera-cuarzo-ahumado.webp',
+    './assets/capo-pulsera-amatista.webp',
+    './assets/capo-pulsera-labradorita.webp',
+    './assets/capo-pulsera-howlita-blanca.webp',
+    './assets/capo-pulsera-turquesa-africana.webp',
+    './assets/capo-pulsera-jaspe-paisaje.webp',
+    './assets/capo-pulsera-unakita.webp',
+    './assets/capo-pulsera-ojo-de-halcon.webp',
+    './assets/capo-pulsera-piedra-de-luna.webp'
 ];
 
 self.addEventListener('install', (event) => {
