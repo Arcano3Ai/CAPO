@@ -143,6 +143,18 @@
         </ul>
 
         <div class="nav-actions">
+            <!-- Currency Switcher Dropdown -->
+            <div class="currency-dropdown" id="currency-dropdown">
+                <button class="currency-btn" id="currency-toggle-btn" aria-label="Cambiar divisa" aria-expanded="false">
+                    <i class="fas fa-coins"></i> <span id="current-currency-label">MXN $</span>
+                </button>
+                <div class="currency-menu" id="currency-menu">
+                    <button type="button" class="currency-opt active" data-currency="MXN">🇲🇽 MXN ($)</button>
+                    <button type="button" class="currency-opt" data-currency="USD">🇺🇸 USD ($)</button>
+                    <button type="button" class="currency-opt" data-currency="EUR">🇪🇺 EUR (€)</button>
+                </div>
+            </div>
+
             <!-- Search Button -->
             <button class="nav-btn btn-search-toggle" id="search-toggle-btn" aria-label="Abrir buscador">
                 <i class="fas fa-search"></i>
@@ -168,7 +180,7 @@
             </button>
         </div>
 
-        <!-- Integrated Search Bar Overlay -->
+        <!-- Integrated Search Bar Overlay with Live Predictive Dropdown -->
         <div class="nav-search-bar" id="nav-search-bar">
             <div class="search-input-wrapper">
                 <i class="fas fa-search search-icon"></i>
@@ -177,6 +189,8 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+            <!-- Live Predictive Search Results Container -->
+            <div class="search-results-dropdown" id="search-results-dropdown" style="display: none;"></div>
         </div>
     </nav>
 
@@ -432,7 +446,7 @@
 
             <div class="reviews-metrics-bar">
                 <div class="metric-item">
-                    <span class="metric-num">4.9 / 5.0</span>
+                    <span class="metric-num" id="reviews-avg-rating">4.9 / 5.0</span>
                     <span class="metric-label">CALIFICACIÓN PROMEDIO</span>
                 </div>
                 <div class="metric-item">
@@ -443,35 +457,16 @@
                     <span class="metric-num">&lt; 24 HRS</span>
                     <span class="metric-label">DESPACHO ASEGURADO</span>
                 </div>
+                <div class="metric-item action-item">
+                    <button class="btn-primary btn-open-review" id="btn-open-review-modal">
+                        <i class="fas fa-feather-alt"></i> ESCRIBIR RESEÑA
+                    </button>
+                </div>
             </div>
 
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"La corona no pierde su forma jamás. El bordado en The Boss Black es una obra maestra de precisión. Llegó en caja blindada impecable."</p>
-                    <div class="review-author">
-                        <strong>ROBERTO V.</strong>
-                        <span>CDMX • VERIFICADO</span>
-                    </div>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Gold Standard vale cada centavo. La placa de oro cepillado impone respeto en cuanto entras a cualquier lugar. Atención de primer nivel por WhatsApp."</p>
-                    <div class="review-author">
-                        <strong>ALEJANDRO G.</strong>
-                        <span>MONTERREY • VERIFICADO</span>
-                    </div>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Pedí en CAPO Lab con mi monograma grabado. Es literalmente tener una pieza única en el mundo. La mejor compra de streetwear de este año."</p>
-                    <div class="review-author">
-                        <strong>MARCO T.</strong>
-                        <span>GUADALAJARA • VERIFICADO</span>
-                    </div>
-                </div>
+            <!-- Dynamic Reviews Breakdown & Grid Container -->
+            <div class="reviews-grid" id="dynamic-reviews-grid">
+                <!-- Injected dynamically by ReviewUI via SyncService -->
             </div>
         </div>
     </section>
@@ -1033,6 +1028,106 @@
                 <h2 id="info-modal-title">TÍTULO</h2>
                 <div id="info-modal-body" class="info-modal-body"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Review Submission Modal -->
+    <div class="modal-overlay" id="review-modal" aria-hidden="true">
+        <div class="modal-card review-modal-card">
+            <button class="modal-close-btn" id="review-modal-close-btn" aria-label="Cerrar modal de reseña">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="review-modal-header">
+                <div class="checkout-badge-pill"><i class="fas fa-crown"></i> COMUNIDAD EXCLUSIVA</div>
+                <h2>REGISTRAR <span class="highlight">RESEÑA</span></h2>
+                <p>COMPARTE TU EXPERIENCIA DE AUTORIDAD Y CALIDAD</p>
+            </div>
+            <form class="review-form" id="review-form">
+                <div class="form-group star-rating-group">
+                    <label>CALIFICACIÓN *</label>
+                    <div class="star-rating-selector" id="star-rating-selector">
+                        <button type="button" class="star-btn active" data-rating="1"><i class="fas fa-star"></i></button>
+                        <button type="button" class="star-btn active" data-rating="2"><i class="fas fa-star"></i></button>
+                        <button type="button" class="star-btn active" data-rating="3"><i class="fas fa-star"></i></button>
+                        <button type="button" class="star-btn active" data-rating="4"><i class="fas fa-star"></i></button>
+                        <button type="button" class="star-btn active" data-rating="5"><i class="fas fa-star"></i></button>
+                    </div>
+                    <input type="hidden" id="review-stars-input" value="5">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="review-author-input">TU NOMBRE *</label>
+                        <input type="text" id="review-author-input" required placeholder="Ej: Roberto Valencia">
+                    </div>
+                    <div class="form-group">
+                        <label for="review-location-input">CIUDAD / ESTADO *</label>
+                        <input type="text" id="review-location-input" required placeholder="Ej: CDMX">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-product-select">PIEZA ADQUIRIDA *</label>
+                    <select id="review-product-select" class="custom-select" required>
+                        <option value="THE BOSS BLACK">THE BOSS BLACK</option>
+                        <option value="EL PATRÓN WHITE">EL PATRÓN WHITE</option>
+                        <option value="GOLD STANDARD">GOLD STANDARD</option>
+                        <option value="URBAN LEGEND">URBAN LEGEND</option>
+                        <option value="SUPREMACÍA SILVER">SUPREMACÍA SILVER</option>
+                        <option value="NOCHE ETERNA TRUCKER">NOCHE ETERNA TRUCKER</option>
+                        <option value="CAJA RÍGIDA EDICIÓN BÓVEDA">CAJA RÍGIDA EDICIÓN BÓVEDA</option>
+                        <option value="PIN METÁLICO MONOGRAMA ORO 24K">PIN METÁLICO MONOGRAMA ORO 24K</option>
+                        <option value="CAPO LAB CUSTOM">CAPO LAB PERSONALIZADO</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-title-input">TÍTULO DE LA RESEÑA *</label>
+                    <input type="text" id="review-title-input" required placeholder="Ej: Autoridad y perfección en cada costura">
+                </div>
+
+                <div class="form-group">
+                    <label for="review-text-input">TU COMENTARIO *</label>
+                    <textarea id="review-text-input" rows="4" required placeholder="Cuéntanos sobre la textura, la rigidez de la corona, el broche o la entrega blindada..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit-review" id="btn-submit-review">
+                    <i class="fas fa-check-circle"></i> PUBLICAR RESEÑA VERIFICADA
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Back in Stock Alert Modal -->
+    <div class="modal-overlay" id="stock-alert-modal" aria-hidden="true">
+        <div class="modal-card alert-modal-card">
+            <button class="modal-close-btn" id="stock-alert-close-btn" aria-label="Cerrar modal de alerta">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="stock-alert-header">
+                <div class="checkout-badge-pill" style="border-color:#e61d2b; color:#e61d2b;">
+                    <i class="fas fa-bell"></i> PIEZA TEMPORALMENTE AGOTADA
+                </div>
+                <h2>AVISO DE <span class="highlight">DISPONIBILIDAD</span></h2>
+                <p>RECIBE ACCESO PRIORITARIO EN CUANTO SE LIBERE EL PRÓXIMO LOTE</p>
+            </div>
+            <div class="stock-alert-product-preview">
+                <span id="alert-product-name" style="font-weight:900; color:#fff; letter-spacing:1px;">THE BOSS BLACK</span>
+                <span id="alert-product-sku" style="font-size:0.75rem; color:#888;">SKU: CP-BB-001</span>
+            </div>
+            <form class="stock-alert-form" id="stock-alert-form">
+                <input type="hidden" id="alert-target-sku" value="">
+                <input type="hidden" id="alert-target-name" value="">
+                
+                <div class="form-group">
+                    <label for="alert-contact-input">WHATSAPP O CORREO ELECTRÓNICO *</label>
+                    <input type="text" id="alert-contact-input" required placeholder="Ej: 55 1234 5678 o tu@correo.com">
+                </div>
+
+                <button type="submit" class="btn-primary" id="btn-submit-stock-alert" style="width: 100%; padding: 1.1rem;">
+                    <i class="fas fa-bell"></i> NOTIFICARME DE INMEDIATO
+                </button>
+            </form>
         </div>
     </div>
 

@@ -513,9 +513,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Render HTML cards
-            this.mainGrid.innerHTML = filtered.map(p => `
+            this.mainGrid.innerHTML = filtered.map(p => {
+                const stock = window.CapoSync ? window.CapoSync.InventoryManager.getStock(p.sku, p.stock) : (p.stock || 4);
+                const isSoldOut = stock <= 0;
+                const formattedPrice = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.price) : `$${p.price} MXN`;
+                const formattedOrig = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.originalPrice) : `$${p.originalPrice} MXN`;
+
+                return `
                 <article class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-image="${p.images[0]}" data-category="${p.category}" data-desc="${p.description}">
-                    <div class="product-badge ${p.category === 'oro' ? 'gold-badge' : ''}">${p.badge}</div>
+                    <div class="product-badge ${isSoldOut ? 'sold-out' : (p.category === 'oro' ? 'gold-badge' : '')}">
+                        ${isSoldOut ? 'AGOTADO' : p.badge}
+                    </div>
                     <button type="button" class="btn-wishlist-card ${WishlistState.has(p.id) ? 'active' : ''}" data-id="${p.id}" aria-label="Guardar en favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
@@ -523,7 +531,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
                         <div class="card-action-overlay">
                             <button type="button" class="btn-quick-view" data-action="quick-view">DETALLES</button>
-                            <button type="button" class="btn-add-cart" data-action="add-cart">AGREGAR $${p.price}</button>
+                            ${isSoldOut ? `
+                                <button type="button" class="btn-add-cart sold-out" disabled>AGOTADO</button>
+                            ` : `
+                                <button type="button" class="btn-add-cart" data-action="add-cart">AGREGAR ${formattedPrice}</button>
+                            `}
                         </div>
                     </div>
                     <div class="product-info">
@@ -532,10 +544,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span style="font-size:0.75rem; color:#888;">★ ${p.rating} (${p.reviewCount})</span>
                         </div>
                         <h3>${p.name}</h3>
-                        <p class="price">$${p.price} <span class="currency">MXN</span> <span class="original-price" style="font-size:0.85rem; margin-left:6px;">$${p.originalPrice}</span></p>
+                        <p class="price">${formattedPrice} <span class="original-price" style="font-size:0.85rem; margin-left:6px;">${formattedOrig}</span></p>
+                        ${isSoldOut ? `
+                            <button type="button" class="btn-notify-stock" data-sku="${p.sku}" data-name="${p.name}">
+                                <i class="fas fa-bell"></i> AVÍSAME AL REABASTECER
+                            </button>
+                        ` : ''}
                     </div>
                 </article>
-            `).join('');
+                `;
+            }).join('');
 
             if (this.countBadge) {
                 this.countBadge.textContent = `MOSTRANDO ${filtered.length} ${filtered.length === 1 ? 'PIEZA' : 'PIEZAS'}`;
@@ -707,10 +725,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.imgEl) this.imgEl.src = full.images ? full.images[0] : full.image;
             if (this.titleEl) this.titleEl.textContent = full.name;
             if (this.categoryEl) this.categoryEl.textContent = full.categoryLabel || `LÍNEA ${(full.category || 'CAPO').toUpperCase()}`;
-            if (this.priceEl) this.priceEl.textContent = `$${parseFloat(full.price).toLocaleString()} MXN`;
+            
+            const formattedPrice = window.CapoSync ? window.CapoSync.CurrencyManager.format(full.price) : `$${parseFloat(full.price).toLocaleString()} MXN`;
+            if (this.priceEl) this.priceEl.textContent = formattedPrice;
 
             if (this.origPriceEl && full.originalPrice) {
-                this.origPriceEl.textContent = `$${full.originalPrice.toLocaleString()} MXN`;
+                const formattedOrig = window.CapoSync ? window.CapoSync.CurrencyManager.format(full.originalPrice) : `$${full.originalPrice.toLocaleString()} MXN`;
+                this.origPriceEl.textContent = formattedOrig;
                 this.origPriceEl.style.display = 'inline';
             } else if (this.origPriceEl) {
                 this.origPriceEl.style.display = 'none';
@@ -727,9 +748,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.descEl) this.descEl.textContent = full.description || full.desc || 'Gorra exclusiva CAPO.';
             if (this.qtyInput) this.qtyInput.value = 1;
 
+            const currentStock = window.CapoSync ? window.CapoSync.InventoryManager.getStock(full.sku, full.stock) : (full.stock || 4);
+            const isSoldOut = currentStock <= 0;
+
             if (this.stockBadge) {
-                const stock = full.stock || 4;
-                this.stockBadge.textContent = `⚠️ SÓLO QUEDAN ${stock} PIEZAS EN ESTE LOTE`;
+                if (isSoldOut) {
+                    this.stockBadge.textContent = `🚫 PIEZA AGOTADA TEMPORALMENTE EN BÓVEDA`;
+                    this.stockBadge.style.color = '#ff3344';
+                } else {
+                    this.stockBadge.textContent = `⚠️ SÓLO QUEDAN ${currentStock} PIEZAS EN ESTE LOTE`;
+                    this.stockBadge.style.color = 'var(--accent-color)';
+                }
+            }
+
+            if (this.addBtn) {
+                if (isSoldOut) {
+                    this.addBtn.disabled = true;
+                    this.addBtn.textContent = 'PIEZA AGOTADA (SOLD OUT)';
+                    this.addBtn.classList.add('sold-out');
+                } else {
+                    this.addBtn.disabled = false;
+                    this.addBtn.textContent = 'AGREGAR AL ARSENAL';
+                    this.addBtn.classList.remove('sold-out');
+                }
             }
 
             // Specs
@@ -946,7 +987,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="cart-item-details">
                             <div class="cart-item-title">${item.name}</div>
-                            <div class="cart-item-price">$${item.price.toLocaleString()} MXN</div>
+                            <div class="cart-item-price">${window.CapoSync ? window.CapoSync.CurrencyManager.format(item.price) : `$${item.price.toLocaleString()} MXN`}</div>
                             <div class="cart-item-actions">
                                 <div class="cart-item-qty">
                                     <button class="qty-minus-btn" data-id="${item.id}" aria-label="Disminuir cantidad">-</button>
@@ -962,21 +1003,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 `).join('');
             }
 
-            if (this.subtotalEl) this.subtotalEl.textContent = `$${subtotal.toLocaleString()} MXN`;
+            if (this.subtotalEl) {
+                this.subtotalEl.textContent = window.CapoSync ? window.CapoSync.CurrencyManager.format(subtotal) : `$${subtotal.toLocaleString()} MXN`;
+            }
 
             if (this.discountLine && this.discountVal) {
                 if (discount > 0) {
                     this.discountLine.style.display = 'flex';
-                    this.discountVal.textContent = `-$${discount.toLocaleString()} MXN (${CartState.appliedCoupon.code})`;
+                    const formattedDisc = window.CapoSync ? window.CapoSync.CurrencyManager.format(discount) : `$${discount.toLocaleString()} MXN`;
+                    this.discountVal.textContent = `-${formattedDisc} (${CartState.appliedCoupon.code})`;
                 } else {
                     this.discountLine.style.display = 'none';
                 }
             }
 
             if (this.shippingCostEl) {
-                this.shippingCostEl.textContent = shipping === 0 ? (count === 0 ? '$0 MXN' : 'GRATIS') : `$${shipping} MXN`;
+                if (shipping === 0) {
+                    this.shippingCostEl.textContent = count === 0 ? '$0' : 'GRATIS';
+                } else {
+                    this.shippingCostEl.textContent = window.CapoSync ? window.CapoSync.CurrencyManager.format(shipping) : `$${shipping} MXN`;
+                }
             }
-            if (this.totalEl) this.totalEl.textContent = `$${total.toLocaleString()} MXN`;
+            if (this.totalEl) {
+                this.totalEl.textContent = window.CapoSync ? window.CapoSync.CurrencyManager.format(total) : `$${total.toLocaleString()} MXN`;
+            }
         }
     };
 
@@ -1382,6 +1432,13 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 if (window.CapoSync) {
                     window.CapoSync.saveOrder(order);
+                    // Deduct stock for all purchased pieces
+                    order.items.forEach(item => {
+                        const catalogItem = PRODUCTS_CATALOG.find(p => p.id === item.id);
+                        const sku = (catalogItem && catalogItem.sku) || item.sku || item.id;
+                        window.CapoSync.InventoryManager.deductStock(sku, item.quantity, (catalogItem && catalogItem.stock) || 5);
+                    });
+                    CatalogEngine.renderProducts();
                 } else {
                     const history = JSON.parse(localStorage.getItem('capo_order_history') || '[]');
                     history.unshift(order);
@@ -2185,8 +2242,372 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
+    // 13. MULTI-CURRENCY CONVERTER CONTROLLER (CurrencyUI)
+    // =========================================================
+    const CurrencyUI = {
+        dropdown: document.getElementById('currency-dropdown'),
+        toggleBtn: document.getElementById('currency-toggle-btn'),
+        label: document.getElementById('current-currency-label'),
+        options: document.querySelectorAll('.currency-opt'),
+
+        init() {
+            if (!this.toggleBtn) return;
+
+            // Set initial state
+            const current = window.CapoSync ? window.CapoSync.CurrencyManager.getCurrency() : 'MXN';
+            this.updateActiveOption(current);
+
+            this.toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (this.dropdown) this.dropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (this.dropdown && !this.dropdown.contains(e.target)) {
+                    this.dropdown.classList.remove('active');
+                }
+            });
+
+            this.options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const code = opt.getAttribute('data-currency');
+                    if (window.CapoSync) {
+                        window.CapoSync.CurrencyManager.setCurrency(code);
+                    }
+                    this.updateActiveOption(code);
+                    if (this.dropdown) this.dropdown.classList.remove('active');
+                    this.reRenderPrices();
+                    Toast.show(`✓ DIVISA ACTUALIZADA: ${code}`);
+                });
+            });
+
+            if (window.CapoSync) {
+                window.CapoSync.on('currency_changed', (data) => {
+                    this.updateActiveOption(data.currency);
+                    this.reRenderPrices();
+                });
+            }
+        },
+
+        updateActiveOption(code) {
+            if (this.label) {
+                const map = { 'MXN': 'MXN $', 'USD': 'USD $', 'EUR': 'EUR €' };
+                this.label.textContent = map[code] || `${code} $`;
+            }
+            this.options.forEach(opt => {
+                if (opt.getAttribute('data-currency') === code) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+        },
+
+        reRenderPrices() {
+            if (CatalogEngine) CatalogEngine.renderProducts();
+            if (CartUI) CartUI.render();
+            if (CapoLabEngine && CapoLabEngine.updateUI) CapoLabEngine.updateUI();
+            if (QuickViewModal.currentProduct) QuickViewModal.open(QuickViewModal.currentProduct);
+        }
+    };
+
+    // =========================================================
+    // 14. PREDICTIVE SEARCH AUTOCOMPLETE (PredictiveSearchUI)
+    // =========================================================
+    const PredictiveSearchUI = {
+        input: document.getElementById('product-search-input'),
+        dropdown: document.getElementById('search-results-dropdown'),
+        clearBtn: document.getElementById('search-clear-btn'),
+        searchBar: document.getElementById('nav-search-bar'),
+
+        init() {
+            if (!this.input || !this.dropdown) return;
+
+            this.input.addEventListener('input', (e) => {
+                const q = e.target.value.trim().toLowerCase();
+                if (q.length < 2) {
+                    this.dropdown.style.display = 'none';
+                    this.dropdown.innerHTML = '';
+                    return;
+                }
+
+                const matches = PRODUCTS_CATALOG.filter(p => {
+                    return p.name.toLowerCase().includes(q) ||
+                           p.sku.toLowerCase().includes(q) ||
+                           p.categoryLabel.toLowerCase().includes(q) ||
+                           (p.description && p.description.toLowerCase().includes(q));
+                });
+
+                if (matches.length === 0) {
+                    this.dropdown.innerHTML = `
+                        <div class="search-no-results">
+                            <i class="fas fa-search" style="margin-bottom:6px; display:block; font-size:1.5rem;"></i>
+                            NO SE ENCONTRARON PIEZAS CON "${q.toUpperCase()}".
+                        </div>
+                    `;
+                } else {
+                    this.dropdown.innerHTML = matches.slice(0, 5).map(p => {
+                        const regex = new RegExp(`(${q})`, 'gi');
+                        const highlightedTitle = p.name.replace(regex, '<mark>$1</mark>');
+                        const formattedPrice = window.CapoSync ? window.CapoSync.CurrencyManager.format(p.price) : `$${p.price} MXN`;
+                        
+                        return `
+                            <div class="search-result-item" data-product-id="${p.id}">
+                                <img src="${p.images[0]}" alt="${p.name}" class="search-res-thumb">
+                                <div class="search-res-info">
+                                    <div class="search-res-title">${highlightedTitle}</div>
+                                    <span class="search-res-meta">${p.categoryLabel} • SKU: ${p.sku}</span>
+                                </div>
+                                <div class="search-res-price">${formattedPrice}</div>
+                                <button type="button" class="search-res-btn">VER</button>
+                            </div>
+                        `;
+                    }).join('');
+
+                    this.dropdown.querySelectorAll('.search-result-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            const id = item.getAttribute('data-product-id');
+                            const prod = PRODUCTS_CATALOG.find(p => p.id === id);
+                            if (prod) {
+                                this.dropdown.style.display = 'none';
+                                if (this.searchBar) this.searchBar.classList.remove('active');
+                                QuickViewModal.open(prod);
+                            }
+                        });
+                    });
+                }
+
+                this.dropdown.style.display = 'flex';
+            });
+
+            if (this.clearBtn) {
+                this.clearBtn.addEventListener('click', () => {
+                    this.dropdown.style.display = 'none';
+                    this.dropdown.innerHTML = '';
+                });
+            }
+        }
+    };
+
+    // =========================================================
+    // 15. DYNAMIC CUSTOMER REVIEWS (ReviewUI)
+    // =========================================================
+    const ReviewUI = {
+        grid: document.getElementById('dynamic-reviews-grid'),
+        avgRatingEl: document.getElementById('reviews-avg-rating'),
+        modal: document.getElementById('review-modal'),
+        openBtn: document.getElementById('btn-open-review-modal'),
+        closeBtn: document.getElementById('review-modal-close-btn'),
+        form: document.getElementById('review-form'),
+        starBtns: document.querySelectorAll('#star-rating-selector .star-btn'),
+        starsInput: document.getElementById('review-stars-input'),
+
+        init() {
+            this.render();
+
+            if (this.openBtn) {
+                this.openBtn.addEventListener('click', () => this.open());
+            }
+
+            if (this.closeBtn) {
+                this.closeBtn.addEventListener('click', () => this.close());
+            }
+
+            if (this.modal) {
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.close();
+                });
+            }
+
+            // Star Rating Selector Interaction
+            if (this.starBtns.length > 0) {
+                this.starBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const rating = parseInt(btn.getAttribute('data-rating'), 10);
+                        if (this.starsInput) this.starsInput.value = rating;
+                        this.updateStarsUI(rating);
+                    });
+
+                    btn.addEventListener('mouseenter', () => {
+                        const hoverRating = parseInt(btn.getAttribute('data-rating'), 10);
+                        this.starBtns.forEach(b => {
+                            const val = parseInt(b.getAttribute('data-rating'), 10);
+                            b.classList.toggle('hover', val <= hoverRating);
+                        });
+                    });
+                });
+
+                const container = document.getElementById('star-rating-selector');
+                if (container) {
+                    container.addEventListener('mouseleave', () => {
+                        this.starBtns.forEach(b => b.classList.remove('hover'));
+                        const current = parseInt(this.starsInput?.value || 5, 10);
+                        this.updateStarsUI(current);
+                    });
+                }
+            }
+
+            // Review Form Submit
+            if (this.form) {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const author = document.getElementById('review-author-input').value.trim();
+                    const location = document.getElementById('review-location-input').value.trim();
+                    const product = document.getElementById('review-product-select').value;
+                    const title = document.getElementById('review-title-input').value.trim();
+                    const text = document.getElementById('review-text-input').value.trim();
+                    const stars = parseInt(this.starsInput?.value || 5, 10);
+
+                    if (!author || !text) {
+                        Toast.show('⚠️ COMPLETA TODOS LOS CAMPOS REQUERIDOS');
+                        return;
+                    }
+
+                    if (window.CapoSync) {
+                        window.CapoSync.ReviewManager.saveReview({
+                            author, location, product, title, text, stars
+                        });
+                    }
+
+                    Toast.show('✓ ¡GRACIAS! TU RESEÑA VERIFICADA HA SIDO PUBLICADA');
+                    this.form.reset();
+                    this.updateStarsUI(5);
+                    this.close();
+                    this.render();
+                });
+            }
+
+            if (window.CapoSync) {
+                window.CapoSync.on('reviews_changed', () => this.render());
+            }
+        },
+
+        updateStarsUI(rating) {
+            this.starBtns.forEach(b => {
+                const val = parseInt(b.getAttribute('data-rating'), 10);
+                b.classList.toggle('active', val <= rating);
+            });
+        },
+
+        open() {
+            if (!this.modal) return;
+            this.modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        },
+
+        close() {
+            if (!this.modal) return;
+            this.modal.classList.remove('active');
+            document.body.style.overflow = '';
+        },
+
+        render() {
+            if (!this.grid) return;
+            const reviews = window.CapoSync ? window.CapoSync.ReviewManager.getReviews() : [];
+            const stats = window.CapoSync ? window.CapoSync.ReviewManager.getAggregateStats() : { average: 4.9 };
+
+            if (this.avgRatingEl) {
+                this.avgRatingEl.textContent = `${stats.average} / 5.0`;
+            }
+
+            this.grid.innerHTML = reviews.map(r => {
+                const starsIcons = '★'.repeat(r.stars || 5) + '☆'.repeat(5 - (r.stars || 5));
+                return `
+                    <div class="review-card">
+                        <span class="review-product-tag"><i class="fas fa-crown"></i> ${r.product || 'COLECCIÓN OFICIAL'}</span>
+                        <div class="review-title-text">${r.title || 'EXPERIENCIA DE AUTORIDAD'}</div>
+                        <div class="review-stars">${starsIcons}</div>
+                        <p class="review-text">"${r.text}"</p>
+                        <div class="review-author">
+                            <strong>${r.author}</strong>
+                            <span>${r.location} <span class="review-verified-badge"><i class="fas fa-check"></i> VERIFICADO</span></span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    };
+
+    // =========================================================
+    // 16. BACK IN STOCK ALERTS (StockAlertUI)
+    // =========================================================
+    const StockAlertUI = {
+        modal: document.getElementById('stock-alert-modal'),
+        closeBtn: document.getElementById('stock-alert-close-btn'),
+        form: document.getElementById('stock-alert-form'),
+        targetSkuInput: document.getElementById('alert-target-sku'),
+        targetNameInput: document.getElementById('alert-target-name'),
+        productNameEl: document.getElementById('alert-product-name'),
+        productSkuEl: document.getElementById('alert-product-sku'),
+        contactInput: document.getElementById('alert-contact-input'),
+
+        init() {
+            if (this.closeBtn) {
+                this.closeBtn.addEventListener('click', () => this.close());
+            }
+
+            if (this.modal) {
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.close();
+                });
+            }
+
+            // Delegated click on .btn-notify-stock
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.btn-notify-stock');
+                if (btn) {
+                    const sku = btn.getAttribute('data-sku');
+                    const name = btn.getAttribute('data-name');
+                    this.open(sku, name);
+                }
+            });
+
+            if (this.form) {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const contact = this.contactInput.value.trim();
+                    const sku = this.targetSkuInput.value;
+                    const name = this.targetNameInput.value;
+
+                    if (!contact) {
+                        Toast.show('INGRESA UN TELÉFONO O CORREO VÁLIDO');
+                        return;
+                    }
+
+                    if (window.CapoSync) {
+                        window.CapoSync.AlertsManager.saveAlert(contact, sku, name);
+                    }
+
+                    Toast.show(`✓ TE AVISAREMOS CUANDO SE REABASTEZCA ${name}`);
+                    this.form.reset();
+                    this.close();
+                });
+            }
+        },
+
+        open(sku, name) {
+            if (!this.modal) return;
+            if (this.targetSkuInput) this.targetSkuInput.value = sku;
+            if (this.targetNameInput) this.targetNameInput.value = name;
+            if (this.productNameEl) this.productNameEl.textContent = name;
+            if (this.productSkuEl) this.productSkuEl.textContent = `SKU: ${sku}`;
+            this.modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (this.contactInput) this.contactInput.focus();
+        },
+
+        close() {
+            if (!this.modal) return;
+            this.modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    // =========================================================
     // 17. INITIALIZE MODULES
     // =========================================================
+    CurrencyUI.init();
+    PredictiveSearchUI.init();
     WishlistState.init();
     WishlistUI.init();
     CartState.init();
@@ -2199,4 +2620,6 @@ document.addEventListener('DOMContentLoaded', () => {
     LiveSalesTicker.init();
     CapoLabEngine.init();
     CapoBotEngine.init();
+    ReviewUI.init();
+    StockAlertUI.init();
 });

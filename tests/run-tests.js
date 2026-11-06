@@ -157,6 +157,50 @@ assert(allHaveImages, 'Todos los productos tienen galerías de imágenes válida
 assert(allHavePrices, 'Todos los productos tienen precios numéricos mayores a 0');
 assert(allHaveStock, 'Todos los productos tienen control de inventario de stock definido');
 
+// 5. Pruebas de Módulos Enterprise: Multi-Divisa, Inventario y Reseñas
+console.log('\n--- 5. Módulos Enterprise (Divisas, Inventario & Reseñas) ---');
+const { CurrencyManager, InventoryManager, ReviewManager, AlertsManager } = SyncService;
+
+// 5.1 Currency Manager
+CurrencyManager.setCurrency('MXN');
+assert(CurrencyManager.format(1000) === '$1,000 MXN', 'Formatea pesos mexicanos MXN correctamente');
+assert(CurrencyManager.convert(1000, 'USD') === 55, 'Convierte $1,000 MXN a $55 USD con tasa 0.055');
+assert(CurrencyManager.format(1000, 'USD') === '$55 USD', 'Formatea dólares USD correctamente');
+assert(CurrencyManager.convert(1000, 'EUR') === 50, 'Convierte $1,000 MXN a €50 EUR con tasa 0.050');
+assert(CurrencyManager.format(1000, 'EUR') === '€50 EUR', 'Formatea euros EUR correctamente');
+
+// 5.2 Inventory Manager
+InventoryManager.setStock('TEST-SKU-01', 5);
+assert(InventoryManager.getStock('TEST-SKU-01') === 5, 'Asigna y recupera stock de SKU');
+InventoryManager.deductStock('TEST-SKU-01', 3);
+assert(InventoryManager.getStock('TEST-SKU-01') === 2, 'Descuenta stock tras una compra');
+InventoryManager.deductStock('TEST-SKU-01', 5);
+assert(InventoryManager.getStock('TEST-SKU-01') === 0, 'No permite stock negativo al agotar piezas');
+assert(InventoryManager.isSoldOut('TEST-SKU-01') === true, 'Detecta correctamente producto agotado (Sold Out)');
+
+// 5.3 Review Manager
+const initialReviews = ReviewManager.getReviews();
+assert(Array.isArray(initialReviews) && initialReviews.length >= 4, 'Incluye reseñas curadas iniciales');
+
+const newReview = ReviewManager.saveReview({
+    author: 'Gabriel Santos',
+    location: 'Monterrey',
+    product: 'THE BOSS BLACK',
+    stars: 5,
+    title: 'EXTRAORDINARIA CORONA Y ACABADOS',
+    text: 'Se convirtió en mi gorra de uso diario para reuniones de negocios.'
+});
+assert(newReview.author === 'GABRIEL SANTOS', 'Sanitiza y guarda autor de reseña');
+
+const stats = ReviewManager.getAggregateStats();
+assert(stats.total >= 5, 'Estadísticas agregadas contabilizan la nueva reseña');
+assert(stats.average >= 4.5 && stats.average <= 5.0, 'Promedio de calificación de alta fidelidad');
+assert(stats.breakdown[5] > 70, 'Calcula distribución de estrellas por porcentaje');
+
+// 5.4 Alerts Manager
+const alertSaved = AlertsManager.saveAlert('gabriel@empresa.com', 'CP-BB-001', 'THE BOSS BLACK');
+assert(alertSaved === true, 'Guarda solicitud de alerta para producto agotado');
+
 console.log('\n==================================================');
 console.log(`RESUMEN: ${passedTests} APROBADAS | ${failedTests} FALLIDAS`);
 console.log('==================================================');
