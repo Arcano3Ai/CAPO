@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPO HQ | Centro de Control & Admin Dashboard</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Admin Specific Styling */
+        body {
+            background-color: #050505;
+            color: #f0f0f0;
+            padding-bottom: 4rem;
+        }
+
+        .admin-header {
+            background: #000;
+            border-bottom: 2px solid var(--accent-color);
+            padding: 1.2rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-badge {
+            background: var(--accent-color);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            padding: 4px 8px;
+        }
+
+        .admin-nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Login Screen */
+        .admin-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #050505;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .admin-login-card {
+            background: #0a0a0a;
+            border: 2px solid var(--accent-color);
+            padding: 3rem;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+        }
+
+        .admin-login-card h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-login-card p {
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 2rem;
+        }
+
+        .admin-login-card input {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 1.1rem;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 4px;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            outline: none;
+        }
+
+        .admin-login-card input:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* KPI Cards Grid */
+        .admin-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 4%;
+        }
+
+        .kpi-card {
+            background: #0a0a0a;
+            border: 1px solid var(--dark-grey);
+            padding: 1.8rem;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 0.6rem;
+        }
+
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        /* Main Admin Tabs */
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 0 4% 2rem;
+            border-bottom: 2px solid var(--dark-grey);
+            padding-bottom: 0.5rem;
+        }
+
+        .admin-tab-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: #888;
+            padding: 0.8rem 1.6rem;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .admin-tab-btn.active,
+        .admin-tab-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+
+        .admin-tab-content {
+            display: none;
+            margin: 0 4%;
+        }
+
+        .admin-tab-content.active {
+            display: block;
+        }
+
+        /* Orders Table */
+        .admin-table-container {
+            background: #0a0a0a;
+            border: 1px solid var(--dark-grey);
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .admin-table th {
+            background: #000;
+            padding: 1.2rem;
+            border-bottom: 2px solid var(--dark-grey);
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+        }
+
+        .admin-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .admin-table tr:hover {
+            background: #0f0f0f;
+        }
+
+        .status-select {
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 6px 10px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .status-select:focus {
+            border-color: var(--accent-color);
+        }
+
+        .btn-wa-action {
+            background: #25D366;
+            color: #000;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-wa-action:hover {
+            background: #20bd5a;
+        }
+
+        /* Stock Inventory Cards */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .inv-card {
+            background: #0a0a0a;
+            border: 1px solid var(--dark-grey);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .inv-img {
+            width: 70px;
+            height: 70px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inv-img img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .inv-details h4 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .inv-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .inv-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        .inv-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        .inv-stock-num {
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        /* Coupon Section */
+        .coupon-admin-box {
+            background: #0a0a0a;
+            border: 1px solid var(--dark-grey);
+            padding: 2rem;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Security Login Screen -->
+    <div class="admin-login-overlay" id="admin-login-overlay">
+        <div class="admin-login-card">
+            <h2>CAPO <span class="highlight">HQ</span></h2>
+            <p>ACCESO RESTRINGIDO AL ALTO MANDO</p>
+            <form id="admin-login-form">
+                <input type="password" id="admin-pin" placeholder="PIN DE SEGURIDAD" autocomplete="off" required>
+                <button type="submit" class="btn-primary" style="width: 100%;">DESBLOQUEAR TERMINAL</button>
+            </form>
+            <p id="login-error" style="color: #ff3366; font-size: 0.8rem; margin-top: 1rem; display: none;">PIN INCORRECTO. ACCESO DENEGADO.</p>
+        </div>
+    </div>
+
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-brand">
+            <a href="index.html" class="logo" style="font-size: 1.8rem;">CAPO</a>
+            <span class="admin-badge">PANEL CENTRAL HQ</span>
+        </div>
+        <div class="admin-nav-actions">
+            <a href="index.html" class="btn-secondary" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">
+                <i class="fas fa-store"></i> VER TIENDA
+            </a>
+            <button type="button" class="btn-primary" id="btn-export-csv" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">
+                <i class="fas fa-file-csv"></i> EXPORTAR ÓRDENES
+            </button>
+            <button type="button" id="btn-lock" style="color: #888; font-size: 1.1rem;" title="Bloquear Terminal">
+                <i class="fas fa-lock"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- KPI Metrics Cards -->
+    <section class="admin-kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">VENTAS TOTALES REGISTRADAS</div>
+            <div class="kpi-value" id="kpi-sales">$0 MXN</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">ÓRDENES COMPLETADAS</div>
+            <div class="kpi-value" id="kpi-orders">0</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">PIEZAS DESPACHADAS</div>
+            <div class="kpi-value" id="kpi-items">0</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">TICKET PROMEDIO</div>
+            <div class="kpi-value" id="kpi-ticket">$0 MXN</div>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="admin-tabs">
+        <button type="button" class="admin-tab-btn active" data-tab="orders">
+            <i class="fas fa-box"></i> ÓRDENES & RASTREO
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="inventory">
+            <i class="fas fa-warehouse"></i> CONTROL DE INVENTARIO
+        </button>
+        <button type="button" class="admin-tab-btn" data-tab="coupons">
+            <i class="fas fa-ticket-alt"></i> CUPONES PROMOCIONALES
+        </button>
+    </nav>
+
+    <!-- TAB 1: ORDERS & TRACKING DISPATCH -->
+    <section class="admin-tab-content active" id="tab-orders">
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>FOLIO</th>
+                        <th>FECHA</th>
+                        <th>CLIENTE</th>
+                        <th>CONTACTO</th>
+                        <th>PIEZAS</th>
+                        <th>TOTAL</th>
+                        <th>MÉTODO</th>
+                        <th>ESTADO DE RASTREO</th>
+                        <th>ACCIÓN</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-orders-tbody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB 2: INVENTORY STOCK MANAGEMENT -->
+    <section class="admin-tab-content" id="tab-inventory">
+        <div class="inventory-grid" id="admin-inventory-grid">
+            <!-- Populated dynamically from catalog -->
+        </div>
+    </section>
+
+    <!-- TAB 3: COUPONS MANAGEMENT -->
+    <section class="admin-tab-content" id="tab-coupons">
+        <div class="coupon-admin-box">
+            <h3 style="margin-bottom: 1.5rem; font-weight: 900; letter-spacing: 1px;">CUPONES ACTIVOS EN EL SISTEMA</h3>
+            <div id="admin-coupons-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="background: #111; padding: 1rem; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--accent-color); font-size: 1.1rem;">CAPO10</strong>
+                        <span style="display: block; font-size: 0.8rem; color: #888;">10% OFF EN TODA LA ORDEN</span>
+                    </div>
+                    <span style="font-size: 0.75rem; background: #222; padding: 4px 8px; color: #00ff66;">ACTIVO</span>
+                </div>
+                <div style="background: #111; padding: 1rem; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--accent-color); font-size: 1.1rem;">LEGADO20</strong>
+                        <span style="display: block; font-size: 0.8rem; color: #888;">20% OFF EXCLUSIVO</span>
+                    </div>
+                    <span style="font-size: 0.75rem; background: #222; padding: 4px 8px; color: #00ff66;">ACTIVO</span>
+                </div>
+                <div style="background: #111; padding: 1rem; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--accent-color); font-size: 1.1rem;">CONSEJERO15</strong>
+                        <span style="display: block; font-size: 0.8rem; color: #888;">15% OFF VIP CONSEJERO</span>
+                    </div>
+                    <span style="font-size: 0.75rem; background: #222; padding: 4px 8px; color: #00ff66;">ACTIVO</span>
+                </div>
+                <div style="background: #111; padding: 1rem; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--accent-color); font-size: 1.1rem;">ENVIOVIP</strong>
+                        <span style="display: block; font-size: 0.8rem; color: #888;">ENVÍO GRATIS INCONDICIONAL</span>
+                    </div>
+                    <span style="font-size: 0.75rem; background: #222; padding: 4px 8px; color: #00ff66;">ACTIVO</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Engine Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const DEFAULT_PIN = 'CAPO2026';
+            const loginOverlay = document.getElementById('admin-login-overlay');
+            const loginForm = document.getElementById('admin-login-form');
+            const pinInput = document.getElementById('admin-pin');
+            const loginError = document.getElementById('login-error');
+            const btnLock = document.getElementById('btn-lock');
+
+            // Authentication Check
+            if (sessionStorage.getItem('capo_admin_auth') === 'true') {
+                loginOverlay.style.display = 'none';
+            }
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (pinInput.value.trim().toUpperCase() === DEFAULT_PIN) {
+                    sessionStorage.setItem('capo_admin_auth', 'true');
+                    loginOverlay.style.display = 'none';
+                    initDashboard();
+                } else {
+                    loginError.style.display = 'block';
+                    pinInput.value = '';
+                }
+            });
+
+            btnLock.addEventListener('click', () => {
+                sessionStorage.removeItem('capo_admin_auth');
+                loginOverlay.style.display = 'flex';
+                pinInput.focus();
+            });
+
+            // Tabs Switcher
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    const tabId = btn.getAttribute('data-tab');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                });
+            });
+
+            function initDashboard() {
+                loadOrders();
+                loadInventory();
+            }
+
+            // Load & Manage Orders
+            function loadOrders() {
+                const history = JSON.parse(localStorage.getItem('capo_order_history') || '[]');
+                const tbody = document.getElementById('admin-orders-tbody');
+
+                let totalSales = 0;
+                let totalItems = 0;
+
+                history.forEach(order => {
+                    totalSales += order.total || 0;
+                    totalItems += (order.items || []).reduce((acc, i) => acc + (i.quantity || 1), 0);
+                });
+
+                document.getElementById('kpi-sales').textContent = `$${totalSales.toLocaleString()} MXN`;
+                document.getElementById('kpi-orders').textContent = history.length;
+                document.getElementById('kpi-items').textContent = totalItems;
+                const ticket = history.length > 0 ? Math.round(totalSales / history.length) : 0;
+                document.getElementById('kpi-ticket').textContent = `$${ticket.toLocaleString()} MXN`;
+
+                if (history.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:3rem; color:#666;">NO HAY ÓRDENES REGISTRADAS AÚN.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = history.map((ord, idx) => `
+                    <tr>
+                        <td><strong style="color:var(--accent-color);">${ord.orderId}</strong></td>
+                        <td>${ord.date || 'Reciente'}</td>
+                        <td><strong>${ord.name}</strong><br><span style="font-size:0.75rem; color:#888;">${ord.address}</span></td>
+                        <td>${ord.phone}</td>
+                        <td>${(ord.items || []).map(i => `${i.name} (x${i.quantity})`).join(', ')}</td>
+                        <td><strong>$${(ord.total || 0).toLocaleString()} MXN</strong></td>
+                        <td><span style="font-size:0.8rem; background:#111; padding:4px 6px;">${ord.paymentMethod}</span></td>
+                        <td>
+                            <select class="status-select" data-order-idx="${idx}">
+                                <option value="1" ${(ord.status || '3') === '1' ? 'selected' : ''}>1. ORDEN RECIBIDA</option>
+                                <option value="2" ${(ord.status || '3') === '2' ? 'selected' : ''}>2. EMBALAJE BLINDADO</option>
+                                <option value="3" ${(ord.status || '3') === '3' ? 'selected' : ''}>3. EN RUTA EXPRESS</option>
+                                <option value="4" ${(ord.status || '3') === '4' ? 'selected' : ''}>4. ENTREGADO</option>
+                            </select>
+                        </td>
+                        <td>
+                            <a href="https://wa.me/${ord.phone.replace(/[^0-9]/g, '')}?text=Hola%20${encodeURIComponent(ord.name)},%20te%20escribimos%20de%20CAPO%20Store%20respecto%20a%20tu%20pedido%20${ord.orderId}" target="_blank" class="btn-wa-action">
+                                <i class="fab fa-whatsapp"></i> CONTACTAR
+                            </a>
+                        </td>
+                    </tr>
+                `).join('');
+
+                // Status Change Listener
+                tbody.querySelectorAll('.status-select').forEach(sel => {
+                    sel.addEventListener('change', (e) => {
+                        const idx = parseInt(e.target.getAttribute('data-order-idx'));
+                        history[idx].status = e.target.value;
+                        localStorage.setItem('capo_order_history', JSON.stringify(history));
+                    });
+                });
+            }
+
+            // Load Inventory
+            function loadInventory() {
+                const grid = document.getElementById('admin-inventory-grid');
+                fetch('data/products.json').then(res => res.json()).then(products => {
+                    grid.innerHTML = products.map(p => `
+                        <div class="inv-card">
+                            <div class="inv-img">
+                                <img src="${p.images[0]}" alt="${p.name}">
+                            </div>
+                            <div class="inv-details">
+                                <h4>${p.name}</h4>
+                                <span style="font-size:0.75rem; color:#888;">SKU: ${p.sku} | $${p.price} MXN</span>
+                                <div class="inv-controls">
+                                    <span>STOCK:</span>
+                                    <button class="inv-btn" onclick="this.nextElementSibling.textContent = Math.max(0, parseInt(this.nextElementSibling.textContent) - 1)">-</button>
+                                    <span class="inv-stock-num">${p.stock}</span>
+                                    <button class="inv-btn" onclick="this.previousElementSibling.textContent = parseInt(this.previousElementSibling.textContent) + 1">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }).catch(() => {
+                    grid.innerHTML = '<p style="color:#888;">Gestión de inventario activa en modo seguro.</p>';
+                });
+            }
+
+            // Export to CSV
+            document.getElementById('btn-export-csv').addEventListener('click', () => {
+                const history = JSON.parse(localStorage.getItem('capo_order_history') || '[]');
+                if (history.length === 0) {
+                    alert('No hay órdenes para exportar.');
+                    return;
+                }
+
+                let csv = 'Folio,Fecha,Cliente,Telefono,Direccion,Metodo,Total\n';
+                history.forEach(o => {
+                    csv += `"${o.orderId}","${o.date}","${o.name}","${o.phone}","${o.address}","${o.paymentMethod}","${o.total}"\n`;
+                });
+
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `CAPO_Ordenes_${Date.now()}.csv`;
+                a.click();
+            });
+
+            if (sessionStorage.getItem('capo_admin_auth') === 'true') {
+                initDashboard();
+            }
+        });
+    </script>
+</body>
+
+</html>
