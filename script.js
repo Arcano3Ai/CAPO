@@ -20,91 +20,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // HERO 3-VIDEO SEAMLESS SEQUENCE ENGINE (1 -> 2 -> 3 -> 1)
+    // BACKGROUND VIDEOS (1 EN HERO, 2 ABAJO, 3 ABAJO DEL 2)
     // =========================================================
-    const heroVid0 = document.getElementById('hero-vid-0');
-    const heroVid1 = document.getElementById('hero-vid-1');
-    const heroVid2 = document.getElementById('hero-vid-2');
-    const heroLayers = [heroVid0, heroVid1, heroVid2].filter(Boolean);
-    const seqBtns = document.querySelectorAll('.video-seq-btn');
-    let currentHeroVideoIdx = 0;
-
-    function activateHeroVideo(targetIdx) {
-        if (!heroLayers.length || targetIdx < 0 || targetIdx >= heroLayers.length) return;
-        currentHeroVideoIdx = targetIdx;
-
-        heroLayers.forEach((vid, idx) => {
-            if (idx === targetIdx) {
-                vid.classList.add('active');
-                vid.currentTime = 0;
-                vid.muted = true;
-                const p = vid.play();
-                if (p !== undefined) p.catch(() => {});
-            } else {
-                vid.classList.remove('active');
-                vid.pause();
-            }
-        });
-
-        seqBtns.forEach((btn, idx) => {
-            btn.classList.toggle('active', idx === currentHeroVideoIdx);
-        });
-    }
-
-    if (heroLayers.length > 0) {
-        heroLayers.forEach((vid, idx) => {
-            vid.muted = true;
-            vid.defaultMuted = true;
-            vid.playsInline = true;
-            vid.setAttribute('muted', '');
-            vid.setAttribute('playsinline', '');
-
-            // Hand-off automático: cuando termina el video actual, avanza al siguiente (1 -> 2 -> 3 -> 1)
-            vid.addEventListener('ended', () => {
-                const nextIdx = (idx + 1) % heroLayers.length;
-                activateHeroVideo(nextIdx);
-            });
-        });
-
-        // Autoplay del primer video
-        const firstPlay = heroLayers[0].play();
-        if (firstPlay !== undefined) {
-            firstPlay.catch(() => {
-                const unlockHero = () => {
-                    heroLayers[currentHeroVideoIdx].play().catch(() => {});
-                };
-                ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(evt => {
-                    window.addEventListener(evt, unlockHero, { once: true, passive: true });
-                });
-            });
-        }
-
-        // Selección manual con botones 01, 02, 03
-        seqBtns.forEach((btn) => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetIdx = parseInt(btn.getAttribute('data-index'), 10);
-                if (!isNaN(targetIdx)) {
-                    activateHeroVideo(targetIdx);
-                }
-            });
-        });
-    }
-
-    // Inicializar videos de las secciones cinemáticas secundarias (Secuencia 2 y Secuencia 3)
-    const cinematicVideos = document.querySelectorAll('.cinematic-showcase-video');
-    cinematicVideos.forEach((vid) => {
+    const allBgVideos = document.querySelectorAll('.hero-video, .cinematic-showcase-video');
+    allBgVideos.forEach((vid) => {
         vid.muted = true;
         vid.defaultMuted = true;
         vid.playsInline = true;
+        vid.loop = true;
         vid.setAttribute('muted', '');
         vid.setAttribute('playsinline', '');
+        vid.setAttribute('loop', '');
         const p = vid.play();
         if (p !== undefined) {
             p.catch(() => {
-                const triggerSecondary = () => vid.play().catch(() => {});
+                const triggerPlay = () => vid.play().catch(() => {});
                 ['scroll', 'click', 'touchstart', 'pointerdown'].forEach(evt => {
-                    window.addEventListener(evt, triggerSecondary, { once: true, passive: true });
+                    window.addEventListener(evt, triggerPlay, { once: true, passive: true });
+                    document.addEventListener(evt, triggerPlay, { once: true, passive: true });
                 });
             });
         }

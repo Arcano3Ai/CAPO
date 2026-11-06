@@ -524,86 +524,15 @@ button {
     filter: none !important;
 }
 
-.hero-vid-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0 !important;
-    filter: none !important;
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.hero-vid-layer.active {
-    opacity: 1 !important;
-    z-index: 1;
-    pointer-events: auto;
-}
-
-/* Playlist indicator & selector bar en Hero */
-.hero-video-playlist-bar {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 10;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 6px 12px;
-    border-radius: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-}
-
-.video-seq-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #cccccc;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.video-seq-btn:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-    background: rgba(212, 175, 55, 0.12);
-}
-
-.video-seq-btn.active {
-    background: var(--accent-color);
-    color: var(--black);
-    border-color: var(--accent-color);
-    font-weight: 900;
-    box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
-}
-
-.video-seq-btn .seq-num {
-    font-family: 'Space Grotesk', monospace;
-    font-weight: 900;
-}
-
 /* ========================================================
-   SECCIONES CINEMÁTICAS (VIDEOS 2 Y 3 SIN OPACIDAD)
+   SECCIONES DE FONDO CINEMÁTICAS (VIDEO 2 ABAJO DEL HERO, VIDEO 3 ABAJO DEL 2)
    ======================================================== */
 .cinematic-showcase-section {
     position: relative;
     width: 100%;
-    min-height: 480px;
+    min-height: 520px;
+    height: 70vh;
+    max-height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -673,14 +602,9 @@ button {
 }
 
 @media (max-width: 768px) {
-    .hero-video-playlist-bar {
-        bottom: 20px;
-        right: 50%;
-        transform: translateX(50%);
-        width: max-content;
-    }
     .cinematic-showcase-section {
-        min-height: 380px;
+        min-height: 400px;
+        height: 60vh;
     }
     .cinematic-showcase-content {
         padding: 1.8rem 1.4rem;

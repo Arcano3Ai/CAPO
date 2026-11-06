@@ -193,28 +193,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section con 3 VIDEOS SECUENCIALES SIN OPACIDAD (1, 2, 3) -->
+    <!-- Hero Section: VIDEO 1 DE FONDO (SIN OPACIDAD) -->
     <header id="inicio" class="hero">
-        <div class="hero-video-container" id="hero-video-container">
-            <video class="hero-video hero-vid-layer active" id="hero-vid-0" src="assets/fondo-1.mp4" autoplay muted playsinline preload="auto"></video>
-            <video class="hero-video hero-vid-layer" id="hero-vid-1" src="assets/fondo-2.mp4" muted playsinline preload="auto"></video>
-            <video class="hero-video hero-vid-layer" id="hero-vid-2" src="assets/fondo-3.mp4" muted playsinline preload="auto"></video>
-        </div>
-        <!-- Playlist Controls: Secuencia 1, 2, 3 -->
-        <div class="hero-video-playlist-bar" id="hero-playlist-bar" aria-label="Secuencias de video de fondo">
-            <button type="button" class="video-seq-btn active" data-index="0" title="Secuencia 01: Origen">
-                <span class="seq-num">01</span>
-                <span class="seq-label">ORIGEN</span>
-            </button>
-            <button type="button" class="video-seq-btn" data-index="1" title="Secuencia 02: Imperio">
-                <span class="seq-num">02</span>
-                <span class="seq-label">IMPERIO</span>
-            </button>
-            <button type="button" class="video-seq-btn" data-index="2" title="Secuencia 03: Legado">
-                <span class="seq-num">03</span>
-                <span class="seq-label">LEGADO</span>
-            </button>
-        </div>
+        <video class="hero-video" autoplay muted loop playsinline preload="auto">
+            <source src="assets/fondo-1.mp4" type="video/mp4">
+        </video>
         <div class="hero-content">
             <p class="hero-tagline fade-in-up">EDICIÓN LIMITADA 2026</p>
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
@@ -225,21 +208,25 @@
         </div>
     </header>
 
-    <!-- SECCIÓN CINEMÁTICA 2: IMPERIO (SECUENCIA 2 SIN OPACIDAD) -->
+    <!-- SECCIÓN 2: VIDEO 2 DE FONDO (ABAJO DEL HERO - SIN OPACIDAD) -->
     <section id="manifiesto-reel" class="cinematic-showcase-section">
-        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto" src="assets/fondo-2.mp4"></video>
+        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto">
+            <source src="assets/fondo-2.mp4" type="video/mp4">
+        </video>
         <div class="cinematic-showcase-content">
-            <div class="reel-badge"><i class="fas fa-crown"></i> SECUENCIA 02 // IMPERIO EN MOVIMIENTO</div>
+            <div class="reel-badge"><i class="fas fa-crown"></i> CAPO MANIFIESTO // EL IMPERIO NO DUERME</div>
             <h2>LA CALLE TIENE UN SOLO <span class="highlight">DUEÑO</span></h2>
             <p>CORONA ALTA REFORZADA Y BORDADOS DE DENSIDAD MILIMÉTRICA. SIN CONCESIONES.</p>
         </div>
     </section>
 
-    <!-- SECCIÓN CINEMÁTICA 3: LEGADO (SECUENCIA 3 SIN OPACIDAD) -->
+    <!-- SECCIÓN 3: VIDEO 3 DE FONDO (ABAJO DEL 2 - SIN OPACIDAD) -->
     <section id="legado-reel" class="cinematic-showcase-section">
-        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto" src="assets/fondo-3.mp4"></video>
+        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto">
+            <source src="assets/fondo-3.mp4" type="video/mp4">
+        </video>
         <div class="cinematic-showcase-content">
-            <div class="reel-badge"><i class="fas fa-fire"></i> SECUENCIA 03 // FORJANDO EL LEGADO</div>
+            <div class="reel-badge"><i class="fas fa-fire"></i> CAPO LEGADO // EL ARTE DEL PODER</div>
             <h2>NO SEGUIMOS TENDENCIAS, <span class="highlight">LAS DICTAMOS</span></h2>
             <p>PIEZAS DE COLECCIÓN SERIADAS Y EMBALAJE BLINDADO. EDICIÓN LIMITADA 2026.</p>
         </div>
