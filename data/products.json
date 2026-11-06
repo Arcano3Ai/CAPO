@@ -249,31 +249,6 @@
     }
   },
   {
-    "id": "capo-chain-medallion",
-    "sku": "CP-JW-011",
-    "name": "CADENA CUBANA & MEDALLÓN CAPO 24K",
-    "category": "oro",
-    "categoryLabel": "ORO NEGRO",
-    "price": 1299,
-    "originalPrice": 1699,
-    "stock": 4,
-    "badge": "JOYERÍA BLINDADA",
-    "images": [
-      "assets/capo-chain-gold.webp",
-      "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp"
-    ],
-    "rating": 5.0,
-    "reviewCount": 29,
-    "description": "Joyería pesada para quienes imponen respeto. Cadena cubana Miami de 14 mm con eslabones biselados a diamante y un medallón circular de latón macizo bañado en oro de 24 quilates con el blasón y corona heráldica de CAPO en altorrelieve.",
-    "specs": {
-      "eslabon": "Cadena Cubana Miami 14 mm biselada",
-      "medallon": "Macizo de 42 mm de diámetro x 4 mm de espesor",
-      "acabado": "Triple baño de oro 24K con protección electroforética",
-      "broche": "Cierre de cajón de doble traba de seguridad con monograma",
-      "longitud": "55 cm (Peso bruto: 142 gramos)"
-    }
-  },
-  {
     "id": "capo-trucker-retro-club",
     "sku": "CP-TR-012",
     "name": "GORRA TRUCKER RETRO \"CAPO CLUB\"",
@@ -485,7 +460,7 @@
     "badge": "GRABADO LÁSER",
     "images": [
       "assets/capo-tumbler-gold-cipher.webp",
-      "assets/capo-chain-gold.webp"
+      "assets/capo-backpack-tactical.webp"
     ],
     "rating": 4.9,
     "reviewCount": 41,
@@ -496,6 +471,106 @@
       "aislamiento": "Doble pared al vacío: 6h caliente / 12h frío",
       "tapa": "Tapa transparente con sellado antifugas y boquilla deslizante",
       "acabado": "Pintura electrostática mate antideslizante con grabado láser"
+    }
+  },
+  {
+    "id": "capo-hoodie-micro-gold",
+    "sku": "CP-HD-021",
+    "name": "HOODIE \"SILENT POWER\" (MICRO-BORDADO ORO)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1399,
+    "originalPrice": 1699,
+    "stock": 14,
+    "badge": "QUIET LUXURY",
+    "images": [
+      "assets/capo-hoodie-micro-gold.webp",
+      "assets/capo-hoodie-black.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 33,
+    "description": "La máxima expresión de lujo silencioso y sobriedad. Confeccionado en algodón francés peinado de 380 GSM en negro absoluto. En el pecho superior izquierdo presenta una tipografía en micro-bordado de precisión de apenas 2.5 cm que reza 'CAPO' con hilo oro metalizado de 24K. Cordones pesados con aglets metálicos dorados grabados.",
+    "specs": {
+      "silueta": "Lane Seven LS14001 Urban Pullover Hoodie (Printful Spec)",
+      "material": "80% Algodón Peinado Ringspun, 20% Poliéster (380 GSM)",
+      "bordado": "Micro-bordado suizo de alta precisión 2.5 cm en hilo oro",
+      "herrajes": "Puntas de cordón (aglets) en latón pulido con baño oro",
+      "talla": "S, M, L, XL, 2XL (Corte regular prémium estructurado)"
+    }
+  },
+  {
+    "id": "capo-hoodie-arch-heritage",
+    "sku": "CP-HD-022",
+    "name": "HOODIE ARCH LOGO \"HERITAGE\" (LETRAS ORO 3D)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1499,
+    "originalPrice": 1850,
+    "stock": 10,
+    "badge": "COLLEGIATE GOLD",
+    "images": [
+      "assets/capo-hoodie-arch-heritage.webp",
+      "assets/capo-hoodie-boss-m2580.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 47,
+    "description": "Inspirado en la sastrería deportiva universitaria clásica con la ferocidad del streetwear brutalista. Capucha estructurada de doble capa y peso pesado de 420 GSM. En el centro del pecho luce la palabra 'CAPO' en un arco semicircular esculpido en bordado 3D Puff de 4 mm de altorrelieve con hilo dorado lustroso.",
+    "specs": {
+      "silueta": "Independent Trading Co. IND4000 Heavyweight Hoodie",
+      "material": "70% Algodón, 30% Poliéster con forro polar interior (420 GSM)",
+      "bordado": "Letras 'CAPO' en arco con técnica 3D Puff bordado en oro",
+      "bolsillo": "Bolsillo canguro frontal con costuras reforzadas bar-tack",
+      "talla": "S, M, L, XL (Ajuste Boxy contemporáneo)"
+    }
+  },
+  {
+    "id": "capo-hoodie-sleeves-gold",
+    "sku": "CP-HD-023",
+    "name": "HOODIE \"RUTHLESS\" (LETRAS VERTICALES EN MANGA ORO)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1449,
+    "originalPrice": 1799,
+    "stock": 12,
+    "badge": "SLEEVE PRINT",
+    "images": [
+      "assets/capo-hoodie-sleeves-gold.webp",
+      "assets/capo-hoodie-black.webp"
+    ],
+    "rating": 4.8,
+    "reviewCount": 39,
+    "description": "Diseñado para destacar en cualquier ángulo. Al frente luce un limpio logotipo minimalista dorado en el centro del pecho, mientras que a lo largo del brazo izquierdo desciende una monumental tipografía vertical serigrafiada en oro satinado con las letras espaciadas 'C A P O' de hombro a puño.",
+    "specs": {
+      "silueta": "Champion S700 Eco Fleece Pullover Hoodie (Printful Spec)",
+      "material": "Algodón peinado pesado 390 GSM con interior cepillado",
+      "estampado": "Serigrafía de alta densidad en oro líquido anti-agrietamiento",
+      "manga": "Tipografía vertical corrida 'C A P O' de 48 cm en manga",
+      "talla": "S, M, L, XL"
+    }
+  },
+  {
+    "id": "capo-hoodie-giant-chest",
+    "sku": "CP-HD-024",
+    "name": "HOODIE MONUMENTAL \"GRAND EMPIRE\" (LETRAS GIGANTES FOIL)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1649,
+    "originalPrice": 2099,
+    "stock": 6,
+    "badge": "FOIL STATEMENT",
+    "images": [
+      "assets/capo-hoodie-giant-chest.webp",
+      "assets/capo-hoodie-boss-m2580.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 54,
+    "description": "La pieza más imponente y llamativa de la colección textil. El frente completo de sisa a sisa está dominado por las letras gigantes 'CAPO' de 35 cm de envergadura, estampadas en foil dorado metalizado de acabado líquido espejado con micro-textura cepillada que captura la luz con intensidad deslumbrante.",
+    "specs": {
+      "silueta": "Cotton Heritage M2580 Ultra-Heavyweight Boxy Hoodie",
+      "material": "100% Algodón Peinado French Terry de 480 GSM",
+      "estampado": "Foil dorado líquido reflectante de máxima dimensión frontal",
+      "capucha": "Capucha envolvente sin cordón de corte arquitectónico",
+      "talla": "S, M, L, XL, 2XL (Oversized Boxy Fit)"
     }
   }
 ]

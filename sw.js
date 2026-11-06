@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v8';
+const CACHE_NAME = 'capo-store-v9';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -22,7 +22,6 @@ const ASSETS_TO_CACHE = [
     './assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp',
     './assets/capo-hoodie-black.webp',
     './assets/capo-tee-vintage.webp',
-    './assets/capo-chain-gold.webp',
     './assets/capo-trucker-retro.webp',
     './assets/capo-trucker-syndicate.webp',
     './assets/capo-snapback-the-don.webp',
@@ -31,7 +30,11 @@ const ASSETS_TO_CACHE = [
     './assets/capo-tee-shaka-wear.webp',
     './assets/capo-jacket-champion.webp',
     './assets/capo-backpack-tactical.webp',
-    './assets/capo-tumbler-gold-cipher.webp'
+    './assets/capo-tumbler-gold-cipher.webp',
+    './assets/capo-hoodie-micro-gold.webp',
+    './assets/capo-hoodie-arch-heritage.webp',
+    './assets/capo-hoodie-sleeves-gold.webp',
+    './assets/capo-hoodie-giant-chest.webp'
 ];
 
 self.addEventListener('install', (event) => {
