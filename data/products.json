@@ -1,0 +1,201 @@
+[
+  {
+    "id": "capo-boss-black",
+    "sku": "CP-BB-001",
+    "name": "THE BOSS BLACK",
+    "category": "jefes",
+    "categoryLabel": "LÍNEA JEFES",
+    "price": 899,
+    "originalPrice": 1099,
+    "stock": 4,
+    "badge": "BESTSELLER",
+    "images": [
+      "assets/mockup (5).webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 84,
+    "description": "La pieza definitiva de autoridad. Corona alta reforzada con entretela indeformable de doble capa, bordado 3D en hilo negro mate con acabado de alta densidad y broche metálico inoxidable con monograma grabado.",
+    "specs": {
+      "corona": "Estructurada alta (A-Frame 6 paneles)",
+      "visera": "Curva pronunciada indeformable",
+      "material": "100% Algodón Premium Pesado 380 GSM",
+      "broche": "Hebilla metálica antioxidable personalizada",
+      "talla": "Ajustable Universal (56 - 62 cm)"
+    }
+  },
+  {
+    "id": "capo-patron-white",
+    "sku": "CP-PW-002",
+    "name": "EL PATRÓN WHITE",
+    "category": "jefes",
+    "categoryLabel": "LÍNEA JEFES",
+    "price": 899,
+    "originalPrice": 1099,
+    "stock": 6,
+    "badge": "EXCLUSIVO",
+    "images": [
+      "assets/mockup (6).webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp",
+      "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 62,
+    "description": "Una declaración de pulcritud y dominio absoluto. Blanco marfil con bordado en contraste negro industrial, banda antisudor transpirable y ojillos metálicos ventilados.",
+    "specs": {
+      "corona": "Estructurada rígida indeformable",
+      "visera": "Visera semi-plana moldeable",
+      "material": "Algodón peinado con tratamiento repelente a polvo",
+      "broche": "Snapback reforzado doble hilera",
+      "talla": "Ajustable Universal (56 - 62 cm)"
+    }
+  },
+  {
+    "id": "capo-urban-legend",
+    "sku": "CP-UL-003",
+    "name": "URBAN LEGEND",
+    "category": "calle",
+    "categoryLabel": "LÍNEA CALLE",
+    "price": 799,
+    "originalPrice": 950,
+    "stock": 8,
+    "badge": "STREET CORE",
+    "images": [
+      "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
+    ],
+    "rating": 4.8,
+    "reviewCount": 51,
+    "description": "Nacida para el rigor del asfalto. Tejido ultra resistente a la fricción y desvanecimiento solar con forro interior monogramado y perfil bajo agresivo.",
+    "specs": {
+      "corona": "Perfil medio semi-estructurado",
+      "visera": "Curva clásica con pespunte militar 8 filas",
+      "material": "Sarga de alta durabilidad resistente a rasgaduras",
+      "broche": "Correa de cuero genuino con hebilla mate",
+      "talla": "Ajustable Universal (55 - 61 cm)"
+    }
+  },
+  {
+    "id": "capo-gold-standard",
+    "sku": "CP-GS-004",
+    "name": "GOLD STANDARD",
+    "category": "oro",
+    "categoryLabel": "ORO NEGRO",
+    "price": 999,
+    "originalPrice": 1299,
+    "stock": 2,
+    "badge": "EDICIÓN NUMERADA",
+    "images": [
+      "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp",
+      "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 110,
+    "description": "La cumbre del streetwear de lujo. Placa metálica frontal con baño dorado de 24K cepillado, forro interno de satén con hilo dorado y certificado holográfico seriado del 001 al 100.",
+    "specs": {
+      "corona": "Alta estructurada rígida con forro de satén",
+      "visera": "Gamuza negra prémium en reverso",
+      "material": "Lana virgen y algodón pesado de grado sastre",
+      "broche": "Cierre micrométrico de aleación oro vintage",
+      "talla": "Ajustable Universal (56 - 62 cm)"
+    }
+  },
+  {
+    "id": "capo-concrete-king",
+    "sku": "CP-CK-005",
+    "name": "CONCRETE KING",
+    "category": "calle",
+    "categoryLabel": "LÍNEA CALLE",
+    "price": 799,
+    "originalPrice": 950,
+    "stock": 5,
+    "badge": "LOTE LIMITADO",
+    "images": [
+      "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp",
+      "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 39,
+    "description": "Estética desgastada a mano para un acabado único e irrepetible. Estilo rudo con parche engomado en bajo relieve resistente a climas extremos.",
+    "specs": {
+      "corona": "Baja estructurada tipo Dad Hat pesada",
+      "visera": "Curva con bordes biselados",
+      "material": "Algodón lavado a la piedra 400 GSM",
+      "broche": "Hebilla deslizante de latón envejecido",
+      "talla": "Ajustable Universal (55 - 61 cm)"
+    }
+  },
+  {
+    "id": "capo-supremacy-silver",
+    "sku": "CP-SS-006",
+    "name": "SUPREMACÍA SILVER",
+    "category": "oro",
+    "categoryLabel": "ORO NEGRO",
+    "price": 949,
+    "originalPrice": 1199,
+    "stock": 3,
+    "badge": "NUEVO DROP",
+    "images": [
+      "assets/mockup (6).webp",
+      "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 27,
+    "description": "Placa de titanio plata pulido a espejo sobre corona negro carbón. El contraste supremo para quienes buscan el brillo más nítido y frío de la noche.",
+    "specs": {
+      "corona": "Estructurada alta 6 paneles con refuerzo frontal",
+      "visera": "Visera híbrida con ribete plateado reflectivo",
+      "material": "Poliéster técnico impermeable y algodón",
+      "broche": "Hebilla de aleación de zinc pulida",
+      "talla": "Ajustable Universal (56 - 62 cm)"
+    }
+  },
+  {
+    "id": "capo-travel-case",
+    "sku": "CP-ACC-007",
+    "name": "CAJA DE VIAJE BLINDADA (ESTUCHE)",
+    "category": "accesorios",
+    "categoryLabel": "ARSENAL ACCESORIOS",
+    "price": 499,
+    "originalPrice": 650,
+    "stock": 12,
+    "badge": "ACCESORIO VITAL",
+    "images": [
+      "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 46,
+    "description": "Maletín rígido indeformable con capacidad para transportar hasta 6 gorras CAPO sin que la corona sufra aplastamientos. Incluye correa al hombro y cremallera impermeable.",
+    "specs": {
+      "capacidad": "De 4 a 6 gorras",
+      "material": "Carcasa rígida de EVA termoformada",
+      "cierre": "Cremallera sellada contra agua y polvo",
+      "peso": "480 gramos",
+      "dimensiones": "32 x 24 x 15 cm"
+    }
+  },
+  {
+    "id": "capo-care-kit",
+    "sku": "CP-ACC-008",
+    "name": "KIT DE CUIDADO & LIMPIEZA CAPO",
+    "category": "accesorios",
+    "categoryLabel": "ARSENAL ACCESORIOS",
+    "price": 349,
+    "originalPrice": 450,
+    "stock": 15,
+    "badge": "PROTECCIÓN",
+    "images": [
+      "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
+    ],
+    "rating": 4.8,
+    "reviewCount": 33,
+    "description": "Espuma limpiadora en seco biodegradable formulada específicamente para no decolorar el algodón pesado ni despegar bordados 3D. Incluye cepillo de cerdas de crin de caballo.",
+    "specs": {
+      "contenido": "Espuma 200 ml + Cepillo prémium cerda natural",
+      "compatibilidad": "Algodón, gamuza, lana y tejidos sintéticos",
+      "durabilidad": "Hasta 40 limpiezas completas"
+    }
+  }
+]
