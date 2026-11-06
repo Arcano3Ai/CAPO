@@ -4,29 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAPO | Gorras Exclusivas</title>
-    <meta name="description" content="CAPO - La marca definitiva en gorras de lujo y estilo urbano.">
+    <title>CAPO | Gorras Exclusivas & Streetwear de Lujo</title>
+    <meta name="description" content="CAPO - La marca definitiva en gorras de lujo y estilo urbano brutalista. Define tu legado.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+    <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Audio Player -->
-    <div class="audio-player">
-        <audio id="bg-music" loop autoplay preload="auto">
+    <!-- Audio Player (Floating Widget) -->
+    <div class="audio-player" id="audio-player-widget">
+        <audio id="bg-music" loop preload="auto">
             <source src="assets/CAPOCANCION.wav" type="audio/wav">
         </audio>
         <div class="player-controls">
-            <button id="play-btn" class="btn-audio">
-                <i class="fas fa-play"></i> SOUNDTRACK
+            <button id="play-btn" class="btn-audio" aria-label="Reproducir o pausar soundtrack">
+                <i class="fas fa-play"></i>
+                <span class="btn-audio-text">SOUNDTRACK</span>
             </button>
-            <div class="equalizer">
+            <div class="equalizer" aria-hidden="true">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -35,232 +37,525 @@
         </div>
     </div>
 
-    <nav class="navbar">
-        <div class="logo">CAPO</div>
-        <ul class="nav-links">
+    <!-- Header Navigation -->
+    <nav class="navbar" id="main-nav">
+        <a href="#inicio" class="logo" aria-label="CAPO Inicio">CAPO</a>
+
+        <ul class="nav-links" id="nav-menu">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#linea-jefes">Jefes</a></li>
+            <li><a href="#linea-calle">Calle</a></li>
+            <li><a href="#oro-negro">Oro Negro</a></li>
             <li><a href="#estilo">Estilo</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
-        <div class="nav-icons">
-            <i class="fas fa-search"></i>
-            <i class="fas fa-shopping-bag"></i>
+
+        <div class="nav-actions">
+            <!-- Search Button & Expandable Bar -->
+            <button class="nav-btn btn-search-toggle" id="search-toggle-btn" aria-label="Abrir buscador">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <!-- Cart Trigger Button with Live Badge -->
+            <button class="nav-btn btn-cart-toggle" id="cart-toggle-btn" aria-label="Ver carrito de compras">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
         </div>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+
+        <!-- Integrated Search Bar Overlay -->
+        <div class="nav-search-bar" id="nav-search-bar">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="product-search-input" placeholder="BUSCAR MODELO (EJ: BOSS, GOLD, CALLE)..." autocomplete="off">
+                <button class="search-clear-btn" id="search-clear-btn" aria-label="Limpiar búsqueda">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header id="inicio" class="hero">
         <div class="hero-overlay"></div>
-        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.png" alt="CAPO Hero Background" class="hero-bg">
+        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.png" alt="CAPO Hero Background" class="hero-bg" loading="eager">
         <div class="hero-content">
+            <p class="hero-tagline fade-in-up">EDICIÓN LIMITADA 2026</p>
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
-            <a href="#coleccion" class="btn-primary fade-in-up delay-2">COMPRAR AHORA</a>
+            <div class="hero-cta-group fade-in-up delay-2">
+                <a href="#coleccion" class="btn-primary">EXPLORAR ARSENAL</a>
+                <a href="#estilo" class="btn-secondary">VER LOOKBOOK</a>
+            </div>
         </div>
     </header>
 
     <!-- Main Collection: IMPERIO -->
     <section id="coleccion" class="collection section-padding">
         <div class="container-fluid">
-            <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
-            <div class="product-grid">
+            <div class="collection-header-row">
+                <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
+                <span class="section-count">4 PIEZAS DE ALTA GAMA</span>
+            </div>
+            
+            <div class="product-grid" id="main-product-grid">
                 <!-- Product 1 -->
-                <div class="product-card">
+                <article class="product-card" data-id="capo-boss-black" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).png" data-category="jefes" data-desc="Gorra estructurada con corona alta reforzada, bordado 3D en hilo negro mate y herrajes premium.">
+                    <div class="product-badge">BESTSELLER</div>
                     <div class="product-image">
-                        <img src="assets/mockup%20(5).png" alt="Gorra CAPO Edición Limitada">
-                        <button class="btn-quick-view">AGREGAR</button>
+                        <img src="assets/mockup%20(5).png" alt="Gorra CAPO The Boss Black" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
+                        </div>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">LÍNEA JEFES</span>
                         <h3>THE BOSS BLACK</h3>
-                        <p class="price">$899</p>
+                        <p class="price">$899 <span class="currency">MXN</span></p>
                     </div>
-                </div>
+                </article>
 
                 <!-- Product 2 -->
-                <div class="product-card">
+                <article class="product-card" data-id="capo-patron-white" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).png" data-category="jefes" data-desc="Diseño blanco marfil con contraste brutalista, detalles bordados con precisión milimétrica y cierre ajustable personalizado.">
+                    <div class="product-badge">EXCLUSIVO</div>
                     <div class="product-image">
-                        <img src="assets/mockup%20(6).png" alt="Gorra CAPO Signature">
-                        <button class="btn-quick-view">AGREGAR</button>
+                        <img src="assets/mockup%20(6).png" alt="Gorra CAPO El Patrón White" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
+                        </div>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">LÍNEA JEFES</span>
                         <h3>EL PATRÓN WHITE</h3>
-                        <p class="price">$899</p>
+                        <p class="price">$899 <span class="currency">MXN</span></p>
                     </div>
-                </div>
+                </article>
 
                 <!-- Product 3 -->
-                <div class="product-card">
+                <article class="product-card" data-id="capo-urban-legend" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" data-category="calle" data-desc="Creada para dominar el asfalto. Tejido ultra resistente a la abrasión con panel frontal absorbente y estilo industrial rudo.">
                     <div class="product-image">
-                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Gorra CAPO Urban">
-                        <button class="btn-quick-view">AGREGAR</button>
+                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Gorra CAPO Urban Legend" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
+                        </div>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">LÍNEA CALLE</span>
                         <h3>URBAN LEGEND</h3>
-                        <p class="price">$799</p>
+                        <p class="price">$799 <span class="currency">MXN</span></p>
                     </div>
-                </div>
+                </article>
+
                 <!-- Product 4 -->
-                <div class="product-card">
+                <article class="product-card" data-id="capo-gold-standard" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" data-category="oro" data-desc="El pináculo del lujo urbano. Placa metálica bañada en tono oro cepillado y forro interno satinado monograma CAPO.">
+                    <div class="product-badge gold-badge">PIEZA MAESTRA</div>
                     <div class="product-image">
-                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gorra CAPO Gold">
-                        <button class="btn-quick-view">AGREGAR</button>
+                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gorra CAPO Gold Standard" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $999</button>
+                        </div>
                     </div>
                     <div class="product-info">
+                        <span class="product-category">ORO NEGRO</span>
                         <h3>GOLD STANDARD</h3>
-                        <p class="price">$999</p>
+                        <p class="price">$999 <span class="currency">MXN</span></p>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- Sub Collection: JEFES -->
-    <section class="collection section-padding" style="border-top: 1px solid #111;">
-        <div class="collection-header">
-            <h2 class="section-title">LÍNEA <span class="text-outline">JEFES</span></h2>
-            <p class="collection-desc">PARA LOS QUE MANDAN. SIN PERMISO.</p>
-        </div>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/mockup%20(5).png" alt="The Boss">
-                    <button class="btn-quick-view">AGREGAR</button>
-                </div>
-                <div class="product-info">
-                    <h3>THE BOSS BLACK</h3>
-                    <p class="price">$899</p>
-                </div>
+    <section id="linea-jefes" class="collection section-padding border-top-divider">
+        <div class="container-fluid">
+            <div class="collection-header">
+                <h2 class="section-title">LÍNEA <span class="text-outline">JEFES</span></h2>
+                <p class="collection-desc">PARA LOS QUE MANDAN. SIN PERMISO NI EXCUSAS.</p>
             </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/mockup%20(6).png" alt="El Patron">
-                    <button class="btn-quick-view">AGREGAR</button>
-                </div>
-                <div class="product-info">
-                    <h3>EL PATRÓN WHITE</h3>
-                    <p class="price">$899</p>
-                </div>
+            <div class="product-grid">
+                <article class="product-card" data-id="capo-boss-black-2" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).png" data-category="jefes" data-desc="La insignia de autoridad. Silueta clásica con actitud sin concesiones.">
+                    <div class="product-image">
+                        <img src="assets/mockup%20(5).png" alt="The Boss" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">LÍNEA JEFES</span>
+                        <h3>THE BOSS BLACK</h3>
+                        <p class="price">$899 <span class="currency">MXN</span></p>
+                    </div>
+                </article>
+
+                <article class="product-card" data-id="capo-patron-white-2" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).png" data-category="jefes" data-desc="Imponente y nítida. Una declaración de presencia pura en cualquier entorno.">
+                    <div class="product-image">
+                        <img src="assets/mockup%20(6).png" alt="El Patron" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">LÍNEA JEFES</span>
+                        <h3>EL PATRÓN WHITE</h3>
+                        <p class="price">$899 <span class="currency">MXN</span></p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
     <!-- Sub Collection: CALLE -->
-    <section class="collection section-padding dark-bg">
-        <div class="collection-header right-align">
-            <h2 class="section-title">LÍNEA <span class="text-outline">CALLE</span></h2>
-            <p class="collection-desc">RESPETO SE GANA EN EL ASFALTO.</p>
-        </div>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Urban Legend">
-                    <button class="btn-quick-view">AGREGAR</button>
-                </div>
-                <div class="product-info">
-                    <h3>URBAN LEGEND</h3>
-                    <p class="price">$799</p>
-                </div>
+    <section id="linea-calle" class="collection section-padding dark-bg">
+        <div class="container-fluid">
+            <div class="collection-header right-align">
+                <h2 class="section-title">LÍNEA <span class="text-outline">CALLE</span></h2>
+                <p class="collection-desc">EL RESPETO SE GANA EN EL ASFALTO.</p>
             </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png"
-                        style="filter: brightness(0.8);" alt="Concrete King">
-                    <button class="btn-quick-view">AGREGAR</button>
-                </div>
-                <div class="product-info">
-                    <h3>CONCRETE KING</h3>
-                    <p class="price">$799</p>
-                </div>
+            <div class="product-grid">
+                <article class="product-card" data-id="capo-urban-legend-2" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" data-category="calle" data-desc="Resistencia y estética subterránea para el día a día sin perder el porte.">
+                    <div class="product-image">
+                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Urban Legend" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">LÍNEA CALLE</span>
+                        <h3>URBAN LEGEND</h3>
+                        <p class="price">$799 <span class="currency">MXN</span></p>
+                    </div>
+                </article>
+
+                <article class="product-card" data-id="capo-concrete-king" data-name="CONCRETE KING" data-price="799" data-image="assets/ChatGPT Image 13 feb 2026, 21_44_18.png" data-category="calle" data-desc="Nacida del concreto. Estilo rudo con detalles desgastados a mano para máxima autenticidad.">
+                    <div class="product-image">
+                        <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" style="filter: brightness(0.8);" alt="Concrete King" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">LÍNEA CALLE</span>
+                        <h3>CONCRETE KING</h3>
+                        <p class="price">$799 <span class="currency">MXN</span></p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Sub Collection: ORO -->
-    <section class="collection section-padding">
-        <div class="collection-header">
-            <h2 class="section-title">ORO <span class="text-outline">NEGRO</span></h2>
-            <p class="collection-desc">LUJO PURO. EDICIÓN LIMITADA.</p>
-        </div>
-        <div class="product-grid single-focus">
-            <div class="product-card featured">
-                <div class="product-image">
-                    <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gold Standard">
-                    <button class="btn-quick-view">AGREGAR</button>
-                </div>
-                <div class="product-info big-info">
-                    <h3>GOLD STANDARD</h3>
-                    <p class="price">$999</p>
-                </div>
+    <!-- Sub Collection: ORO NEGRO -->
+    <section id="oro-negro" class="collection section-padding">
+        <div class="container-fluid">
+            <div class="collection-header">
+                <h2 class="section-title">ORO <span class="text-outline">NEGRO</span></h2>
+                <p class="collection-desc">LUJO PURO. PRODUCCIÓN LIMITADA A 100 PIEZAS POR LOTE.</p>
+            </div>
+            <div class="product-grid single-focus">
+                <article class="product-card featured" data-id="capo-gold-standard-featured" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" data-category="oro" data-desc="Acabado premium en relieve con aplique de oro cepillado. Incluye certificado de autenticidad y caja rígida de colección.">
+                    <div class="product-badge gold-badge">EDICIÓN NUMERADA</div>
+                    <div class="product-image">
+                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gold Standard Featured" loading="lazy">
+                        <div class="card-action-overlay">
+                            <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
+                            <button class="btn-add-cart" data-action="add-cart">AGREGAR $999</button>
+                        </div>
+                    </div>
+                    <div class="product-info big-info">
+                        <span class="product-category">PIEZA INSIGNIA</span>
+                        <h3>GOLD STANDARD</h3>
+                        <p class="price">$999 <span class="currency">MXN</span></p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
+    <!-- Lifestyle Gallery Section -->
     <section id="estilo" class="lifestyle">
         <div class="lifestyle-grid">
             <div class="lifestyle-item large">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" alt="Estilo Urbano">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" alt="Estilo Urbano CAPO" loading="lazy">
                 <div class="lifestyle-content">
+                    <span class="lifestyle-tag">LOOKBOOK 2026</span>
                     <h3>SIN LÍMITES</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_50_19.png" alt="Detalle Premium">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_50_19.png" alt="Detalle Premium CAPO" loading="lazy">
                 <div class="lifestyle-content">
+                    <span class="lifestyle-tag">DETALLE ARTESANAL</span>
                     <h3>PODER</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_39_47.png" alt="Diseño Exclusivo">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_39_47.png" alt="Diseño Exclusivo CAPO" loading="lazy">
                 <div class="lifestyle-content">
+                    <span class="lifestyle-tag">CORTE ESTRUCTURADO</span>
                     <h3>SUPREMACÍA</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/Gemini_Generated_Image_9us3ks9us3ks9us3.png" alt="Estilo de Vida">
+                <img src="assets/Gemini_Generated_Image_9us3ks9us3ks9us3.png" alt="Estilo de Vida CAPO" loading="lazy">
                 <div class="lifestyle-content">
+                    <span class="lifestyle-tag">AUTENTICIDAD</span>
                     <h3>ACTITUD</h3>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="container-fluid">
-            <h2>ÚNETE AL CLAN</h2>
-            <form class="newsletter-form">
-                <input type="email" placeholder="CORREO ELECTRÓNICO">
-                <button type="submit">SUSCRIBIRSE</button>
-            </form>
+            <div class="newsletter-wrapper">
+                <div class="newsletter-text">
+                    <h2>ÚNETE AL CLAN</h2>
+                    <p>ACCESO ANTICIPADO A DROPS EXCLUSIVOS, EDICIONES NUMERADAS Y EVENTOS PRIVADOS.</p>
+                </div>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="TU CORREO ELECTRÓNICO" required>
+                    <button type="submit" id="newsletter-submit-btn">
+                        <span class="btn-text">SUSCRIBIRSE</span>
+                    </button>
+                </form>
+                <div class="newsletter-feedback" id="newsletter-feedback" aria-live="polite"></div>
+            </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer id="contacto">
         <div class="footer-content">
             <div class="footer-brand">
                 <h2>CAPO</h2>
+                <p class="brand-sub">LUJO URBANO BRUTALISTA • DESDE 2026</p>
+                <div class="footer-guarantee">
+                    <i class="fas fa-shield-alt"></i> ENVÍOS PROTEGIDOS A TODO MÉXICO & LATAM
+                </div>
             </div>
             <div class="footer-links">
+                <h4>POLÍTICAS</h4>
                 <ul>
-                    <li><a href="#">TÉRMINOS</a></li>
-                    <li><a href="#">PRIVACIDAD</a></li>
-                    <li><a href="#">ENVÍOS</a></li>
+                    <li><a href="#terminos" class="footer-modal-link" data-modal="terminos">TÉRMINOS & CONDICIONES</a></li>
+                    <li><a href="#privacidad" class="footer-modal-link" data-modal="privacidad">AVISO DE PRIVACIDAD</a></li>
+                    <li><a href="#envios" class="footer-modal-link" data-modal="envios">ENVÍOS & DEVOLUCIONES</a></li>
+                    <li><a href="#autenticidad" class="footer-modal-link" data-modal="autenticidad">CERTIFICADO DE AUTENTICIDAD</a></li>
                 </ul>
             </div>
-            <div class="footer-social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+            <div class="footer-social-wrapper">
+                <h4>CONECTA</h4>
+                <div class="footer-social">
+                    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram de CAPO"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook de CAPO"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter de CAPO"><i class="fab fa-twitter"></i></a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok de CAPO"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <p class="contact-email">CONTACTO: <a href="mailto:arsenal@capostore.com">ARSENAL@CAPOSTORE.COM</a></p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 CAPO. TODOS LOS DERECHOS RESERVADOS.</p>
+            <p>&copy; 2026 CAPO STORE. TODOS LOS DERECHOS RESERVADOS. PROHIBIDA SU REPRODUCCIÓN TOTAL O PARCIAL.</p>
         </div>
     </footer>
 
+    <!-- ============================================== -->
+    <!-- INTERACTIVE COMPONENTS: CART, MODALS & TOASTS  -->
+    <!-- ============================================== -->
+
+    <!-- Cart Overlay & Slide Drawer -->
+    <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Carrito de compras" aria-hidden="true">
+        <div class="cart-header">
+            <div class="cart-title-wrapper">
+                <h3>TU ARSENAL</h3>
+                <span class="cart-items-count" id="cart-drawer-count">(0 PIEZAS)</span>
+            </div>
+            <button class="cart-close-btn" id="cart-close-btn" aria-label="Cerrar carrito">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Free shipping progress bar -->
+        <div class="cart-shipping-notice" id="cart-shipping-notice">
+            <p id="shipping-notice-text">Agrega $1,500 para ENVÍO GRATIS</p>
+            <div class="shipping-progress-bar">
+                <div class="shipping-progress-fill" id="shipping-progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Dynamic Cart Items Container -->
+        <div class="cart-items" id="cart-items">
+            <!-- Empty State / Dynamically populated items -->
+        </div>
+
+        <!-- Cart Summary Footer -->
+        <div class="cart-footer" id="cart-footer">
+            <div class="cart-summary-line">
+                <span>SUBTOTAL:</span>
+                <span id="cart-subtotal">$0 MXN</span>
+            </div>
+            <div class="cart-summary-line">
+                <span>ENVÍO:</span>
+                <span id="cart-shipping-cost">CALCULANDO...</span>
+            </div>
+            <div class="cart-summary-line total-line">
+                <span>TOTAL A PAGAR:</span>
+                <span id="cart-total" class="total-amount">$0 MXN</span>
+            </div>
+            <button class="btn-primary btn-checkout" id="btn-checkout">
+                PROCEDER AL PAGO <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="btn-clear-cart" id="btn-clear-cart">VACIAR ARSENAL</button>
+        </div>
+    </aside>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="quick-view-modal" aria-hidden="true">
+        <div class="modal-card quick-view-card">
+            <button class="modal-close-btn" id="quick-view-close-btn" aria-label="Cerrar vista rápida">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body quick-view-grid">
+                <div class="quick-view-media">
+                    <img id="qv-img" src="" alt="Gorra CAPO">
+                </div>
+                <div class="quick-view-details">
+                    <span class="product-category" id="qv-category">LÍNEA CAPO</span>
+                    <h2 id="qv-title">NOMBRE GORRA</h2>
+                    <p class="price" id="qv-price">$0 MXN</p>
+                    <p class="qv-description" id="qv-desc">Descripción del producto...</p>
+                    
+                    <div class="qv-specs">
+                        <div class="spec-item"><i class="fas fa-check"></i> Corona alta estructurada</div>
+                        <div class="spec-item"><i class="fas fa-check"></i> Broche metálico inoxidable</div>
+                        <div class="spec-item"><i class="fas fa-check"></i> Talla única ajustable (56-62 cm)</div>
+                        <div class="spec-item"><i class="fas fa-check"></i> Certificado de autenticidad incluido</div>
+                    </div>
+
+                    <div class="qv-actions">
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn" id="qv-qty-minus">-</button>
+                            <input type="number" id="qv-qty-input" value="1" min="1" max="10" readonly>
+                            <button type="button" class="qty-btn" id="qv-qty-plus">+</button>
+                        </div>
+                        <button class="btn-primary qv-add-btn" id="qv-add-cart-btn">
+                            AGREGAR AL ARSENAL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal" aria-hidden="true">
+        <div class="modal-card checkout-card">
+            <button class="modal-close-btn" id="checkout-close-btn" aria-label="Cerrar checkout">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="checkout-header">
+                <h2>CONFIRMAR <span class="highlight">ORDEN</span></h2>
+                <p>ESTÁS A UN PASO DE DEFINIR TU LEGADO</p>
+            </div>
+            
+            <form class="checkout-form" id="checkout-form">
+                <div class="form-section">
+                    <h3>1. DATOS DE ENTREGA</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="order-name">NOMBRE COMPLETO *</label>
+                            <input type="text" id="order-name" required placeholder="Ej: Roberto Valencia">
+                        </div>
+                        <div class="form-group">
+                            <label for="order-phone">WHATSAPP / TELÉFONO *</label>
+                            <input type="tel" id="order-phone" required placeholder="Ej: 55 1234 5678">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-address">DIRECCIÓN COMPLETA *</label>
+                        <input type="text" id="order-address" required placeholder="Calle, número, colonia, CP y ciudad">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>2. MÉTODO DE PAGO</h3>
+                    <div class="payment-options">
+                        <label class="payment-radio active">
+                            <input type="radio" name="payment-method" value="card" checked>
+                            <span class="radio-label"><i class="fas fa-credit-card"></i> Tarjeta de Crédito / Débito (Stripe)</span>
+                        </label>
+                        <label class="payment-radio">
+                            <input type="radio" name="payment-method" value="transfer">
+                            <span class="radio-label"><i class="fas fa-university"></i> Transferencia SPEI Inmediata</span>
+                        </label>
+                        <label class="payment-radio">
+                            <input type="radio" name="payment-method" value="cod">
+                            <span class="radio-label"><i class="fas fa-box"></i> Pago contra Entrega (Solo CDMX)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkout-summary-box">
+                    <div class="summary-line">
+                        <span>PIEZAS SELECCIONADAS:</span>
+                        <strong id="checkout-summary-items">0</strong>
+                    </div>
+                    <div class="summary-line">
+                        <span>TOTAL A LIQUIDAR:</span>
+                        <strong id="checkout-summary-total" class="highlight">$0 MXN</strong>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit-order" id="btn-submit-order">
+                    PAGAR Y ASEGURAR PEDIDO
+                </button>
+            </form>
+
+            <!-- Order Success Confirmation Screen -->
+            <div class="order-success-screen" id="order-success-screen" style="display: none;">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h2>¡ORDEN <span class="highlight">CONFIRMADA</span>!</h2>
+                <p class="order-number">PEDIDO REGISTRADO: <strong id="order-success-id">#CAPO-0000</strong></p>
+                <p class="success-details">Hemos recibido tu solicitud. Te enviaremos el número de rastreo y detalles de embalaje blindado vía WhatsApp y correo.</p>
+                <button class="btn-primary" id="btn-finish-success">VOLVER A LA TIENDA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Informational Modal (Terms, Shipping, etc.) -->
+    <div class="modal-overlay" id="info-modal" aria-hidden="true">
+        <div class="modal-card info-card">
+            <button class="modal-close-btn" id="info-modal-close-btn" aria-label="Cerrar modal informativo">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="info-modal-content">
+                <h2 id="info-modal-title">TÍTULO</h2>
+                <div id="info-modal-body" class="info-modal-body">
+                    <!-- Dynamic legal/policy content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+    <!-- Logic Script -->
     <script src="script.js"></script>
 </body>
 
