@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     // =========================================================
-    // 0. PWA SERVICE WORKER REGISTRATION
+    // 0. PWA SERVICE WORKER REGISTRATION & HERO VIDEO AUTOPLAY
     // =========================================================
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -16,6 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(reg => console.log('✓ Service Worker registrado:', reg.scope))
                 .catch(err => console.warn('Service Worker registration skipped:', err));
         });
+    }
+
+    // Force hero video autoplay smoothly
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+        heroVideo.muted = true;
+        heroVideo.playsInline = true;
+        heroVideo.setAttribute('muted', '');
+        heroVideo.setAttribute('playsinline', '');
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Autoplay was prevented, play on first user interaction
+                window.addEventListener('click', () => heroVideo.play(), { once: true });
+                window.addEventListener('touchstart', () => heroVideo.play(), { once: true });
+                window.addEventListener('scroll', () => heroVideo.play(), { once: true });
+            });
+        }
     }
 
     // =========================================================
