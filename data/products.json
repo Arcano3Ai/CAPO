@@ -297,6 +297,206 @@
       "broche": "Snapback regulable de 7 posiciones reforzado",
       "talla": "Ajustable Universal (56 - 62 cm)"
     }
+  },
+  {
+    "id": "capo-trucker-syndicate",
+    "sku": "CP-PF-013",
+    "name": "GORRA RETRO TRUCKER \"CAPO SYNDICATE\" (YUPOONG 6606)",
+    "category": "calle",
+    "categoryLabel": "LÍNEA CALLE",
+    "price": 799,
+    "originalPrice": 999,
+    "stock": 15,
+    "badge": "PRINTFUL BLANK",
+    "images": [
+      "assets/capo-trucker-syndicate.webp",
+      "assets/capo-trucker-retro.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 27,
+    "description": "Manufacturada sobre la mítica base Yupoong 6606 de Printful. Panel frontal estructurado de sarga de poliéster/algodón premium y malla trasera respirable. Bordado frontal 3D de alta densidad con hilo oro metalizado con el blasón de corona oficial CAPO.",
+    "specs": {
+      "silueta": "Yupoong 6606 Retro Trucker Hat (Printful Spec)",
+      "material": "47% Algodón, 28% Nailon, 25% Poliéster",
+      "corona": "Perfil medio estructurado de 6 paneles (8.9 cm)",
+      "visera": "Curva clásica con 8 filas de pespuntes",
+      "broche": "Snapback regulable de alta durabilidad (54.9 - 60 cm)"
+    }
+  },
+  {
+    "id": "capo-snapback-the-don",
+    "sku": "CP-PF-014",
+    "name": "GORRA SNAPBACK 5-PANELES \"THE DON\" (OTTO CAP 18-204)",
+    "category": "jefes",
+    "categoryLabel": "LÍNEA JEFES",
+    "price": 899,
+    "originalPrice": 1150,
+    "stock": 12,
+    "badge": "CORONA ALTA",
+    "images": [
+      "assets/capo-snapback-the-don.webp",
+      "assets/mockup (5).webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 34,
+    "description": "La silueta snapback más imponente del catálogo Printful: Otto Cap 18-204 de 5 paneles con panel frontal continuo sin costura divisoria. Luce un monumental bordado 3D Puff en negro sobre negro (tone-on-tone) con el escudo CAPO y sotovisera verde vintage tradicional.",
+    "specs": {
+      "silueta": "Otto Cap 18-204 High Crown Snapback (Printful Spec)",
+      "material": "100% Sarga de Algodón Pesada de Grado Pro",
+      "corona": "Alta estructurada de 5 paneles (10.2 cm)",
+      "visera": "Plana rígida con sotovisera verde 'Kelly Green'",
+      "broche": "Snapback clásico de doble fila reforzada"
+    }
+  },
+  {
+    "id": "capo-beanie-noir",
+    "sku": "CP-PF-015",
+    "name": "GORRO TEJIDO BEANIE \"NOIR GANG\" (YUPOONG 1501KC)",
+    "category": "calle",
+    "categoryLabel": "LÍNEA CALLE",
+    "price": 599,
+    "originalPrice": 750,
+    "stock": 20,
+    "badge": "WINTER DROP",
+    "images": [
+      "assets/capo-beanie-noir.webp",
+      "assets/capo-hoodie-black.webp"
+    ],
+    "rating": 4.8,
+    "reviewCount": 45,
+    "description": "El beanie oficial de invierno basado en el blank Yupoong 1501KC de Printful. Tejido denso de punto acanalado elástico en negro carbón que retiene el calor corporal. En el puño doblado destaca un parche damasco negro con ribete dorado e insignia heráldica CAPO.",
+    "specs": {
+      "silueta": "Yupoong 1501KC Cuffed Beanie (Printful Spec)",
+      "material": "100% Acrílico Turbo Spun hipoalergénico",
+      "dimension": "Longitud 30 cm desplegado / 21.6 cm con dobladillo",
+      "ajuste": "Tejido acanalado autoajustable a cualquier cráneo",
+      "detalle": "Parche frontal de alta resolución con costura invisible"
+    }
+  },
+  {
+    "id": "capo-hoodie-boss-m2580",
+    "sku": "CP-PF-016",
+    "name": "HOODIE ULTRA-PESADO 3-PANELES \"THE BOSS\" (COTTON HERITAGE M2580)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1599,
+    "originalPrice": 1999,
+    "stock": 8,
+    "badge": "475 GSM MONSTER",
+    "images": [
+      "assets/capo-hoodie-boss-m2580.webp",
+      "assets/capo-hoodie-black.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 58,
+    "description": "El hoodie más pesado, denso y prémium disponible en Printful. Modelo Cotton Heritage M2580 en algodón peinado de 475 GSM (14 oz) con capucha arquitectónica de 3 paneles sin cordones para un perfil minimalista brutalista. En el pecho resalta el bordado 3D en hilo metálico oro de 24K con el logo CAPO.",
+    "specs": {
+      "silueta": "Cotton Heritage M2580 Heavyweight Hoodie (Printful Spec)",
+      "material": "65% Algodón Peinado, 35% Poliéster (100% cara algodón)",
+      "gramaje": "475 GSM / 14 oz (Ultra-Heavyweight)",
+      "capucha": "3 paneles con forro polar interior y bolsillo canguro",
+      "talla": "S, M, L, XL, 2XL (Corte Boxy Streetwear)"
+    }
+  },
+  {
+    "id": "capo-tee-shaka-wear",
+    "sku": "CP-PF-017",
+    "name": "CAMISETA BOXY PESADA \"VINTAGE DYNASTY\" (SHAKA WEAR 7.5 OZ)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 749,
+    "originalPrice": 950,
+    "stock": 18,
+    "badge": "CULT SHRED",
+    "images": [
+      "assets/capo-tee-shaka-wear.webp",
+      "assets/capo-tee-vintage.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 49,
+    "description": "La silueta legendaria que domina la escena del streetwear en Los Ángeles y Nueva York: Shaka Wear Garment-Dye Heavyweight de 7.5 oz (254 GSM) distribuida por Printful. Algodón estadounidense teñido en prenda con cuello alto acanalado de 1 pulgada y serigrafía vintage distressed CAPO en oro envejecido.",
+    "specs": {
+      "silueta": "Shaka Wear SHMHSS Heavyweight Tee (Printful Spec)",
+      "material": "100% Algodón USA hilado en anillos teñido en prenda",
+      "gramaje": "254 GSM / 7.5 oz/yd²",
+      "cuello": "Cuello cerrado grueso de 1 pulgada (2.5 cm) indeformable",
+      "corte": "Drop-Shoulder Boxy Fit (Ajuste urbano holgado)"
+    }
+  },
+  {
+    "id": "capo-jacket-champion",
+    "sku": "CP-PF-018",
+    "name": "CHAQUETA ROMPEVIENTOS PLEGABLE \"AGENT ZERO\" (CHAMPION V1012)",
+    "category": "textil",
+    "categoryLabel": "TEXTIL & HOODIES",
+    "price": 1399,
+    "originalPrice": 1750,
+    "stock": 9,
+    "badge": "CHAMPION DROP",
+    "images": [
+      "assets/capo-jacket-champion.webp",
+      "assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 31,
+    "description": "Chaqueta anorak técnica de medio cierre producida bajo licencia oficial de Champion en el catálogo Printful. Fabricada en micro-popelín resistente a ráfagas de viento y llovizna. Cuenta con cierre de cremallera metálica dorada, capucha con ajuste elástico, bordado del escudo CAPO en el pecho izquierdo y la icónica 'C' de Champion bordada en el puño.",
+    "specs": {
+      "silueta": "Champion V1012 Packable Anorak (Printful Spec)",
+      "material": "100% Micro-Popelín de Poliéster repelente al agua",
+      "plegable": "Se guarda completamente en su propio bolsillo canguro oculto",
+      "herrajes": "Cremallera dorada de medio pecho y cordones con tope",
+      "talla": "S, M, L, XL (Calce atlético streetwear)"
+    }
+  },
+  {
+    "id": "capo-backpack-tactical",
+    "sku": "CP-PF-019",
+    "name": "MOCHILA TÁCTICA URBANA \"BLACK OPS\" (PRINTFUL 600D)",
+    "category": "accesorios",
+    "categoryLabel": "ACCESORIOS",
+    "price": 1199,
+    "originalPrice": 1499,
+    "stock": 10,
+    "badge": "IMPERMEABLE",
+    "images": [
+      "assets/capo-backpack-tactical.webp",
+      "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp"
+    ],
+    "rating": 5.0,
+    "reviewCount": 26,
+    "description": "Mochila táctica para desplazamientos urbanos blindados del catálogo de accesorios Printful. Construida en poliéster balístico 600D impermeable con textura gofrada del monograma CAPO. Integra compartimento acolchado para laptop de hasta 15 pulgadas, bolsillo trasero antirrobo oculto y tiradores de cremallera metálicos en oro mate.",
+    "specs": {
+      "silueta": "Printful All-Over Print Urban Backpack",
+      "material": "100% Poliéster Balístico 600D impermeable",
+      "capacidad": "Volumen de 20 Litros (Soporta hasta 20 kg de carga)",
+      "compartimentos": "Funda acolchada para laptop 15″ + bolsillo oculto antirrobo",
+      "dimensiones": "42 cm alto x 31 cm ancho x 10 cm profundidad"
+    }
+  },
+  {
+    "id": "capo-tumbler-gold-cipher",
+    "sku": "CP-PF-020",
+    "name": "TERMO TÁCTICO ACERO 20 OZ \"GOLD CIPHER\" (PRINTFUL)",
+    "category": "accesorios",
+    "categoryLabel": "ACCESORIOS",
+    "price": 549,
+    "originalPrice": 699,
+    "stock": 25,
+    "badge": "GRABADO LÁSER",
+    "images": [
+      "assets/capo-tumbler-gold-cipher.webp",
+      "assets/capo-chain-gold.webp"
+    ],
+    "rating": 4.9,
+    "reviewCount": 41,
+    "description": "Vaso térmico de viaje de 20 onzas de acero inoxidable 18/8 de grado quirúrgico con aislamiento al vacío de doble pared. Acabado en recubrimiento de polvo negro mate de alta fricción. El escudo de la corona CAPO y el lema 'DEFINE TU LEGADO' están grabados con láser de precisión militar, dejando al descubierto el acero dorado pulido.",
+    "specs": {
+      "silueta": "Stainless Steel Tumbler 20 oz (Printful Spec)",
+      "material": "Acero Inoxidable 18/8 de Grado Alimenticio libre de BPA",
+      "aislamiento": "Doble pared al vacío: 6h caliente / 12h frío",
+      "tapa": "Tapa transparente con sellado antifugas y boquilla deslizante",
+      "acabado": "Pintura electrostática mate antideslizante con grabado láser"
+    }
   }
 ]
 
