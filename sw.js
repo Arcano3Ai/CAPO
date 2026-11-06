@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v5';
+const CACHE_NAME = 'capo-store-v6';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
     './data/products.json',
     './data/sync-service.js',
     './assets/modo-patron-activado.mp3',
+    './assets/og-capo-store.jpg',
     './assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp',
     './assets/mockup (5).webp',
     './assets/mockup (6).webp',
