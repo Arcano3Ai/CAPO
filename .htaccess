@@ -1,0 +1,57 @@
+# ==========================================
+# 👑 CAPO Store - Production LiteSpeed / Apache Config
+# ==========================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Forzar HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Servir index.html si no es archivo o directorio existente
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+</IfModule>
+
+# Tipos MIME
+<IfModule mod_mime.c>
+    AddType text/html .html
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType application/json .json
+    AddType image/webp .webp
+    AddType image/jpeg .jpg .jpeg
+    AddType image/png .png
+    AddType image/svg+xml .svg
+    AddType video/mp4 .mp4
+    AddType audio/mpeg .mp3
+</IfModule>
+
+# Cabeceras de Seguridad OWASP
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # No cachear PWA Service Worker ni Manifest
+    <FilesMatch "^(sw\.js|manifest\.json)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </FilesMatch>
+
+    # Cache inmutable de 1 año para assets multimedia
+    <FilesMatch "\.(webp|jpg|jpeg|png|mp4|mp3|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# Compresión Gzip / Deflate
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
