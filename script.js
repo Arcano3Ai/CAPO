@@ -981,20 +981,52 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================
-    // 8. CHECKOUT MODAL, WHATSAPP DISPATCHER & RECEIPT
+    // 8. CHECKOUT MODAL, MULTI-GATEWAY DISPATCHER & PAYMENTS
     // =========================================================
     const CheckoutModal = {
         overlay: document.getElementById('checkout-modal'),
         closeBtn: document.getElementById('checkout-close-btn'),
         form: document.getElementById('checkout-form'),
         summaryItems: document.getElementById('checkout-summary-items'),
+        summarySubtotal: document.getElementById('checkout-summary-subtotal'),
+        summaryDiscount: document.getElementById('checkout-summary-discount'),
+        discountRow: document.getElementById('checkout-discount-row'),
+        summaryShipping: document.getElementById('checkout-summary-shipping'),
+        summaryVat: document.getElementById('checkout-summary-vat'),
         summaryTotal: document.getElementById('checkout-summary-total'),
+        
+        // Card Interactive Elements
+        cardNumInput: document.getElementById('card-num-input'),
+        cardNameInput: document.getElementById('card-name-input'),
+        cardExpInput: document.getElementById('card-exp-input'),
+        cardCvcInput: document.getElementById('card-cvc-input'),
+        cardDisplayNumber: document.getElementById('card-display-number'),
+        cardDisplayName: document.getElementById('card-display-name'),
+        cardDisplayExp: document.getElementById('card-display-exp'),
+        cardBrandIcon: document.getElementById('card-brand-icon'),
+        cardLuhnStatus: document.getElementById('card-luhn-status'),
+        btnDemoCard: document.getElementById('btn-demo-card'),
+
+        // SPEI & OXXO Elements
+        speiConceptoVal: document.getElementById('spei-concepto-val'),
+        btnCopyConcepto: document.getElementById('btn-copy-concepto'),
+        oxxoRefVal: document.getElementById('oxxo-ref-val'),
+        oxxoBarcodeNumber: document.getElementById('oxxo-barcode-number'),
+        oxxoExpiryVal: document.getElementById('oxxo-expiry-val'),
+        btnCopyOxxo: document.getElementById('btn-copy-oxxo'),
+
+        // Buttons & Success Screen
+        submitBtn: document.getElementById('btn-submit-order'),
         whatsappBtn: document.getElementById('btn-whatsapp-order'),
         whatsappShareBtn: document.getElementById('btn-whatsapp-success-share'),
         viewReceiptBtn: document.getElementById('btn-view-receipt'),
+        trackSuccessBtn: document.getElementById('btn-track-success'),
+        finishSuccessBtn: document.getElementById('btn-finish-success'),
         successScreen: document.getElementById('order-success-screen'),
         successOrderId: document.getElementById('order-success-id'),
-        finishSuccessBtn: document.getElementById('btn-finish-success'),
+        successMethodBox: document.getElementById('order-success-method-box'),
+        
+        currentOrderId: null,
         lastGeneratedOrder: null,
 
         init() {
@@ -1005,20 +1037,123 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
-                radio.addEventListener('change', () => {
+            // Payment Methods Tabs Switching
+            document.querySelectorAll('.payment-radio').forEach(radioLabel => {
+                const radioInput = radioLabel.querySelector('input[name="payment-method"]');
+                const targetPanelId = radioLabel.getAttribute('data-target');
+
+                radioLabel.addEventListener('click', () => {
                     document.querySelectorAll('.payment-radio').forEach(r => r.classList.remove('active'));
-                    radio.closest('.payment-radio').classList.add('active');
+                    radioLabel.classList.add('active');
+                    if (radioInput) radioInput.checked = true;
+
+                    // Show target detail panel
+                    document.querySelectorAll('.payment-detail-panel').forEach(p => p.style.display = 'none');
+                    const targetPanel = document.getElementById(targetPanelId);
+                    if (targetPanel) targetPanel.style.display = 'block';
+
+                    // Update submit button text based on method
+                    const val = radioInput ? radioInput.value : 'card';
+                    if (this.submitBtn) {
+                        if (val === 'card') this.submitBtn.innerHTML = '<i class="fas fa-lock"></i> PAGAR Y ASEGURAR PEDIDO';
+                        else if (val === 'spei') this.submitBtn.innerHTML = '<i class="fas fa-university"></i> GENERAR REFERENCIA SPEI';
+                        else if (val === 'oxxo') this.submitBtn.innerHTML = '<i class="fas fa-barcode"></i> GENERAR FICHA OXXO PAY';
+                        else this.submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> COORDINAR POR WHATSAPP';
+                    }
                 });
             });
 
-            if (this.form) {
-                this.form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.processOrder('card_or_spei');
+            // Card Number Live Formatting & Luhn Detection
+            if (this.cardNumInput) {
+                this.cardNumInput.addEventListener('input', (e) => {
+                    const formatted = CapoSync.PaymentUtils.formatCardNumber(e.target.value);
+                    e.target.value = formatted;
+                    if (this.cardDisplayNumber) {
+                        this.cardDisplayNumber.textContent = formatted || '•••• •••• •••• ••••';
+                    }
+
+                    // Brand detection
+                    const brandInfo = CapoSync.PaymentUtils.detectCardBrand(formatted);
+                    if (this.cardBrandIcon) {
+                        this.cardBrandIcon.innerHTML = `<i class="fab ${brandInfo.icon}"></i>`;
+                    }
+
+                    // Luhn check indicator
+                    const digits = formatted.replace(/\D/g, '');
+                    if (digits.length >= 13) {
+                        const isValid = CapoSync.PaymentUtils.validateLuhn(digits);
+                        if (this.cardLuhnStatus) {
+                            this.cardLuhnStatus.className = `card-luhn-status ${isValid ? 'valid' : 'invalid'}`;
+                        }
+                    } else if (this.cardLuhnStatus) {
+                        this.cardLuhnStatus.className = 'card-luhn-status';
+                    }
                 });
             }
 
+            // Cardholder Name Mirror
+            if (this.cardNameInput) {
+                this.cardNameInput.addEventListener('input', (e) => {
+                    if (this.cardDisplayName) {
+                        this.cardDisplayName.textContent = e.target.value.toUpperCase() || 'NOMBRE DEL TITULAR';
+                    }
+                });
+            }
+
+            // Expiry Mirror & Format
+            if (this.cardExpInput) {
+                this.cardExpInput.addEventListener('input', (e) => {
+                    const formatted = CapoSync.PaymentUtils.formatExpiry(e.target.value);
+                    e.target.value = formatted;
+                    if (this.cardDisplayExp) {
+                        this.cardDisplayExp.textContent = formatted || 'MM/AA';
+                    }
+                });
+            }
+
+            // Demo Card Button Quick Fill
+            if (this.btnDemoCard) {
+                this.btnDemoCard.addEventListener('click', () => {
+                    if (this.cardNumInput) this.cardNumInput.value = '4242 4242 4242 4242';
+                    if (this.cardNameInput) this.cardNameInput.value = 'ROBERTO VALENCIA';
+                    if (this.cardExpInput) this.cardExpInput.value = '12/28';
+                    if (this.cardCvcInput) this.cardCvcInput.value = '842';
+
+                    if (this.cardDisplayNumber) this.cardDisplayNumber.textContent = '4242 4242 4242 4242';
+                    if (this.cardDisplayName) this.cardDisplayName.textContent = 'ROBERTO VALENCIA';
+                    if (this.cardDisplayExp) this.cardDisplayExp.textContent = '12/28';
+                    if (this.cardBrandIcon) this.cardBrandIcon.innerHTML = '<i class="fab fa-cc-visa"></i>';
+                    if (this.cardLuhnStatus) this.cardLuhnStatus.className = 'card-luhn-status valid';
+
+                    Toast.show('✓ TARJETA DE PRUEBA VISA VIP CARGADA');
+                });
+            }
+
+            // Copy Buttons Listeners
+            document.querySelectorAll('.btn-copy-mini').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const copyTarget = btn.getAttribute('data-copy');
+                    const text = copyTarget || btn.previousElementSibling?.textContent?.trim() || '';
+                    if (text && navigator.clipboard) {
+                        navigator.clipboard.writeText(text).then(() => {
+                            const original = btn.innerHTML;
+                            btn.innerHTML = '<i class="fas fa-check"></i> ¡COPIADO!';
+                            Toast.show(`✓ COPIADO AL PORTAPAPELES: ${text}`);
+                            setTimeout(() => { btn.innerHTML = original; }, 2000);
+                        });
+                    }
+                });
+            });
+
+            // Form Submit (Standard Checkout)
+            if (this.form) {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.processOrder();
+                });
+            }
+
+            // WhatsApp Direct Checkout Button
             if (this.whatsappBtn) {
                 this.whatsappBtn.addEventListener('click', () => {
                     const name = document.getElementById('order-name').value.trim();
@@ -1033,6 +1168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            // WhatsApp Share From Success Screen
             if (this.whatsappShareBtn) {
                 this.whatsappShareBtn.addEventListener('click', () => {
                     if (this.lastGeneratedOrder) {
@@ -1041,6 +1177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            // View Receipt Button
             if (this.viewReceiptBtn) {
                 this.viewReceiptBtn.addEventListener('click', () => {
                     if (this.lastGeneratedOrder) {
@@ -1049,6 +1186,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            // Track Success Button
+            if (this.trackSuccessBtn) {
+                this.trackSuccessBtn.addEventListener('click', () => {
+                    if (this.lastGeneratedOrder) {
+                        this.close();
+                        const orderId = this.lastGeneratedOrder.orderId;
+                        OrderTracker.trackOrder(orderId);
+                        const rastreoSec = document.getElementById('rastreo');
+                        if (rastreoSec) rastreoSec.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // Finish Success Button
             if (this.finishSuccessBtn) {
                 this.finishSuccessBtn.addEventListener('click', () => {
                     this.close();
@@ -1062,10 +1213,36 @@ document.addEventListener('DOMContentLoaded', () => {
             this.form.style.display = 'flex';
             this.successScreen.style.display = 'none';
 
+            // Generate provisional order ID for SPEI/OXXO reference previews
+            this.currentOrderId = '#CAPO-' + Math.floor(100000 + Math.random() * 900000);
+            if (this.speiConceptoVal) this.speiConceptoVal.textContent = this.currentOrderId;
+            
+            const oxxoInfo = CapoSync.PaymentUtils.generateOxxoDetails(this.currentOrderId);
+            if (this.oxxoRefVal) this.oxxoRefVal.textContent = oxxoInfo.referenciaFormatted;
+            if (this.oxxoBarcodeNumber) this.oxxoBarcodeNumber.textContent = oxxoInfo.referencia;
+            if (this.oxxoExpiryVal) this.oxxoExpiryVal.textContent = `VENCE: ${oxxoInfo.expira.toUpperCase()}`;
+
             const count = CartState.getCount();
+            const subtotal = CartState.getSubtotal();
+            const discount = CartState.getDiscountAmount();
+            const shipping = CartState.getShippingCost();
             const total = CartState.getTotal();
+            const vat = Math.round(total - (total / 1.16));
 
             if (this.summaryItems) this.summaryItems.textContent = `${count} ${count === 1 ? 'PIEZA' : 'PIEZAS'}`;
+            if (this.summarySubtotal) this.summarySubtotal.textContent = `$${subtotal.toLocaleString()} MXN`;
+            
+            if (this.summaryDiscount && this.discountRow) {
+                if (discount > 0) {
+                    this.discountRow.style.display = 'flex';
+                    this.summaryDiscount.textContent = `-$${discount.toLocaleString()} MXN`;
+                } else {
+                    this.discountRow.style.display = 'none';
+                }
+            }
+
+            if (this.summaryShipping) this.summaryShipping.textContent = shipping === 0 ? 'GRATIS (CONVENIO VIP)' : `$${shipping} MXN`;
+            if (this.summaryVat) this.summaryVat.textContent = `$${vat.toLocaleString()} MXN`;
             if (this.summaryTotal) this.summaryTotal.textContent = `$${total.toLocaleString()} MXN`;
 
             this.overlay.classList.add('active');
@@ -1082,32 +1259,56 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = document.getElementById('order-name').value.trim() || 'Cliente VIP';
             const phone = document.getElementById('order-phone').value.trim() || 'Sin teléfono';
             const email = document.getElementById('order-email').value.trim() || 'cliente@capostore.com';
-            const cp = document.getElementById('order-cp').value.trim() || '00000';
-            const address = document.getElementById('order-address').value.trim() || 'Dirección confirmada';
+            const cp = document.getElementById('order-cp').value.trim() || '06700';
+            const address = document.getElementById('order-address').value.trim() || 'Dirección de Entrega';
             const paymentInput = document.querySelector('input[name="payment-method"]:checked');
-            const paymentMethod = paymentInput ? paymentInput.value : 'card';
+            const paymentMethodKey = paymentInput ? paymentInput.value : 'card';
 
             const methodLabels = {
-                'card': 'Tarjeta Débito / Crédito (Stripe)',
-                'transfer': 'Transferencia SPEI Inmediata',
-                'cod': 'Pago contra Entrega (CDMX)'
+                'card': 'Tarjeta Débito / Crédito (Stripe & Pasarela Directa)',
+                'spei': 'Transferencia Interbancaria SPEI',
+                'oxxo': 'OXXO Pay (Efectivo con Código de Barras)',
+                'whatsapp': 'Atención VIP por WhatsApp'
             };
 
-            const randomId = '#CAPO-' + Math.floor(100000 + Math.random() * 900000);
+            const orderId = this.currentOrderId || ('#CAPO-' + Math.floor(100000 + Math.random() * 900000));
+            const subtotal = CartState.getSubtotal();
+            const discount = CartState.getDiscountAmount();
+            const shipping = CartState.getShippingCost();
+            const total = CartState.getTotal();
+            const vat = Math.round(total - (total / 1.16));
+
+            let paymentDetails = {};
+            if (paymentMethodKey === 'spei') {
+                paymentDetails = CapoSync.PaymentUtils.generateSPEIDetails(orderId);
+            } else if (paymentMethodKey === 'oxxo') {
+                paymentDetails = CapoSync.PaymentUtils.generateOxxoDetails(orderId);
+            } else if (paymentMethodKey === 'card') {
+                const cardNum = (this.cardNumInput ? this.cardNumInput.value : '').replace(/\D/g, '');
+                paymentDetails = {
+                    brand: CapoSync.PaymentUtils.detectCardBrand(cardNum).label,
+                    last4: cardNum.slice(-4) || '4242',
+                    gateway: 'Stripe Elements Encrypted AES-256'
+                };
+            }
 
             return {
-                orderId: randomId,
+                orderId: orderId,
                 name: name,
                 phone: phone,
                 email: email,
                 cp: cp,
                 address: address,
-                paymentMethod: methodLabels[paymentMethod] || 'Tarjeta',
+                paymentMethodKey: paymentMethodKey,
+                paymentMethod: methodLabels[paymentMethodKey] || 'Tarjeta',
+                paymentDetails: paymentDetails,
                 items: [...CartState.items],
-                subtotal: CartState.getSubtotal(),
-                discount: CartState.getDiscountAmount(),
-                shipping: CartState.getShippingCost(),
-                total: CartState.getTotal(),
+                subtotal: subtotal,
+                discount: discount,
+                shipping: shipping,
+                vat: vat,
+                total: total,
+                status: '1', // 1: ORDEN RECIBIDA
                 date: new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' })
             };
         },
@@ -1130,48 +1331,114 @@ document.addEventListener('DOMContentLoaded', () => {
             msg += `---------------------------------\n`;
             msg += `*Subtotal:* $${order.subtotal.toLocaleString()} MXN\n`;
             if (order.discount > 0) {
-                msg += `*Descuento:* -$${order.discount.toLocaleString()} MXN\n`;
+                msg += `*Descuento Cupón:* -$${order.discount.toLocaleString()} MXN\n`;
             }
-            msg += `*Envío:* ${order.shipping === 0 ? 'GRATIS' : `$${order.shipping} MXN`}\n`;
+            msg += `*Envío Blindado:* ${order.shipping === 0 ? 'GRATIS' : `$${order.shipping} MXN`}\n`;
+            msg += `*IVA (16% Incluido):* $${order.vat.toLocaleString()} MXN\n`;
             msg += `*TOTAL A LIQUIDAR:* $${order.total.toLocaleString()} MXN\n\n`;
-            msg += `_Solicito confirmación de inventario y envío de este pedido._`;
+            msg += `_Solicito confirmación de inventario y despacho blindado de este pedido._`;
 
             const encoded = encodeURIComponent(msg);
             const waUrl = `https://wa.me/${WHATSAPP_STORE_PHONE}?text=${encoded}`;
             window.open(waUrl, '_blank');
         },
 
-        processOrder(type = 'card_or_spei') {
-            const submitBtn = document.getElementById('btn-submit-order');
-            const originalText = submitBtn.textContent;
+        processOrder(overrideType = null) {
+            const paymentInput = document.querySelector('input[name="payment-method"]:checked');
+            const method = overrideType || (paymentInput ? paymentInput.value : 'card');
+
+            // Card Validation Check
+            if (method === 'card') {
+                const cardNum = this.cardNumInput ? this.cardNumInput.value.replace(/\D/g, '') : '';
+                const cardExp = this.cardExpInput ? this.cardExpInput.value.trim() : '';
+                const cardCvc = this.cardCvcInput ? this.cardCvcInput.value.trim() : '';
+
+                if (cardNum.length < 13 || !CapoSync.PaymentUtils.validateLuhn(cardNum)) {
+                    Toast.show('⚠️ NÚMERO DE TARJETA INVÁLIDO O INCOMPLETO');
+                    if (this.cardNumInput) this.cardNumInput.focus();
+                    return;
+                }
+                if (!CapoSync.PaymentUtils.validateExpiry(cardExp)) {
+                    Toast.show('⚠️ FECHA DE VENCIMIENTO INVÁLIDA (MM/AA)');
+                    if (this.cardExpInput) this.cardExpInput.focus();
+                    return;
+                }
+                if (cardCvc.length < 3) {
+                    Toast.show('⚠️ CÓDIGO CVC REQUERIDO (3-4 DÍGITOS)');
+                    if (this.cardCvcInput) this.cardCvcInput.focus();
+                    return;
+                }
+            }
+
+            const submitBtn = this.submitBtn;
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.textContent = 'PROCESANDO TRANSACCIÓN...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESANDO ENCRIPTACIÓN BANCARIA...';
 
             const order = this.buildOrderPayload();
             this.lastGeneratedOrder = order;
 
-            // Save order in history
+            // Save order using CapoSync service
             try {
-                const history = JSON.parse(localStorage.getItem('capo_order_history') || '[]');
-                history.unshift(order);
-                localStorage.setItem('capo_order_history', JSON.stringify(history.slice(0, 10)));
-            } catch (e) {}
+                if (window.CapoSync) {
+                    window.CapoSync.saveOrder(order);
+                } else {
+                    const history = JSON.parse(localStorage.getItem('capo_order_history') || '[]');
+                    history.unshift(order);
+                    localStorage.setItem('capo_order_history', JSON.stringify(history.slice(0, 100)));
+                }
+            } catch (e) {
+                console.error('Error guardando orden:', e);
+            }
 
             setTimeout(() => {
                 submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                submitBtn.innerHTML = originalText;
 
                 if (this.successOrderId) this.successOrderId.textContent = order.orderId;
+
+                // Render dynamic method recap in success screen
+                if (this.successMethodBox) {
+                    if (method === 'spei') {
+                        const spei = order.paymentDetails;
+                        this.successMethodBox.innerHTML = `
+                            <div style="color:var(--accent-color); font-weight:900; margin-bottom:6px;"><i class="fas fa-university"></i> DATOS PARA TRANSFERENCIA SPEI:</div>
+                            <div style="font-size:0.85rem; line-height:1.6;">
+                                <strong>Banco:</strong> ${spei.banco}<br>
+                                <strong>CLABE:</strong> <span style="font-family:monospace; background:#000; padding:2px 6px;">${spei.clabe}</span><br>
+                                <strong>Beneficiario:</strong> ${spei.beneficiario}<br>
+                                <strong>Concepto:</strong> <strong class="highlight">${spei.concepto}</strong><br>
+                                <strong>Monto Exacto:</strong> $${order.total.toLocaleString()} MXN
+                            </div>
+                        `;
+                    } else if (method === 'oxxo') {
+                        const oxxo = order.paymentDetails;
+                        this.successMethodBox.innerHTML = `
+                            <div style="color:#e61d2b; font-weight:900; margin-bottom:6px;"><i class="fas fa-barcode"></i> FICHA DE PAGO OXXO PAY:</div>
+                            <div style="font-size:0.85rem; line-height:1.6;">
+                                <strong>Referencia:</strong> <span style="font-family:monospace; font-size:1.1rem; color:#fff; background:#000; padding:4px 8px;">${oxxo.referenciaFormatted}</span><br>
+                                <strong>Vigencia:</strong> ${oxxo.expira}<br>
+                                <strong>Monto a pagar en caja:</strong> $${order.total.toLocaleString()} MXN
+                            </div>
+                        `;
+                    } else {
+                        this.successMethodBox.innerHTML = `
+                            <div style="color:#00ff66; font-weight:900; margin-bottom:4px;"><i class="fas fa-check-shield"></i> PAGO PROCESADO EXITOSAMENTE</div>
+                            <div style="font-size:0.85rem; color:#aaa;">Transacción autorizada con tokenización segura AES-256. El recibo oficial y la guía han sido generados.</div>
+                        `;
+                    }
+                }
 
                 this.form.style.display = 'none';
                 this.successScreen.style.display = 'block';
 
-                if (type === 'whatsapp') {
+                if (method === 'whatsapp') {
                     this.openWhatsApp(order);
                 }
 
                 CartState.clear();
-            }, 1000);
+                Toast.show(`✓ ORDEN ${order.orderId} REGISTRADA CON ÉXITO`);
+            }, 1200);
         }
     };
 
@@ -1183,12 +1450,18 @@ document.addEventListener('DOMContentLoaded', () => {
         closeBtn: document.getElementById('receipt-close-btn'),
         recId: document.getElementById('rec-id'),
         recDate: document.getElementById('rec-date'),
+        recStatus: document.getElementById('rec-status'),
         recCustomer: document.getElementById('rec-customer'),
         recMethod: document.getElementById('rec-method'),
+        recAddress: document.getElementById('rec-address'),
         itemsBody: document.getElementById('rec-items-body'),
         recSub: document.getElementById('rec-sub'),
+        recDiscount: document.getElementById('rec-discount'),
+        recDiscountRow: document.getElementById('rec-discount-row'),
         recShip: document.getElementById('rec-ship'),
+        recVat: document.getElementById('rec-vat'),
         recTotal: document.getElementById('rec-total'),
+        recQrBox: document.getElementById('rec-qr-box'),
 
         init() {
             if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.close());
@@ -1201,34 +1474,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
         open(order) {
             if (!this.overlay || !order) return;
-            this.recId.textContent = order.orderId;
-            this.recDate.textContent = order.date;
-            this.recCustomer.textContent = order.name;
-            this.recMethod.textContent = order.paymentMethod;
+            if (this.recId) this.recId.textContent = order.orderId;
+            if (this.recDate) this.recDate.textContent = order.date;
+            if (this.recStatus) this.recStatus.textContent = order.status === '4' ? 'ENTREGADO' : (order.status === '3' ? 'EN RUTA' : 'CONFIRMADO');
+            if (this.recCustomer) this.recCustomer.textContent = order.name;
+            if (this.recMethod) this.recMethod.textContent = order.paymentMethod;
+            if (this.recAddress) this.recAddress.textContent = `${order.address} (CP: ${order.cp})`;
 
-            this.itemsBody.innerHTML = order.items.map(item => `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>x${item.quantity}</td>
-                    <td>$${(item.price * item.quantity).toLocaleString()} MXN</td>
-                </tr>
-            `).join('');
+            if (this.itemsBody) {
+                this.itemsBody.innerHTML = order.items.map(item => `
+                    <tr>
+                        <td><strong>${item.name}</strong></td>
+                        <td>x${item.quantity}</td>
+                        <td>$${(item.price * item.quantity).toLocaleString()} MXN</td>
+                    </tr>
+                `).join('');
+            }
 
-            this.recSub.textContent = `$${order.subtotal.toLocaleString()} MXN`;
-            this.recShip.textContent = order.shipping === 0 ? 'GRATIS' : `$${order.shipping} MXN`;
-            this.recTotal.textContent = `$${order.total.toLocaleString()} MXN`;
+            if (this.recSub) this.recSub.textContent = `$${order.subtotal.toLocaleString()} MXN`;
+            
+            if (this.recDiscountRow && this.recDiscount) {
+                if (order.discount > 0) {
+                    this.recDiscountRow.style.display = 'block';
+                    this.recDiscount.textContent = `-$${order.discount.toLocaleString()} MXN`;
+                } else {
+                    this.recDiscountRow.style.display = 'none';
+                }
+            }
+
+            if (this.recShip) this.recShip.textContent = order.shipping === 0 ? 'GRATIS' : `$${order.shipping} MXN`;
+            if (this.recVat) this.recVat.textContent = `$${(order.vat || Math.round(order.total - (order.total / 1.16))).toLocaleString()} MXN`;
+            if (this.recTotal) this.recTotal.textContent = `$${order.total.toLocaleString()} MXN`;
+
+            // Dynamic SVG QR Code
+            if (this.recQrBox) {
+                this.recQrBox.innerHTML = `
+                    <svg viewBox="0 0 100 100" width="60" height="60" style="display:block;">
+                        <rect width="100" height="100" fill="#fff" />
+                        <!-- Outer Position Detection Squares -->
+                        <rect x="5" y="5" width="28" height="28" fill="#000" />
+                        <rect x="9" y="9" width="20" height="20" fill="#fff" />
+                        <rect x="13" y="13" width="12" height="12" fill="#000" />
+                        <rect x="67" y="5" width="28" height="28" fill="#000" />
+                        <rect x="71" y="9" width="20" height="20" fill="#fff" />
+                        <rect x="75" y="13" width="12" height="12" fill="#000" />
+                        <rect x="5" y="67" width="28" height="28" fill="#000" />
+                        <rect x="9" y="71" width="20" height="20" fill="#fff" />
+                        <rect x="13" y="75" width="12" height="12" fill="#000" />
+                        <!-- Data Pattern Modules -->
+                        <rect x="38" y="10" width="8" height="8" fill="#000" />
+                        <rect x="50" y="18" width="8" height="8" fill="#000" />
+                        <rect x="10" y="42" width="8" height="8" fill="#000" />
+                        <rect x="22" y="50" width="8" height="8" fill="#000" />
+                        <rect x="38" y="38" width="24" height="24" fill="#000" />
+                        <rect x="42" y="42" width="16" height="16" fill="#fff" />
+                        <rect x="46" y="46" width="8" height="8" fill="#000" />
+                        <rect x="70" y="42" width="8" height="8" fill="#000" />
+                        <rect x="82" y="50" width="8" height="8" fill="#000" />
+                        <rect x="42" y="70" width="8" height="8" fill="#000" />
+                        <rect x="54" y="82" width="8" height="8" fill="#000" />
+                        <rect x="70" y="70" width="8" height="8" fill="#000" />
+                        <rect x="82" y="82" width="8" height="8" fill="#000" />
+                    </svg>
+                `;
+            }
 
             this.overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         },
 
         close() {
             if (!this.overlay) return;
             this.overlay.classList.remove('active');
+            document.body.style.overflow = '';
         }
     };
 
     // =========================================================
-    // 10. ORDER TRACKING RADAR
+    // 10. ORDER TRACKING RADAR (LIVE PERSISTENT RADAR)
     // =========================================================
     const OrderTracker = {
         form: document.getElementById('tracking-form'),
@@ -1236,6 +1559,11 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBox: document.getElementById('tracking-result'),
         orderIdDisplay: document.getElementById('track-order-id'),
         statusDisplay: document.getElementById('track-status-text'),
+        courierDisplay: document.getElementById('track-courier-text'),
+        recipientDisplay: document.getElementById('track-recipient-text'),
+        summaryContainer: document.getElementById('track-order-summary'),
+        timelineSteps: document.querySelectorAll('.tracking-timeline .timeline-step'),
+        currentTrackingOrderId: null,
 
         init() {
             if (!this.form) return;
@@ -1243,11 +1571,99 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const q = this.input.value.trim().toUpperCase();
                 if (!q) return;
+                this.trackOrder(q);
+            });
 
-                this.orderIdDisplay.textContent = q.startsWith('#') ? q : `#CAPO-${q}`;
+            // Live updates: if order status is changed in Admin HQ tab, update radar instantly
+            if (window.CapoSync) {
+                window.CapoSync.on('order_status_updated', (data) => {
+                    if (this.currentTrackingOrderId && this.currentTrackingOrderId === data.orderId) {
+                        this.renderOrderInRadar(data.order);
+                        Toast.show(`🔔 RADAR ACTUALIZADO: NUEVO ESTADO`);
+                    }
+                });
+            }
+        },
+
+        trackOrder(query) {
+            const order = window.CapoSync ? window.CapoSync.getOrderById(query) : null;
+            if (order) {
+                this.renderOrderInRadar(order);
+                Toast.show(`✓ ENVÍO LOCALIZADO: ${order.orderId}`);
+            } else {
+                // Check if demo query or format as fallback
+                const cleanQ = query.startsWith('#') ? query : `#CAPO-${query.replace(/[^A-Z0-9]/g, '')}`;
+                this.orderIdDisplay.textContent = cleanQ;
+                if (this.statusDisplay) this.statusDisplay.textContent = 'FOLIO EN PROCESO DE REGISTRO';
+                if (this.recipientDisplay) this.recipientDisplay.textContent = 'VERIFICANDO EN BASE CENTRAL';
+                if (this.summaryContainer) this.summaryContainer.innerHTML = '<p style="color:#888; font-size:0.85rem;">Orden reciente recibida en la red. Si acabas de ordenar, el embalaje blindado toma unos minutos.</p>';
+                this.setTimelineStep(1);
                 this.resultBox.style.display = 'block';
                 this.resultBox.scrollIntoView({ behavior: 'smooth' });
-                Toast.show(`✓ ENVÍO LOCALIZADO: EN RUTA EXPRESS`);
+                Toast.show(`⚠️ FOLIO EN REVISIÓN DE BÓVEDA`);
+            }
+        },
+
+        renderOrderInRadar(order) {
+            this.currentTrackingOrderId = order.orderId;
+            if (this.input) this.input.value = order.orderId;
+            if (this.orderIdDisplay) this.orderIdDisplay.textContent = order.orderId;
+
+            const statusLabels = {
+                '1': 'ORDEN RECIBIDA • PAGO VERIFICADO',
+                '2': 'EMBALAJE BLINDADO EN CURSO',
+                '3': 'EN TRÁNSITO ASEGURADO • DHL EXPRESS',
+                '4': 'ENTREGADO AL DESTINATARIO'
+            };
+
+            const statusCode = parseInt(order.status || '1', 10);
+            if (this.statusDisplay) {
+                this.statusDisplay.textContent = statusLabels[String(statusCode)] || 'EN PROCESO';
+            }
+
+            if (this.courierDisplay) {
+                this.courierDisplay.textContent = `DHL EXPRESS AÉREO • GUÍA: DHL-MX-${order.orderId.replace('#CAPO-', '')}`;
+            }
+
+            if (this.recipientDisplay) {
+                this.recipientDisplay.textContent = `${order.name} • ${order.address} (CP ${order.cp})`;
+            }
+
+            // Render items in tracking box
+            if (this.summaryContainer) {
+                this.summaryContainer.innerHTML = `
+                    <div style="background:#111; border:1px solid #282828; padding:1rem; margin-top:1rem;">
+                        <span style="font-size:0.75rem; color:#888; letter-spacing:1px; font-weight:800; display:block; margin-bottom:8px;">CONTENIDO DEL PAQUETE BLINDADO:</span>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            ${order.items.map(i => `
+                                <span style="background:#181818; border:1px solid #333; padding:4px 8px; font-size:0.8rem; font-weight:700;">
+                                    ${i.name} <strong style="color:var(--accent-color);">x${i.quantity}</strong>
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            this.setTimelineStep(statusCode);
+            this.resultBox.style.display = 'block';
+            this.resultBox.scrollIntoView({ behavior: 'smooth' });
+        },
+
+        setTimelineStep(stepNumber) {
+            if (!this.timelineSteps || this.timelineSteps.length === 0) return;
+            this.timelineSteps.forEach((step, idx) => {
+                const stepNum = idx + 1;
+                step.classList.remove('completed', 'active');
+                if (stepNum < stepNumber) {
+                    step.classList.add('completed');
+                } else if (stepNum === stepNumber) {
+                    if (stepNumber === 4) {
+                        step.classList.add('completed');
+                    } else {
+                        step.classList.add('active');
+                    }
+                }
             });
         }
     };

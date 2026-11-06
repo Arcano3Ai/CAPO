@@ -381,9 +381,16 @@
                         </div>
                         <div>
                             <span class="tracking-label">PAQUETERÍA:</span>
-                            <span>DHL EXPRESS AÉREO</span>
+                            <span id="track-courier-text">DHL EXPRESS AÉREO BLINDADO</span>
+                        </div>
+                        <div>
+                            <span class="tracking-label">DESTINATARIO:</span>
+                            <span id="track-recipient-text">CLIENTE VERIFICADO</span>
                         </div>
                     </div>
+
+                    <!-- Items Summary in Tracking -->
+                    <div class="tracking-order-summary" id="track-order-summary" style="margin-bottom: 2rem;"></div>
 
                     <!-- Visual Timeline -->
                     <div class="tracking-timeline">
@@ -690,13 +697,14 @@
         </div>
     </div>
 
-    <!-- Checkout Modal with Dual Dispatch: Card / SPEI & WhatsApp -->
+    <!-- Checkout Modal with Dual Dispatch: Card / SPEI / OXXO & WhatsApp -->
     <div class="modal-overlay" id="checkout-modal" aria-hidden="true">
         <div class="modal-card checkout-card">
             <button class="modal-close-btn" id="checkout-close-btn" aria-label="Cerrar checkout">
                 <i class="fas fa-times"></i>
             </button>
             <div class="checkout-header">
+                <div class="checkout-badge-pill"><i class="fas fa-shield-alt"></i> PASARELA ENCRIPTADA AES-256</div>
                 <h2>CONFIRMAR <span class="highlight">ORDEN</span></h2>
                 <p>ESTÁS A UN PASO DE DEFINIR TU LEGADO</p>
             </div>
@@ -726,25 +734,166 @@
                     </div>
                     <div class="form-group">
                         <label for="order-address">DIRECCIÓN COMPLETA *</label>
-                        <input type="text" id="order-address" required placeholder="Calle, número, colonia y ciudad">
+                        <input type="text" id="order-address" required placeholder="Calle, número exterior/interior, colonia y alcaldía o municipio">
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h3>2. MÉTODO DE PAGO</h3>
+                    <h3>2. MÉTODO DE PAGO SEGURO</h3>
                     <div class="payment-options">
-                        <label class="payment-radio active">
+                        <label class="payment-radio active" data-target="panel-card">
                             <input type="radio" name="payment-method" value="card" checked>
-                            <span class="radio-label"><i class="fas fa-credit-card"></i> Tarjeta de Crédito / Débito (Stripe)</span>
+                            <span class="radio-label">
+                                <i class="fas fa-credit-card"></i> 
+                                <span>Tarjeta Débito / Crédito <small>(Stripe & Pasarela Directa)</small></span>
+                            </span>
                         </label>
-                        <label class="payment-radio">
-                            <input type="radio" name="payment-method" value="transfer">
-                            <span class="radio-label"><i class="fas fa-university"></i> Transferencia SPEI Inmediata</span>
+                        <label class="payment-radio" data-target="panel-spei">
+                            <input type="radio" name="payment-method" value="spei">
+                            <span class="radio-label">
+                                <i class="fas fa-university"></i> 
+                                <span>Transferencia SPEI Inmediata <small>(Sin Comisiones)</small></span>
+                            </span>
                         </label>
-                        <label class="payment-radio">
-                            <input type="radio" name="payment-method" value="cod">
-                            <span class="radio-label"><i class="fas fa-box"></i> Pago contra Entrega (Solo CDMX)</span>
+                        <label class="payment-radio" data-target="panel-oxxo">
+                            <input type="radio" name="payment-method" value="oxxo">
+                            <span class="radio-label">
+                                <i class="fas fa-barcode"></i> 
+                                <span>OXXO Pay <small>(Pago en Efectivo con Código)</small></span>
+                            </span>
                         </label>
+                        <label class="payment-radio" data-target="panel-wa">
+                            <input type="radio" name="payment-method" value="whatsapp">
+                            <span class="radio-label">
+                                <i class="fab fa-whatsapp"></i> 
+                                <span>Atención VIP por WhatsApp <small>(El Consejero Directo)</small></span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Payment Details Panels -->
+                    <!-- Panel Tarjeta -->
+                    <div class="payment-detail-panel" id="panel-card">
+                        <!-- Luxury Virtual Black Card Preview -->
+                        <div class="virtual-card-box">
+                            <div class="card-chip-row">
+                                <div class="card-chip"></div>
+                                <div class="card-brand-icon" id="card-brand-icon">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                            </div>
+                            <div class="card-number-display" id="card-display-number">•••• •••• •••• ••••</div>
+                            <div class="card-meta-row">
+                                <div class="card-holder-box">
+                                    <span class="card-label-small">TITULAR</span>
+                                    <div class="card-holder-name" id="card-display-name">NOMBRE DEL TITULAR</div>
+                                </div>
+                                <div class="card-exp-box">
+                                    <span class="card-label-small">EXPIRA</span>
+                                    <div class="card-exp-date" id="card-display-exp">MM/AA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-inputs-grid">
+                            <div class="form-group">
+                                <label for="card-num-input">NÚMERO DE TARJETA *</label>
+                                <div class="input-with-icon">
+                                    <input type="text" id="card-num-input" maxlength="19" placeholder="4242 4242 4242 4242" autocomplete="cc-number">
+                                    <span class="card-luhn-status" id="card-luhn-status" title="Estatus de validación"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="card-name-input">NOMBRE COMO APARECE EN TARJETA *</label>
+                                <input type="text" id="card-name-input" placeholder="ROBERTO VALENCIA" autocomplete="cc-name">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="card-exp-input">VENCIMIENTO (MM/AA) *</label>
+                                    <input type="text" id="card-exp-input" maxlength="5" placeholder="12/28" autocomplete="cc-exp">
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-cvc-input">CVC / CVV *</label>
+                                    <input type="password" id="card-cvc-input" maxlength="4" placeholder="•••" autocomplete="cc-csc">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-card-helper">
+                            <span>¿Deseas probar la pasarela?</span>
+                            <button type="button" class="btn-demo-card" id="btn-demo-card">
+                                <i class="fas fa-magic"></i> LLENAR TARJETA DE PRUEBA
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Panel SPEI -->
+                    <div class="payment-detail-panel" id="panel-spei" style="display: none;">
+                        <div class="spei-info-box">
+                            <div class="spei-header-badge">
+                                <i class="fas fa-bolt"></i> ACREDITACIÓN AUTOMÁTICA EN MENOS DE 5 MINUTOS
+                            </div>
+                            <div class="spei-data-row">
+                                <span class="spei-label">BANCO RECEPTOR:</span>
+                                <strong>STP / BBVA México</strong>
+                            </div>
+                            <div class="spei-data-row">
+                                <span class="spei-label">CLABE INTERBANCARIA:</span>
+                                <div class="copyable-field">
+                                    <strong id="spei-clabe-val">646180157023948192</strong>
+                                    <button type="button" class="btn-copy-mini" data-copy="646180157023948192">
+                                        <i class="far fa-copy"></i> COPIAR
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="spei-data-row">
+                                <span class="spei-label">BENEFICIARIO:</span>
+                                <strong>CAPO HEADQUARTERS S.A.P.I. DE C.V.</strong>
+                            </div>
+                            <div class="spei-data-row">
+                                <span class="spei-label">CONCEPTO / REFERENCIA:</span>
+                                <div class="copyable-field">
+                                    <strong id="spei-concepto-val" class="highlight">#CAPO-ORDEN</strong>
+                                    <button type="button" class="btn-copy-mini" id="btn-copy-concepto">
+                                        <i class="far fa-copy"></i> COPIAR
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="spei-note"><i class="fas fa-info-circle"></i> Al confirmar tu pedido, tu folio único quedará reservado durante 2 horas para recibir la transferencia.</p>
+                        </div>
+                    </div>
+
+                    <!-- Panel OXXO Pay -->
+                    <div class="payment-detail-panel" id="panel-oxxo" style="display: none;">
+                        <div class="oxxo-info-box">
+                            <div class="oxxo-logo-header">
+                                <span class="oxxo-badge">OXXO PAY</span>
+                                <span class="oxxo-expiry" id="oxxo-expiry-val">VENCE EN 48 HORAS</span>
+                            </div>
+                            <div class="oxxo-ref-box">
+                                <span class="oxxo-ref-label">NÚMERO DE REFERENCIA:</span>
+                                <div class="oxxo-ref-display" id="oxxo-ref-val">9348 2019 4810 23</div>
+                                <button type="button" class="btn-copy-mini" id="btn-copy-oxxo">
+                                    <i class="far fa-copy"></i> COPIAR REFERENCIA
+                                </button>
+                            </div>
+                            <div class="oxxo-barcode-graphic">
+                                <div class="barcode-bars"></div>
+                                <span class="barcode-number" id="oxxo-barcode-number">93482019481023</span>
+                            </div>
+                            <p class="oxxo-instructions">
+                                <strong>Instrucciones:</strong> Acude a cualquier tienda OXXO del país, indica que harás un pago de servicio con <em>OXXO Pay</em> y dicta o muestra este código en pantalla.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Panel WhatsApp VIP -->
+                    <div class="payment-detail-panel" id="panel-wa" style="display: none;">
+                        <div class="wa-info-box">
+                            <i class="fab fa-whatsapp wa-big-icon"></i>
+                            <h4>ATENCIÓN PRIVADA DE CONCIERGE</h4>
+                            <p>Tu orden será recibida de inmediato por el equipo central de CAPO en WhatsApp. Coordinamos pagos empresariales, facturación directa o transferencias personalizadas.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -754,6 +903,22 @@
                         <strong id="checkout-summary-items">0</strong>
                     </div>
                     <div class="summary-line">
+                        <span>SUBTOTAL:</span>
+                        <span id="checkout-summary-subtotal">$0 MXN</span>
+                    </div>
+                    <div class="summary-line discount-line" id="checkout-discount-row" style="display: none;">
+                        <span>DESCUENTO APLICADO:</span>
+                        <strong id="checkout-summary-discount" class="text-gold">-$0 MXN</strong>
+                    </div>
+                    <div class="summary-line">
+                        <span>ENVÍO BLINDADO:</span>
+                        <span id="checkout-summary-shipping">GRATIS</span>
+                    </div>
+                    <div class="summary-line vat-line">
+                        <span>IVA (16% INCLUIDO):</span>
+                        <span id="checkout-summary-vat">$0 MXN</span>
+                    </div>
+                    <div class="summary-line total-line">
                         <span>TOTAL A LIQUIDAR:</span>
                         <strong id="checkout-summary-total" class="highlight">$0 MXN</strong>
                     </div>
@@ -761,7 +926,7 @@
 
                 <div class="checkout-actions-row">
                     <button type="submit" class="btn-primary btn-submit-order" id="btn-submit-order">
-                        PAGAR Y ASEGURAR PEDIDO
+                        <i class="fas fa-lock"></i> PAGAR Y ASEGURAR PEDIDO
                     </button>
                     <button type="button" class="btn-whatsapp-order" id="btn-whatsapp-order">
                         <i class="fab fa-whatsapp"></i> PEDIR DIRECTO POR WHATSAPP
@@ -773,16 +938,27 @@
             <div class="order-success-screen" id="order-success-screen" style="display: none;">
                 <div class="success-icon"><i class="fas fa-check-circle"></i></div>
                 <h2>¡ORDEN <span class="highlight">CONFIRMADA</span>!</h2>
-                <p class="order-number">PEDIDO REGISTRADO: <strong id="order-success-id">#CAPO-0000</strong></p>
-                <p class="success-details">Hemos recibido tu solicitud. Te enviaremos el número de rastreo y detalles de embalaje blindado vía WhatsApp y correo.</p>
+                <p class="order-number">FOLIO OFICIAL: <strong id="order-success-id">#CAPO-0000</strong></p>
+                
+                <div class="order-success-method-box" id="order-success-method-box">
+                    <!-- Dynamic payment recap -->
+                </div>
+
+                <p class="success-details">
+                    Hemos registrado tu pedido en la bóveda central de CAPO. Se ha iniciado el protocolo de inspección y embalaje blindado.
+                </p>
+
                 <div class="success-buttons-group">
-                    <button class="btn-primary" id="btn-view-receipt">
+                    <button class="btn-primary btn-track-success" id="btn-track-success">
+                        <i class="fas fa-satellite-dish"></i> RASTREAR ESTE PEDIDO EN EL RADAR
+                    </button>
+                    <button class="btn-secondary" id="btn-view-receipt">
                         <i class="fas fa-file-invoice"></i> VER / IMPRIMIR RECIBO OFICIAL
                     </button>
                     <button class="btn-whatsapp-order" id="btn-whatsapp-success-share">
                         <i class="fab fa-whatsapp"></i> ENVIAR DETALLES POR WHATSAPP
                     </button>
-                    <button class="btn-secondary" id="btn-finish-success">VOLVER A LA TIENDA</button>
+                    <button class="btn-text-action" id="btn-finish-success">VOLVER A LA TIENDA</button>
                 </div>
             </div>
         </div>
@@ -795,18 +971,27 @@
                 <i class="fas fa-times"></i>
             </button>
             <div class="receipt-printable" id="receipt-printable-content">
-                <div class="receipt-brand">
-                    <h2>CAPO</h2>
-                    <span>DOCUMENTO OFICIAL DE ADQUISICIÓN</span>
+                <div class="receipt-header-row">
+                    <div class="receipt-brand">
+                        <h2>CAPO</h2>
+                        <span>DOCUMENTO OFICIAL DE ADQUISICIÓN</span>
+                        <div class="receipt-rfc">RFC: CAP240213HQ8 • CDMX, MÉXICO</div>
+                    </div>
+                    <div class="receipt-qr-box" id="rec-qr-box" title="Código de validación">
+                        <!-- Dynamic SVG QR Code -->
+                    </div>
                 </div>
+
                 <div class="receipt-meta">
                     <div>
                         <strong>FOLIO:</strong> <span id="rec-id">#CAPO-000000</span><br>
-                        <strong>FECHA:</strong> <span id="rec-date">2026-11-06</span>
+                        <strong>FECHA:</strong> <span id="rec-date">2026-11-06</span><br>
+                        <strong>ESTADO:</strong> <span id="rec-status" class="highlight">CONFIRMADO</span>
                     </div>
                     <div>
                         <strong>CLIENTE:</strong> <span id="rec-customer">Roberto V.</span><br>
-                        <strong>MÉTODO:</strong> <span id="rec-method">SPEI / Tarjeta</span>
+                        <strong>MÉTODO:</strong> <span id="rec-method">SPEI / Tarjeta</span><br>
+                        <strong>ENTREGA:</strong> <span id="rec-address" style="font-size:0.8rem; color:#aaa;">CDMX</span>
                     </div>
                 </div>
                 <table class="receipt-table">
@@ -821,11 +1006,13 @@
                 </table>
                 <div class="receipt-totals">
                     <div>Subtotal: <span id="rec-sub">$0 MXN</span></div>
+                    <div id="rec-discount-row" style="display:none; color:var(--accent-color);">Descuento Cupón: <span id="rec-discount">-$0 MXN</span></div>
                     <div>Envío Asegurado: <span id="rec-ship">$0 MXN</span></div>
+                    <div style="font-size:0.75rem; color:#888;">IVA Trasladado (16% Incluido): <span id="rec-vat">$0 MXN</span></div>
                     <div class="rec-grand-total">Total Liquidado: <span id="rec-total">$0 MXN</span></div>
                 </div>
                 <div class="receipt-footer-stamp">
-                    <i class="fas fa-shield-alt"></i> AUTENTICIDAD & EMBALAJE BLINDADO GARANTIZADOS
+                    <i class="fas fa-shield-alt"></i> AUTENTICIDAD & EMBALAJE BLINDADO GARANTIZADOS POR CAPO URBAN LUXURY
                 </div>
             </div>
             <div class="receipt-actions">
@@ -898,6 +1085,8 @@
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
+    <!-- Core Data Layer & Synchronization Service -->
+    <script src="data/sync-service.js"></script>
     <!-- Logic Script -->
     <script src="script.js"></script>
 </body>

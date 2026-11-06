@@ -25,6 +25,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Quality Verification Tests
+        run: node tests/run-tests.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -36,3 +44,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
