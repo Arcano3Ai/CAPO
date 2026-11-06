@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // BACKGROUND VIDEOS (1 EN HERO, 2 ABAJO, 3 ABAJO DEL 2)
+    // BACKGROUND VIDEOS (EDIFICIO CONTINUO: 1, 2 Y 3 EN EL HERO)
     // =========================================================
-    const allBgVideos = document.querySelectorAll('.hero-video, .cinematic-showcase-video');
+    const allBgVideos = document.querySelectorAll('.hero-video, .building-video, .cinematic-showcase-video');
     allBgVideos.forEach((vid) => {
         vid.muted = true;
         vid.defaultMuted = true;

@@ -193,11 +193,28 @@
         </div>
     </nav>
 
-    <!-- Hero Section: VIDEO 1 DE FONDO (SIN OPACIDAD) -->
-    <header id="inicio" class="hero">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto">
-            <source src="assets/fondo-1.mp4" type="video/mp4">
-        </video>
+    <!-- Hero Section: EDIFICIO CONTINUO CAPO (PISOS 1, 2 Y 3 EN EL HERO SIN OPACIDAD) -->
+    <header id="inicio" class="hero hero-building">
+        <div class="building-facade" id="building-facade">
+            <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro -->
+            <div class="building-tier floor-1">
+                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/fondo-1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- Piso 2: Planta Media / Ventanas con Postigos & Hoodies CAPO -->
+            <div class="building-tier floor-2">
+                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/fondo-2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- Piso 3: Planta Baja / Puerta Principal, Líder con Máscara, Gorras & Boombox -->
+            <div class="building-tier floor-3">
+                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/fondo-3.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
         <div class="hero-content">
             <p class="hero-tagline fade-in-up">EDICIÓN LIMITADA 2026</p>
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
@@ -207,30 +224,6 @@
             </div>
         </div>
     </header>
-
-    <!-- SECCIÓN 2: VIDEO 2 DE FONDO (ABAJO DEL HERO - SIN OPACIDAD) -->
-    <section id="manifiesto-reel" class="cinematic-showcase-section">
-        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto">
-            <source src="assets/fondo-2.mp4" type="video/mp4">
-        </video>
-        <div class="cinematic-showcase-content">
-            <div class="reel-badge"><i class="fas fa-crown"></i> CAPO MANIFIESTO // EL IMPERIO NO DUERME</div>
-            <h2>LA CALLE TIENE UN SOLO <span class="highlight">DUEÑO</span></h2>
-            <p>CORONA ALTA REFORZADA Y BORDADOS DE DENSIDAD MILIMÉTRICA. SIN CONCESIONES.</p>
-        </div>
-    </section>
-
-    <!-- SECCIÓN 3: VIDEO 3 DE FONDO (ABAJO DEL 2 - SIN OPACIDAD) -->
-    <section id="legado-reel" class="cinematic-showcase-section">
-        <video class="cinematic-showcase-video" autoplay muted loop playsinline preload="auto">
-            <source src="assets/fondo-3.mp4" type="video/mp4">
-        </video>
-        <div class="cinematic-showcase-content">
-            <div class="reel-badge"><i class="fas fa-fire"></i> CAPO LEGADO // EL ARTE DEL PODER</div>
-            <h2>NO SEGUIMOS TENDENCIAS, <span class="highlight">LAS DICTAMOS</span></h2>
-            <p>PIEZAS DE COLECCIÓN SERIADAS Y EMBALAJE BLINDADO. EDICIÓN LIMITADA 2026.</p>
-        </div>
-    </section>
 
     <!-- Main Collection: E-COMMERCE CATALOG WITH FILTERS & SORTING -->
     <section id="coleccion" class="collection section-padding">

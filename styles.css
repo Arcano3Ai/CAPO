@@ -502,113 +502,79 @@ button {
     display: none; /* Sin opacidad en el video según instrucción del usuario */
 }
 
-.hero-video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 1 !important; /* 100% nítido, sin opacidad */
-    filter: none !important;
-}
-
 /* ========================================================
-   SECCIONES DE FONDO CINEMÁTICAS (VIDEO 2 ABAJO DEL HERO, VIDEO 3 ABAJO DEL 2)
+   EDIFICIO CONTINUO CAPO (PISOS 1, 2 Y 3 EN EL HERO SIN OPACIDAD)
    ======================================================== */
-.cinematic-showcase-section {
-    position: relative;
+.hero-building {
+    height: auto !important;
+    min-height: auto !important;
     width: 100%;
-    min-height: 520px;
-    height: 70vh;
-    max-height: 800px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    border-top: var(--border-width) solid var(--dark-grey);
+    background: #000;
     border-bottom: var(--border-width) solid var(--dark-grey);
-    background: var(--black);
 }
 
-.cinematic-showcase-video {
-    position: absolute;
-    top: 0;
-    left: 0;
+.building-facade {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    border: none;
+    line-height: 0;
+    font-size: 0;
+    background: #000;
+}
+
+.building-tier {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.building-tier video.building-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
     opacity: 1 !important; /* 100% nítido, sin opacidad */
     filter: none !important;
+    vertical-align: bottom;
 }
 
-.cinematic-showcase-content {
-    position: relative;
-    z-index: 2;
+.hero-building .hero-content {
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
     text-align: center;
-    max-width: 780px;
-    padding: 2.5rem 3rem;
-    background: rgba(10, 10, 10, 0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-    margin: 2rem;
+    max-width: 90%;
+    padding: 2rem;
+    pointer-events: none;
 }
 
-.cinematic-showcase-content .reel-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent-color);
-    color: var(--black);
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    padding: 5px 14px;
-    border-radius: 4px;
-    margin-bottom: 1.2rem;
-}
-
-.cinematic-showcase-content h2 {
-    font-size: clamp(1.8rem, 3.8vw, 2.8rem);
-    font-weight: 900;
-    letter-spacing: 2px;
-    color: var(--white);
-    margin-bottom: 0.9rem;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.95);
-    line-height: 1.2;
-}
-
-.cinematic-showcase-content p {
-    font-size: 0.95rem;
-    letter-spacing: 1.5px;
-    color: #e5e5e5;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-    margin: 0;
+.hero-building .hero-content .hero-cta-group a {
+    pointer-events: auto;
 }
 
 @media (max-width: 768px) {
-    .cinematic-showcase-section {
-        min-height: 400px;
-        height: 60vh;
-    }
-    .cinematic-showcase-content {
-        padding: 1.8rem 1.4rem;
-        margin: 1rem;
+    .hero-building .hero-content {
+        top: 18vh;
+        padding: 1rem;
     }
 }
 
