@@ -4,77 +4,53 @@ Plataforma e-commerce de alto rendimiento con arquitectura *Dark Brutalist / Str
 
 ---
 
-## ⚡ Novedades y Características de Nivel Producción (v2.1)
+## ⚡ Nuevas Capacidades Épicas (v2.2)
 
-### 🏎️ Optimización Extrema de Rendimiento
-- **Imágenes en formato WebP:** Reducción del **88.6%** en peso de imágenes (de 17 MB a 2 MB) con retención de calidad visual superior.
-- **Soundtrack optimizado en MP3:** Conversión con `ffmpeg` de WAV (15.7 MB) a MP3 (1.9 MB, 192 kbps estéreo), reduciendo un **88%** de ancho de banda con fallback automático.
-- **PWA (Progressive Web App):** Soporta instalación como aplicación móvil/escritorio (`manifest.json`) y Service Worker (`sw.js`) con estrategia Cache-First para navegación offline ultra-rápida.
+### 🎬 Hero Inmersivo con Video sin Opacidad
+- Video cinemático de fondo en alta definición (`assets/hero-video.mp4`) en reproducción continua (`autoplay muted loop playsinline`) con **100% de nitidez (sin opacidad reducida)** y tipografía de alto impacto con sombras de contorno brutalista.
 
-### 🛒 Suite de E-Commerce Reactiva
-- **Carrito de Compras (Cart Drawer):**
-  - Panel deslizante con apertura instantánea.
-  - Contador reactivo en tiempo real con animación *bump*.
-  - Controles de cantidad (`+` / `-`), auto-eliminación en cero y vaciado de arsenal.
-  - Barra de progreso dinámica para **Envío Gratis** (umbral de $1,500 MXN).
-  - Persistencia total en `localStorage`.
-- **Motor de Cupones Promocionales:**
-  - `CAPO10`: 10% de descuento en la orden.
-  - `LEGADO20`: 20% de descuento exclusivo.
-  - `ENVIOVIP`: Envío gratis inmediato sin importar el monto.
-  - Desglose financiero transparente en el resumen del carrito.
+### 👑 "El Consejero del CAPO" (AI Concierge & Stylist Bot)
+- Asistente interactivo flotante en esquina inferior derecha con personalidad brutalista de *Consigliere*.
+- **Recomendaciones de estilo:** Sugiere gorras según la actitud del cliente (*Jefes*, *Calle*, *Oro Negro*) con tarjetas interactivas dentro del chat y botón para agregar al carrito en un clic.
+- **Respuestas inteligentes:** Resuelve dudas sobre tallas universales (56-62 cm), embalaje blindado indeformable y garantía.
+- **Cupón secreto VIP:** Otorga el código exclusivo `CONSEJERO15` (15% de descuento directo en el arsenal) con botón de auto-aplicación inmediata.
 
-### 📲 Despacho Directo por WhatsApp & Checkout Dual
-- **WhatsApp Checkout:** Genera automáticamente la orden formateada con folio, cliente, artículos, subtotal, descuento, envío y total a pagar para atención y cierre de ventas directo vía WhatsApp.
-- **Checkout Tradicional Simulado:** Formulario de datos con validaciones, métodos de pago (*Tarjeta/Stripe*, *SPEI*, *Contra entrega*) y generación de folio único (`#CAPO-XXXXXX`).
+### 🧪 "CAPO LAB" (Configurador & Customizador a Medida)
+- Estudio interactivo para forjar piezas únicas antes de comprar:
+  - **Silueta Base:** *The Boss Black ($899)*, *El Patrón White ($899)*, *Urban Legend ($799)*, *Gold Standard ($999)*.
+  - **Acabado de Placa / Detalle:** *Oro 24K Cepillado*, *Plata Titanio*, *Negro Mate*, *Rojo Carmín Sangre*.
+  - **Grabado Láser de Monograma:** Input en vivo de hasta 3 iniciales (ej: `SV`, `CR`) renderizadas en tiempo real sobre la insignia de la gorra.
+  - **Precio dinámico:** Base + $150 de grabado láser.
+  - **Botón "FORJAR Y AGREGAR AL ARSENAL":** Integra la pieza personalizada al carrito con sus especificaciones exactas.
 
-### 🎛️ Motor de Catálogo con Filtros y Ordenamiento
-- **Filtros por Línea:** `TODAS` | `LÍNEA JEFES` | `LÍNEA CALLE` | `ORO NEGRO`.
-- **Ordenamiento en Tiempo Real:** Por piezas destacadas, precio (menor a mayor / mayor a menor) y alfabético (A-Z).
-- **Contador dinámico de existencias:** Actualiza la cantidad de piezas mostradas en el DOM en vivo.
+### ⭐ "Reputación del Clan" (Social Proof & Street Cred)
+- Métricas auditadas: *4.9 / 5.0 calificación promedio*, *100% entregas blindadas*, *despacho en menos de 24 hrs*.
+- Reseñas verificadas de compradores de lotes exclusivos en México y Latinoamérica.
 
-### 🔍 Buscador & Modales
-- **Buscador predictivo en Navbar:** Filtra al escribir por nombre de modelo, categoría o descripción.
-- **Vista Rápida (Quick View):** Modal de alta resolución con especificaciones técnicas de corona, broche, ajuste y selector de cantidad.
-- **Lookbook y Políticas:** Modales para Términos, Privacidad, Envíos y Certificado de Autenticidad.
-- **Notificaciones Toast:** Feedback visual brutalista inmediato en cada interacción.
-- **Audio Player Ambiental:** Widget flotante en esquina inferior con ecualizador gráfico interactivo.
+### 🏎️ Optimización Extrema & PWA
+- **WebP en imágenes:** Ahorro del **88.6%** de ancho de banda.
+- **Soundtrack MP3 (192 kbps):** Reducción del **88%** frente al WAV original.
+- **PWA instalable:** `manifest.json` y Service Worker (`sw.js`) con soporte offline Cache-First.
 
-### 🌐 SEO Semántico y Rich Snippets
-- Metadatos **Open Graph** y **Twitter Cards** para compartir enlaces con preview premium en WhatsApp, Telegram, Twitter y Facebook.
-- Marcado estructurado **Schema.org (JSON-LD)** de tipo `ClothingStore` y catálogo `OfferCatalog` con precios en MXN para Google Search.
-
----
-
-## 📦 Estructura del Repositorio
-
-```
-CAPO/
-├── .gitignore          # Reglas de exclusión de Git
-├── manifest.json       # Manifiesto PWA para instalación móvil
-├── sw.js               # Service Worker para caché y soporte offline
-├── index.html          # HTML5 semántico con Schema.org y metatags SEO
-├── styles.css          # Sistema de diseño brutalista y animaciones
-├── script.js           # Motor de estado, carrito, cupones, WhatsApp y filtros
-├── assets/             # Mockups, audio (MP3/WAV) y fotos optimizadas (WebP/PNG)
-└── README.md           # Documentación completa del proyecto
-```
+### 🛒 Suite de E-Commerce
+- **Carrito Drawer Reactivo:** Cálculo dinámico de subtotal, envío gratis ($1,500 MXN) y persistencia en `localStorage`.
+- **Motor de Cupones:** `CAPO10`, `LEGADO20`, `CONSEJERO15`, `ENVIOVIP`.
+- **Despacho por WhatsApp:** Generación de mensaje de pedido estructurado para cierre de ventas instantáneo.
+- **Filtros & Ordenamiento:** Filtrado por categoría y orden por precio/alfabético.
 
 ---
 
 ## 💻 Ejecución en Local
 
-La tienda se puede ejecutar mediante cualquier servidor HTTP local:
-
 ```bash
-# Con Python (puerto 3000):
+# Servidor local en puerto 3000:
 python -m http.server 3000
 
 # O con Node.js:
 npx serve .
 ```
 
-Acceso local: **`http://localhost:3000`**
+Acceso: **`http://localhost:3000`**
 
 ---
 

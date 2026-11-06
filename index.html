@@ -123,10 +123,11 @@
         <ul class="nav-links" id="nav-menu">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#capo-lab">CAPO Lab</a></li>
             <li><a href="#linea-jefes">Jefes</a></li>
             <li><a href="#linea-calle">Calle</a></li>
             <li><a href="#oro-negro">Oro Negro</a></li>
-            <li><a href="#estilo">Estilo</a></li>
+            <li><a href="#reputacion">Reputación</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
 
@@ -162,16 +163,17 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section con VIDEO DE FONDO SIN OPACIDAD -->
     <header id="inicio" class="hero">
-        <div class="hero-overlay"></div>
-        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp" alt="CAPO Hero Background" class="hero-bg" loading="eager">
+        <video class="hero-video" autoplay muted loop playsinline poster="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
         <div class="hero-content">
             <p class="hero-tagline fade-in-up">EDICIÓN LIMITADA 2026</p>
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
             <div class="hero-cta-group fade-in-up delay-2">
                 <a href="#coleccion" class="btn-primary">EXPLORAR ARSENAL</a>
-                <a href="#estilo" class="btn-secondary">VER LOOKBOOK</a>
+                <a href="#capo-lab" class="btn-secondary"><i class="fas fa-hammer"></i> PERSONALIZAR (LAB)</a>
             </div>
         </div>
     </header>
@@ -270,6 +272,93 @@
                         <p class="price">$999 <span class="currency">MXN</span></p>
                     </div>
                 </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- NUEVA SECCIÓN: CAPO LAB (CONFIGURADOR A MEDIDA) -->
+    <!-- ============================================== -->
+    <section id="capo-lab" class="collection section-padding capo-lab-section">
+        <div class="container-fluid">
+            <div class="collection-header">
+                <span class="badge-lab"><i class="fas fa-atom"></i> STUDIO EXCLUSIVO</span>
+                <h2 class="section-title">CAPO <span class="text-outline">LAB</span></h2>
+                <p class="collection-desc">CONFIGURA Y FORJA TU PIEZA PERSONALIZADA CON MONOGRAMA EN RELIEVE.</p>
+            </div>
+
+            <div class="lab-container">
+                <!-- Visualizer Preview Column -->
+                <div class="lab-preview-box">
+                    <div class="lab-cap-mockup" id="lab-cap-mockup">
+                        <img src="assets/mockup (5).webp" id="lab-mockup-img" alt="Gorra personalizada CAPO">
+                        <!-- Custom Monogram Overlay Plaque -->
+                        <div class="lab-monogram-badge" id="lab-monogram-badge">
+                            <span class="monogram-text" id="lab-monogram-display">CP</span>
+                            <span class="monogram-sub">LTD</span>
+                        </div>
+                    </div>
+                    <div class="lab-preview-tags">
+                        <span class="lab-tag" id="lab-tag-model">BASE: THE BOSS BLACK</span>
+                        <span class="lab-tag" id="lab-tag-visera">DETALLE: ORO 24K</span>
+                        <span class="lab-tag" id="lab-tag-broche">BROCHE: METAL INOX</span>
+                    </div>
+                </div>
+
+                <!-- Control Dashboard Column -->
+                <div class="lab-controls-box">
+                    <h3>CONFIGURA CADA ELEMENTO</h3>
+
+                    <!-- 1. Base Model Selector -->
+                    <div class="lab-step">
+                        <label class="lab-step-label">1. SILUETA BASE:</label>
+                        <div class="lab-option-grid" id="lab-base-options">
+                            <button type="button" class="lab-opt-btn active" data-model="boss" data-name="THE BOSS BLACK" data-baseprice="899" data-img="assets/mockup (5).webp">
+                                THE BOSS ($899)
+                            </button>
+                            <button type="button" class="lab-opt-btn" data-model="patron" data-name="EL PATRÓN WHITE" data-baseprice="899" data-img="assets/mockup (6).webp">
+                                EL PATRÓN ($899)
+                            </button>
+                            <button type="button" class="lab-opt-btn" data-model="urban" data-name="URBAN LEGEND" data-baseprice="799" data-img="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp">
+                                URBAN ($799)
+                            </button>
+                            <button type="button" class="lab-opt-btn" data-model="gold" data-name="GOLD STANDARD" data-baseprice="999" data-img="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp">
+                                GOLD ($999)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Detalle de Acabado -->
+                    <div class="lab-step">
+                        <label class="lab-step-label">2. ACABADO DE PLACA / DETALLE:</label>
+                        <div class="lab-color-swatches" id="lab-finish-options">
+                            <button type="button" class="swatch-btn active" data-finish="gold" title="Oro 24K Cepillado" style="background: #D4AF37;"></button>
+                            <button type="button" class="swatch-btn" data-finish="silver" title="Plata Titanio" style="background: #d1d5db;"></button>
+                            <button type="button" class="swatch-btn" data-finish="black" title="Negro Mate Absoluto" style="background: #111; border: 1px solid #555;"></button>
+                            <button type="button" class="swatch-btn" data-finish="crimson" title="Rojo Sangre Carmín" style="background: #8b0000;"></button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Monograma de Iniciales -->
+                    <div class="lab-step">
+                        <label class="lab-step-label">3. MONOGRAMA PERSONALIZADO (MÁX 3 LETRAS):</label>
+                        <div class="lab-input-row">
+                            <input type="text" id="lab-monogram-input" maxlength="3" value="CP" placeholder="EJ: SV" autocomplete="off">
+                            <span class="lab-cost-tag">+$150 MXN (GRABADO LÁSER)</span>
+                        </div>
+                    </div>
+
+                    <!-- Price & CTA Box -->
+                    <div class="lab-pricing-cta">
+                        <div class="lab-price-display">
+                            <span>TOTAL PIEZA A MEDIDA:</span>
+                            <strong id="lab-total-price">$1,049 MXN</strong>
+                        </div>
+                        <button type="button" class="btn-primary lab-add-cart-btn" id="lab-add-cart-btn">
+                            <i class="fas fa-hammer"></i> FORJAR Y AGREGAR AL ARSENAL
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -412,6 +501,62 @@
                 <div class="lifestyle-content">
                     <span class="lifestyle-tag">AUTENTICIDAD</span>
                     <h3>ACTITUD</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- REPUTACIÓN & SOCIAL PROOF DEL CLAN             -->
+    <!-- ============================================== -->
+    <section id="reputacion" class="reviews-section section-padding dark-bg">
+        <div class="container-fluid">
+            <div class="collection-header">
+                <h2 class="section-title">REPUTACIÓN <span class="text-outline">DEL CLAN</span></h2>
+                <p class="collection-desc">+2,400 CLIENTES DE ÉLITE EN MÉXICO Y LATINOAMÉRICA.</p>
+            </div>
+
+            <div class="reviews-metrics-bar">
+                <div class="metric-item">
+                    <span class="metric-num">4.9 / 5.0</span>
+                    <span class="metric-label">CALIFICACIÓN PROMEDIO</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-num">100%</span>
+                    <span class="metric-label">EMBALAJE BLINDADO</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-num">&lt; 24 HRS</span>
+                    <span class="metric-label">DESPACHO ASEGURADO</span>
+                </div>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"La corona no pierde su forma jamás. El bordado en The Boss Black es una obra maestra de precisión. Llegó en caja blindada impecable."</p>
+                    <div class="review-author">
+                        <strong>ROBERTO V.</strong>
+                        <span>CDMX • VERIFICADO</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Gold Standard vale cada centavo. La placa de oro cepillado impone respeto en cuanto entras a cualquier lugar. Atención de primer nivel por WhatsApp."</p>
+                    <div class="review-author">
+                        <strong>ALEJANDRO G.</strong>
+                        <span>MONTERREY • VERIFICADO</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Pedí en CAPO Lab con mi monograma grabado. Es literalmente tener una pieza única en el mundo. La mejor compra de streetwear de este año."</p>
+                    <div class="review-author">
+                        <strong>MARCO T.</strong>
+                        <span>GUADALAJARA • VERIFICADO</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -670,6 +815,57 @@
                     <!-- Dynamic legal/policy content -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- WIDGET DE BOT ÉPICO: "EL CONSEJERO DEL CAPO"   -->
+    <!-- ============================================== -->
+    <div class="capo-bot-widget" id="capo-bot-widget">
+        <!-- Floating Trigger Bubble -->
+        <button class="capo-bot-trigger" id="capo-bot-trigger" aria-label="Abrir asesor privado El Consejero">
+            <span class="bot-status-pulse"></span>
+            <i class="fas fa-crown bot-crown-icon"></i>
+            <span class="bot-trigger-label">EL CONSEJERO</span>
+        </button>
+
+        <!-- Chat Window -->
+        <div class="capo-bot-window" id="capo-bot-window" aria-hidden="true">
+            <div class="bot-window-header">
+                <div class="bot-header-info">
+                    <div class="bot-avatar">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div>
+                        <h4>EL CONSEJERO</h4>
+                        <span class="bot-online-tag">● EN LÍNEA • ASESORÍA VIP</span>
+                    </div>
+                </div>
+                <button class="bot-close-btn" id="capo-bot-close" aria-label="Cerrar chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Messages Stream Container -->
+            <div class="bot-messages-container" id="bot-messages-container">
+                <!-- Welcome messages generated by script -->
+            </div>
+
+            <!-- Quick Action Prompts -->
+            <div class="bot-quick-prompts" id="bot-quick-prompts">
+                <button type="button" class="bot-prompt-pill" data-prompt="recomendar">👑 ¿Qué modelo va con mi estilo?</button>
+                <button type="button" class="bot-prompt-pill" data-prompt="cupon">💎 Dame un código exclusivo</button>
+                <button type="button" class="bot-prompt-pill" data-prompt="tallas">📏 ¿Cómo son las tallas?</button>
+                <button type="button" class="bot-prompt-pill" data-prompt="envio">📦 ¿Cómo es el embalaje blindado?</button>
+            </div>
+
+            <!-- Chat Input Box -->
+            <form class="bot-input-form" id="bot-input-form">
+                <input type="text" id="bot-input-text" placeholder="Escribe tu consulta al Consejero..." autocomplete="off">
+                <button type="submit" id="bot-send-btn" aria-label="Enviar mensaje">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
         </div>
     </div>
 

@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const AVAILABLE_COUPONS = {
         'CAPO10': { type: 'percent', value: 10, label: '10% OFF EN TU ORDEN' },
         'LEGADO20': { type: 'percent', value: 20, label: '20% OFF EXCLUSIVO' },
+        'CONSEJERO15': { type: 'percent', value: 15, label: '15% OFF VIP CONSEJERO' },
         'ENVIOVIP': { type: 'free_shipping', value: 0, label: 'ENVÍO GRATIS INCONDICIONAL' }
     };
 
@@ -1008,7 +1009,280 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 14. GLOBAL ESC KEYBOARD LISTENER (ACCESSIBILITY)
+    // 14. CAPO LAB (INTERACTIVE CAP CUSTOMIZER)
+    // =========================================================
+    const CapoLabEngine = {
+        mockupImg: document.getElementById('lab-mockup-img'),
+        monogramDisplay: document.getElementById('lab-monogram-display'),
+        monogramBadge: document.getElementById('lab-monogram-badge'),
+        monogramInput: document.getElementById('lab-monogram-input'),
+        tagModel: document.getElementById('lab-tag-model'),
+        tagVisera: document.getElementById('lab-tag-visera'),
+        tagBroche: document.getElementById('lab-tag-broche'),
+        totalPriceEl: document.getElementById('lab-total-price'),
+        addCartBtn: document.getElementById('lab-add-cart-btn'),
+        baseBtns: document.querySelectorAll('#lab-base-options .lab-opt-btn'),
+        finishBtns: document.querySelectorAll('#lab-finish-options .swatch-btn'),
+
+        state: {
+            modelName: 'THE BOSS BLACK',
+            basePrice: 899,
+            image: 'assets/mockup (5).webp',
+            finish: 'gold',
+            finishLabel: 'ORO 24K',
+            monogram: 'CP',
+            customFee: 150
+        },
+
+        init() {
+            if (!this.mockupImg) return;
+
+            // Base options click
+            this.baseBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.baseBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    this.state.modelName = btn.getAttribute('data-name');
+                    this.state.basePrice = parseFloat(btn.getAttribute('data-baseprice'));
+                    this.state.image = btn.getAttribute('data-img');
+
+                    this.updateUI();
+                });
+            });
+
+            // Finish swatch click
+            this.finishBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.finishBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const finish = btn.getAttribute('data-finish');
+                    this.state.finish = finish;
+
+                    const finishMap = {
+                        'gold': 'ORO 24K',
+                        'silver': 'PLATA TITANIO',
+                        'black': 'NEGRO MATE',
+                        'crimson': 'ROJO CARMÍN'
+                    };
+                    this.state.finishLabel = finishMap[finish] || 'ORO 24K';
+
+                    this.updateUI();
+                });
+            });
+
+            // Monogram text input
+            if (this.monogramInput) {
+                this.monogramInput.addEventListener('input', (e) => {
+                    const clean = (e.target.value || '').toUpperCase().slice(0, 3);
+                    this.state.monogram = clean || 'CP';
+                    this.updateUI();
+                });
+            }
+
+            // Add Custom Hat to Cart
+            if (this.addCartBtn) {
+                this.addCartBtn.addEventListener('click', () => {
+                    const customProduct = {
+                        id: `capo-custom-${Date.now()}`,
+                        name: `${this.state.modelName} [CUSTOM '${this.state.monogram}' / ${this.state.finishLabel}]`,
+                        price: this.state.basePrice + this.state.customFee,
+                        image: this.state.image,
+                        category: 'lab',
+                        desc: `Pieza forjada en CAPO Lab con monograma láser '${this.state.monogram}' y acabado ${this.state.finishLabel}.`
+                    };
+
+                    CartState.addItem(customProduct, 1);
+                    CartUI.open();
+                    Toast.show('✓ PIEZA A MEDIDA AGREGADA AL ARSENAL');
+                });
+            }
+
+            this.updateUI();
+        },
+
+        updateUI() {
+            if (this.mockupImg) this.mockupImg.src = this.state.image;
+            if (this.monogramDisplay) this.monogramDisplay.textContent = this.state.monogram;
+
+            if (this.monogramBadge) {
+                this.monogramBadge.className = `lab-monogram-badge ${this.state.finish}`;
+            }
+
+            if (this.tagModel) this.tagModel.textContent = `BASE: ${this.state.modelName}`;
+            if (this.tagVisera) this.tagVisera.textContent = `DETALLE: ${this.state.finishLabel}`;
+
+            const total = this.state.basePrice + this.state.customFee;
+            if (this.totalPriceEl) this.totalPriceEl.textContent = `$${total.toLocaleString()} MXN`;
+        }
+    };
+
+    // =========================================================
+    // 15. "EL CONSEJERO DEL CAPO" (AI STYLIST & CONCIERGE BOT)
+    // =========================================================
+    const CapoBotEngine = {
+        widget: document.getElementById('capo-bot-widget'),
+        trigger: document.getElementById('capo-bot-trigger'),
+        window: document.getElementById('capo-bot-window'),
+        closeBtn: document.getElementById('capo-bot-close'),
+        messagesContainer: document.getElementById('bot-messages-container'),
+        inputForm: document.getElementById('bot-input-form'),
+        inputText: document.getElementById('bot-input-text'),
+        promptsContainer: document.getElementById('bot-quick-prompts'),
+
+        knowledge: {
+            'recomendar': {
+                response: 'Un verdadero líder no duda. Para presencia ejecutiva y de mando supremo, tu pieza es <strong>THE BOSS BLACK</strong> ($899). Si buscas supremacía y oro puro numerado, ve directo por <strong>GOLD STANDARD</strong> ($999).',
+                card: {
+                    name: 'THE BOSS BLACK',
+                    price: 899,
+                    image: 'assets/mockup (5).webp',
+                    id: 'capo-boss-black'
+                }
+            },
+            'cupon': {
+                response: 'Reconozco el buen ojo. Por hablar directamente conmigo, toma el código de acceso exclusivo: <strong>CONSEJERO15</strong> para un 15% de descuento directo en tu orden.',
+                action: {
+                    type: 'coupon',
+                    code: 'CONSEJERO15',
+                    label: 'APLICAR 15% DE DESCUENTO AHORA'
+                }
+            },
+            'tallas': {
+                response: 'Todas nuestras piezas cuentan con corona estructurada reforzada que nunca se deforma y broche ajustable milimétrico inoxidable para medidas de <strong>56 a 62 cm</strong> (talla única universal premium).'
+            },
+            'envio': {
+                response: 'Cada gorra viaja en <strong>embalaje blindado</strong>: una caja rígida indeformable con sellos holográficos de seguridad. Despacho express en menos de 24 hrs por DHL/FedEx asegurado.'
+            }
+        },
+
+        init() {
+            if (!this.trigger || !this.window) return;
+
+            this.trigger.addEventListener('click', () => this.toggle());
+            if (this.closeBtn) this.closeBtn.addEventListener('click', () => this.close());
+
+            // Welcome message
+            this.addBotMessage('Saludos. Soy <strong>El Consejero</strong>, asesor privado de CAPO. ¿Buscas definir tu legado o requieres una recomendación a la altura de tu presencia?');
+
+            // Quick prompt clicks
+            if (this.promptsContainer) {
+                this.promptsContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.bot-prompt-pill');
+                    if (!btn) return;
+                    const promptKey = btn.getAttribute('data-prompt');
+                    const text = btn.textContent.trim();
+                    this.handleUserQuery(text, promptKey);
+                });
+            }
+
+            // Input form submit
+            if (this.inputForm) {
+                this.inputForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const text = this.inputText.value.trim();
+                    if (!text) return;
+                    this.inputText.value = '';
+                    this.handleUserQuery(text);
+                });
+            }
+        },
+
+        toggle() {
+            const isOpen = this.window.classList.toggle('active');
+            this.window.setAttribute('aria-hidden', !isOpen);
+            if (isOpen && this.inputText) this.inputText.focus();
+        },
+
+        close() {
+            this.window.classList.remove('active');
+            this.window.setAttribute('aria-hidden', 'true');
+        },
+
+        addUserMessage(text) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bot-bubble user';
+            bubble.textContent = text;
+            this.messagesContainer.appendChild(bubble);
+            this.scrollToBottom();
+        },
+
+        addBotMessage(html, extras = null) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bot-bubble bot';
+            bubble.innerHTML = html;
+
+            if (extras && extras.card) {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'bot-action-card';
+                cardDiv.innerHTML = `
+                    <strong style="color: var(--accent-color);">${extras.card.name}</strong>
+                    <span>$${extras.card.price} MXN</span>
+                    <button class="bot-action-btn" data-bot-add="${extras.card.id}">AGREGAR AL ARSENAL</button>
+                `;
+                cardDiv.querySelector('button').addEventListener('click', () => {
+                    CartState.addItem(extras.card, 1);
+                    CartUI.open();
+                });
+                bubble.appendChild(cardDiv);
+            }
+
+            if (extras && extras.action && extras.action.type === 'coupon') {
+                const btn = document.createElement('button');
+                btn.className = 'bot-action-btn';
+                btn.textContent = extras.action.label;
+                btn.style.width = '100%';
+                btn.addEventListener('click', () => {
+                    CartState.applyCoupon(extras.action.code);
+                    CartUI.open();
+                });
+                bubble.appendChild(btn);
+            }
+
+            this.messagesContainer.appendChild(bubble);
+            this.scrollToBottom();
+        },
+
+        handleUserQuery(text, key = null) {
+            this.addUserMessage(text);
+
+            setTimeout(() => {
+                const lower = text.toLowerCase();
+
+                if (key && this.knowledge[key]) {
+                    const item = this.knowledge[key];
+                    this.addBotMessage(item.response, item);
+                    return;
+                }
+
+                if (lower.includes('descuento') || lower.includes('cupón') || lower.includes('cupon') || lower.includes('promo')) {
+                    const item = this.knowledge['cupon'];
+                    this.addBotMessage(item.response, item);
+                } else if (lower.includes('recomiend') || lower.includes('modelo') || lower.includes('cual') || lower.includes('cuál') || lower.includes('gorra')) {
+                    const item = this.knowledge['recomendar'];
+                    this.addBotMessage(item.response, item);
+                } else if (lower.includes('talla') || lower.includes('medida') || lower.includes('ajuste')) {
+                    const item = this.knowledge['tallas'];
+                    this.addBotMessage(item.response, item);
+                } else if (lower.includes('envio') || lower.includes('envío') || lower.includes('caja') || lower.includes('paqueteria') || lower.includes('dhl')) {
+                    const item = this.knowledge['envio'];
+                    this.addBotMessage(item.response, item);
+                } else if (lower.includes('hola') || lower.includes('buenas') || lower.includes('que tal')) {
+                    this.addBotMessage('A tus órdenes. Soy el Consejero. ¿Deseas explorar la Colección Imperio o personalizar una pieza en el CAPO Lab?');
+                } else {
+                    this.addBotMessage('Entiendo tu postura. Como miembros del clan, exigimos lo más alto. Te sugiero explorar <strong>THE BOSS BLACK</strong> o forjar tus iniciales en <strong>CAPO LAB</strong> para una pieza sin comparación.');
+                }
+            }, 500);
+        },
+
+        scrollToBottom() {
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }
+    };
+
+    // =========================================================
+    // 16. GLOBAL ESC KEYBOARD LISTENER (ACCESSIBILITY)
     // =========================================================
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -1016,6 +1290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             QuickViewModal.close();
             CheckoutModal.close();
             InfoModal.close();
+            CapoBotEngine.close();
             if (searchBar) {
                 searchBar.classList.remove('active');
                 clearSearch();
@@ -1029,5 +1304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     QuickViewModal.init();
     CheckoutModal.init();
     CatalogEngine.init();
+    CapoLabEngine.init();
+    CapoBotEngine.init();
     InfoModal.init();
 });
