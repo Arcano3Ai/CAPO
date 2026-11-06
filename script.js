@@ -992,12 +992,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                     <div class="product-info">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="product-meta-row" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:0.4rem;">
                             <span class="product-category">${p.collectionLabel || p.categoryLabel}</span>
                             <span style="font-size:0.75rem; color:#888;">★ ${p.rating} (${p.reviewCount})</span>
                         </div>
                         <h3>${p.name}</h3>
-                        <p class="price">${formattedPrice} <span class="original-price" style="font-size:0.85rem; margin-left:6px;">${formattedOrig}</span></p>
+                        <p class="price" style="display:flex; justify-content:center; align-items:baseline; gap:6px;">${formattedPrice} <span class="original-price" style="font-size:0.85rem;">${formattedOrig}</span></p>
                         ${isSoldOut ? `
                             <button type="button" class="btn-notify-stock" data-sku="${p.sku}" data-name="${p.name}">
                                 <i class="fas fa-bell"></i> AVÍSAME AL REABASTECER

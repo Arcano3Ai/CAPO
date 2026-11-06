@@ -152,7 +152,6 @@
         <ul class="nav-links" id="nav-menu">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#coleccion">Colección</a></li>
-            <li><a href="#capo-lab">CAPO Lab</a></li>
             <li><a href="#rastreo">Rastreo</a></li>
             <li><a href="#reputacion">Reputación</a></li>
             <li><a href="#contacto">Contacto</a></li>
@@ -215,19 +214,19 @@
         <div class="building-facade" id="building-facade">
             <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro -->
             <div class="building-tier floor-1">
-                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-1-poster.webp">
                     <source src="assets/fondo-1.mp4" type="video/mp4">
                 </video>
             </div>
             <!-- Piso 2: Planta Media / Ventanas con Postigos & Hoodies CAPO -->
             <div class="building-tier floor-2">
-                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-2-poster.webp">
                     <source src="assets/fondo-2.mp4" type="video/mp4">
                 </video>
             </div>
             <!-- Piso 3: Planta Baja / Puerta Principal, Líder con Máscara, Gorras & Boombox -->
             <div class="building-tier floor-3">
-                <video class="building-video" autoplay muted loop playsinline preload="auto">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-3-poster.webp">
                     <source src="assets/fondo-3.mp4" type="video/mp4">
                 </video>
             </div>
@@ -237,7 +236,6 @@
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
             <div class="hero-cta-group fade-in-up delay-2">
                 <a href="#coleccion" class="btn-primary">EXPLORAR ARSENAL</a>
-                <a href="#capo-lab" class="btn-secondary"><i class="fas fa-hammer"></i> PERSONALIZAR (LAB)</a>
             </div>
         </div>
     </header>
@@ -278,93 +276,6 @@
             <!-- Dynamic Grid populated via JS or pre-rendered -->
             <div class="product-grid" id="main-product-grid">
                 <!-- Products injected dynamically from products.json -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- SECCIÓN: CAPO LAB (CONFIGURADOR A MEDIDA)     -->
-    <!-- ============================================== -->
-    <section id="capo-lab" class="collection section-padding capo-lab-section">
-        <div class="container-fluid">
-            <div class="collection-header">
-                <span class="badge-lab"><i class="fas fa-atom"></i> STUDIO EXCLUSIVO</span>
-                <h2 class="section-title">CAPO <span class="text-outline">LAB</span></h2>
-                <p class="collection-desc">CONFIGURA Y FORJA TU PIEZA PERSONALIZADA CON MONOGRAMA EN RELIEVE.</p>
-            </div>
-
-            <div class="lab-container">
-                <!-- Visualizer Preview Column -->
-                <div class="lab-preview-box">
-                    <div class="lab-cap-mockup" id="lab-cap-mockup">
-                        <img src="assets/mockup (5).webp" id="lab-mockup-img" alt="Gorra personalizada CAPO">
-                        <!-- Custom Monogram Overlay Plaque -->
-                        <div class="lab-monogram-badge" id="lab-monogram-badge">
-                            <span class="monogram-text" id="lab-monogram-display">CP</span>
-                            <span class="monogram-sub">LTD</span>
-                        </div>
-                    </div>
-                    <div class="lab-preview-tags">
-                        <span class="lab-tag" id="lab-tag-model">BASE: THE BOSS BLACK</span>
-                        <span class="lab-tag" id="lab-tag-visera">DETALLE: ORO 24K</span>
-                        <span class="lab-tag" id="lab-tag-broche">BROCHE: METAL INOX</span>
-                    </div>
-                </div>
-
-                <!-- Control Dashboard Column -->
-                <div class="lab-controls-box">
-                    <h3>CONFIGURA CADA ELEMENTO</h3>
-
-                    <!-- 1. Base Model Selector -->
-                    <div class="lab-step">
-                        <label class="lab-step-label">1. SILUETA BASE:</label>
-                        <div class="lab-option-grid" id="lab-base-options">
-                            <button type="button" class="lab-opt-btn active" data-model="boss" data-name="THE BOSS BLACK" data-baseprice="899" data-img="assets/mockup (5).webp">
-                                THE BOSS ($899)
-                            </button>
-                            <button type="button" class="lab-opt-btn" data-model="patron" data-name="EL PATRÓN WHITE" data-baseprice="899" data-img="assets/mockup (6).webp">
-                                EL PATRÓN ($899)
-                            </button>
-                            <button type="button" class="lab-opt-btn" data-model="urban" data-name="URBAN LEGEND" data-baseprice="799" data-img="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp">
-                                URBAN ($799)
-                            </button>
-                            <button type="button" class="lab-opt-btn" data-model="gold" data-name="GOLD STANDARD" data-baseprice="999" data-img="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp">
-                                GOLD ($999)
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 2. Detalle de Acabado -->
-                    <div class="lab-step">
-                        <label class="lab-step-label">2. ACABADO DE PLACA / DETALLE:</label>
-                        <div class="lab-color-swatches" id="lab-finish-options">
-                            <button type="button" class="swatch-btn active" data-finish="gold" title="Oro 24K Cepillado" style="background: #D4AF37;"></button>
-                            <button type="button" class="swatch-btn" data-finish="silver" title="Plata Titanio" style="background: #d1d5db;"></button>
-                            <button type="button" class="swatch-btn" data-finish="black" title="Negro Mate Absoluto" style="background: #111; border: 1px solid #555;"></button>
-                            <button type="button" class="swatch-btn" data-finish="crimson" title="Rojo Sangre Carmín" style="background: #8b0000;"></button>
-                        </div>
-                    </div>
-
-                    <!-- 3. Monograma de Iniciales -->
-                    <div class="lab-step">
-                        <label class="lab-step-label">3. MONOGRAMA PERSONALIZADO (MÁX 3 LETRAS):</label>
-                        <div class="lab-input-row">
-                            <input type="text" id="lab-monogram-input" maxlength="3" value="CP" placeholder="EJ: SV" autocomplete="off">
-                            <span class="lab-cost-tag">+$150 MXN (GRABADO LÁSER)</span>
-                        </div>
-                    </div>
-
-                    <!-- Price & CTA Box -->
-                    <div class="lab-pricing-cta">
-                        <div class="lab-price-display">
-                            <span>TOTAL PIEZA A MEDIDA:</span>
-                            <strong id="lab-total-price">$1,049 MXN</strong>
-                        </div>
-                        <button type="button" class="btn-primary lab-add-cart-btn" id="lab-add-cart-btn">
-                            <i class="fas fa-hammer"></i> FORJAR Y AGREGAR AL ARSENAL
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1114,7 +1025,6 @@
                         <option value="NOCHE ETERNA TRUCKER">NOCHE ETERNA TRUCKER</option>
                         <option value="CAJA RÍGIDA EDICIÓN BÓVEDA">CAJA RÍGIDA EDICIÓN BÓVEDA</option>
                         <option value="PIN METÁLICO MONOGRAMA ORO 24K">PIN METÁLICO MONOGRAMA ORO 24K</option>
-                        <option value="CAPO LAB CUSTOM">CAPO LAB PERSONALIZADO</option>
                     </select>
                 </div>
 
