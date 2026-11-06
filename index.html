@@ -5,12 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAPO | Gorras Exclusivas & Streetwear de Lujo</title>
-    <meta name="description" content="CAPO - La marca definitiva en gorras de lujo y estilo urbano brutalista. Define tu legado.">
+    <meta name="description" content="CAPO - La marca definitiva en gorras de lujo y estilo urbano brutalista. Ediciones limitadas, acabados automotrices y piezas numeradas. Define tu legado.">
+    <meta name="keywords" content="gorras capo, gorras de lujo, streetwear mexico, gorras exclusivas, the boss black, gold standard, snapback premium">
+    <meta name="author" content="CAPO Store">
+    <meta name="theme-color" content="#D4AF37">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Arcano3Ai/CAPO">
+    <meta property="og:title" content="CAPO | Gorras Exclusivas & Streetwear de Lujo">
+    <meta property="og:description" content="Define tu legado con la colección de gorras de lujo más exclusiva del streetwear.">
+    <meta property="og:image" content="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CAPO | Gorras Exclusivas">
+    <meta name="twitter:description" content="Lujo urbano brutalista. Piezas de colección numeradas.">
+    <meta name="twitter:image" content="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp">
+
+    <!-- PWA Manifest & Favicons -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp">
+
+    <!-- Stylesheets & Fonts -->
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Schema.org Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ClothingStore",
+      "name": "CAPO Store",
+      "description": "Tienda oficial de gorras exclusivas de lujo y streetwear.",
+      "url": "https://github.com/Arcano3Ai/CAPO",
+      "priceRange": "$$$",
+      "currenciesAccepted": "MXN",
+      "paymentAccepted": "Cash, Credit Card, SPEI",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Colección Imperio 2026",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "The Boss Black",
+              "price": "899",
+              "priceCurrency": "MXN"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "El Patrón White",
+              "price": "899",
+              "priceCurrency": "MXN"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Urban Legend",
+              "price": "799",
+              "priceCurrency": "MXN"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Gold Standard",
+              "price": "999",
+              "priceCurrency": "MXN"
+            }
+          }
+        ]
+      }
+    }
+    </script>
 </head>
 
 <body>
@@ -18,9 +96,10 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Audio Player (Floating Widget) -->
+    <!-- Audio Player (Floating Widget con MP3 optimizado y fallback WAV) -->
     <div class="audio-player" id="audio-player-widget">
         <audio id="bg-music" loop preload="auto">
+            <source src="assets/CAPOCANCION.mp3" type="audio/mpeg">
             <source src="assets/CAPOCANCION.wav" type="audio/wav">
         </audio>
         <div class="player-controls">
@@ -52,7 +131,7 @@
         </ul>
 
         <div class="nav-actions">
-            <!-- Search Button & Expandable Bar -->
+            <!-- Search Button -->
             <button class="nav-btn btn-search-toggle" id="search-toggle-btn" aria-label="Abrir buscador">
                 <i class="fas fa-search"></i>
             </button>
@@ -86,7 +165,7 @@
     <!-- Hero Section -->
     <header id="inicio" class="hero">
         <div class="hero-overlay"></div>
-        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.png" alt="CAPO Hero Background" class="hero-bg" loading="eager">
+        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp" alt="CAPO Hero Background" class="hero-bg" loading="eager">
         <div class="hero-content">
             <p class="hero-tagline fade-in-up">EDICIÓN LIMITADA 2026</p>
             <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
@@ -97,20 +176,39 @@
         </div>
     </header>
 
-    <!-- Main Collection: IMPERIO -->
+    <!-- Main Collection: IMPERIO with Category Filter & Sort Engine -->
     <section id="coleccion" class="collection section-padding">
         <div class="container-fluid">
             <div class="collection-header-row">
                 <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
-                <span class="section-count">4 PIEZAS DE ALTA GAMA</span>
+                <span class="section-count" id="catalog-count-badge">MOSTRANDO 4 PIEZAS</span>
+            </div>
+
+            <!-- Interactive Catalog Filter & Sorter Toolbar -->
+            <div class="catalog-toolbar">
+                <div class="filter-tabs" id="catalog-filter-tabs">
+                    <button class="filter-tab active" data-filter="all">TODAS</button>
+                    <button class="filter-tab" data-filter="jefes">LÍNEA JEFES</button>
+                    <button class="filter-tab" data-filter="calle">LÍNEA CALLE</button>
+                    <button class="filter-tab" data-filter="oro">ORO NEGRO</button>
+                </div>
+                <div class="sort-wrapper">
+                    <label for="catalog-sort-select"><i class="fas fa-sort-amount-down"></i> ORDENAR:</label>
+                    <select id="catalog-sort-select">
+                        <option value="featured">DESTACADOS</option>
+                        <option value="price-asc">PRECIO: MENOR A MAYOR</option>
+                        <option value="price-desc">PRECIO: MAYOR A MENOR</option>
+                        <option value="alpha">ALFABÉTICO (A - Z)</option>
+                    </select>
+                </div>
             </div>
             
             <div class="product-grid" id="main-product-grid">
                 <!-- Product 1 -->
-                <article class="product-card" data-id="capo-boss-black" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).png" data-category="jefes" data-desc="Gorra estructurada con corona alta reforzada, bordado 3D en hilo negro mate y herrajes premium.">
+                <article class="product-card" data-id="capo-boss-black" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).webp" data-category="jefes" data-desc="Gorra estructurada con corona alta reforzada, bordado 3D en hilo negro mate y herrajes premium.">
                     <div class="product-badge">BESTSELLER</div>
                     <div class="product-image">
-                        <img src="assets/mockup%20(5).png" alt="Gorra CAPO The Boss Black" loading="lazy">
+                        <img src="assets/mockup%20(5).webp" alt="Gorra CAPO The Boss Black" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
@@ -124,10 +222,10 @@
                 </article>
 
                 <!-- Product 2 -->
-                <article class="product-card" data-id="capo-patron-white" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).png" data-category="jefes" data-desc="Diseño blanco marfil con contraste brutalista, detalles bordados con precisión milimétrica y cierre ajustable personalizado.">
+                <article class="product-card" data-id="capo-patron-white" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).webp" data-category="jefes" data-desc="Diseño blanco marfil con contraste brutalista, detalles bordados con precisión milimétrica y cierre ajustable personalizado.">
                     <div class="product-badge">EXCLUSIVO</div>
                     <div class="product-image">
-                        <img src="assets/mockup%20(6).png" alt="Gorra CAPO El Patrón White" loading="lazy">
+                        <img src="assets/mockup%20(6).webp" alt="Gorra CAPO El Patrón White" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
@@ -141,9 +239,9 @@
                 </article>
 
                 <!-- Product 3 -->
-                <article class="product-card" data-id="capo-urban-legend" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" data-category="calle" data-desc="Creada para dominar el asfalto. Tejido ultra resistente a la abrasión con panel frontal absorbente y estilo industrial rudo.">
+                <article class="product-card" data-id="capo-urban-legend" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp" data-category="calle" data-desc="Creada para dominar el asfalto. Tejido ultra resistente a la abrasión con panel frontal absorbente y estilo industrial rudo.">
                     <div class="product-image">
-                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Gorra CAPO Urban Legend" loading="lazy">
+                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp" alt="Gorra CAPO Urban Legend" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
@@ -157,10 +255,10 @@
                 </article>
 
                 <!-- Product 4 -->
-                <article class="product-card" data-id="capo-gold-standard" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" data-category="oro" data-desc="El pináculo del lujo urbano. Placa metálica bañada en tono oro cepillado y forro interno satinado monograma CAPO.">
+                <article class="product-card" data-id="capo-gold-standard" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp" data-category="oro" data-desc="El pináculo del lujo urbano. Placa metálica bañada en tono oro cepillado y forro interno satinado monograma CAPO.">
                     <div class="product-badge gold-badge">PIEZA MAESTRA</div>
                     <div class="product-image">
-                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gorra CAPO Gold Standard" loading="lazy">
+                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp" alt="Gorra CAPO Gold Standard" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $999</button>
@@ -184,9 +282,9 @@
                 <p class="collection-desc">PARA LOS QUE MANDAN. SIN PERMISO NI EXCUSAS.</p>
             </div>
             <div class="product-grid">
-                <article class="product-card" data-id="capo-boss-black-2" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).png" data-category="jefes" data-desc="La insignia de autoridad. Silueta clásica con actitud sin concesiones.">
+                <article class="product-card" data-id="capo-boss-black-2" data-name="THE BOSS BLACK" data-price="899" data-image="assets/mockup (5).webp" data-category="jefes" data-desc="La insignia de autoridad. Silueta clásica con actitud sin concesiones.">
                     <div class="product-image">
-                        <img src="assets/mockup%20(5).png" alt="The Boss" loading="lazy">
+                        <img src="assets/mockup%20(5).webp" alt="The Boss" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
@@ -199,9 +297,9 @@
                     </div>
                 </article>
 
-                <article class="product-card" data-id="capo-patron-white-2" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).png" data-category="jefes" data-desc="Imponente y nítida. Una declaración de presencia pura en cualquier entorno.">
+                <article class="product-card" data-id="capo-patron-white-2" data-name="EL PATRÓN WHITE" data-price="899" data-image="assets/mockup (6).webp" data-category="jefes" data-desc="Imponente y nítida. Una declaración de presencia pura en cualquier entorno.">
                     <div class="product-image">
-                        <img src="assets/mockup%20(6).png" alt="El Patron" loading="lazy">
+                        <img src="assets/mockup%20(6).webp" alt="El Patron" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $899</button>
@@ -225,9 +323,9 @@
                 <p class="collection-desc">EL RESPETO SE GANA EN EL ASFALTO.</p>
             </div>
             <div class="product-grid">
-                <article class="product-card" data-id="capo-urban-legend-2" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" data-category="calle" data-desc="Resistencia y estética subterránea para el día a día sin perder el porte.">
+                <article class="product-card" data-id="capo-urban-legend-2" data-name="URBAN LEGEND" data-price="799" data-image="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp" data-category="calle" data-desc="Resistencia y estética subterránea para el día a día sin perder el porte.">
                     <div class="product-image">
-                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Urban Legend" loading="lazy">
+                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp" alt="Urban Legend" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
@@ -240,9 +338,9 @@
                     </div>
                 </article>
 
-                <article class="product-card" data-id="capo-concrete-king" data-name="CONCRETE KING" data-price="799" data-image="assets/ChatGPT Image 13 feb 2026, 21_44_18.png" data-category="calle" data-desc="Nacida del concreto. Estilo rudo con detalles desgastados a mano para máxima autenticidad.">
+                <article class="product-card" data-id="capo-concrete-king" data-name="CONCRETE KING" data-price="799" data-image="assets/ChatGPT Image 13 feb 2026, 21_44_18.webp" data-category="calle" data-desc="Nacida del concreto. Estilo rudo con detalles desgastados a mano para máxima autenticidad.">
                     <div class="product-image">
-                        <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" style="filter: brightness(0.8);" alt="Concrete King" loading="lazy">
+                        <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.webp" style="filter: brightness(0.8);" alt="Concrete King" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $799</button>
@@ -266,10 +364,10 @@
                 <p class="collection-desc">LUJO PURO. PRODUCCIÓN LIMITADA A 100 PIEZAS POR LOTE.</p>
             </div>
             <div class="product-grid single-focus">
-                <article class="product-card featured" data-id="capo-gold-standard-featured" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" data-category="oro" data-desc="Acabado premium en relieve con aplique de oro cepillado. Incluye certificado de autenticidad y caja rígida de colección.">
+                <article class="product-card featured" data-id="capo-gold-standard-featured" data-name="GOLD STANDARD" data-price="999" data-image="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp" data-category="oro" data-desc="Acabado premium en relieve con aplique de oro cepillado. Incluye certificado de autenticidad y caja rígida de colección.">
                     <div class="product-badge gold-badge">EDICIÓN NUMERADA</div>
                     <div class="product-image">
-                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gold Standard Featured" loading="lazy">
+                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp" alt="Gold Standard Featured" loading="lazy">
                         <div class="card-action-overlay">
                             <button class="btn-quick-view" data-action="quick-view">VISTA RÁPIDA</button>
                             <button class="btn-add-cart" data-action="add-cart">AGREGAR $999</button>
@@ -289,28 +387,28 @@
     <section id="estilo" class="lifestyle">
         <div class="lifestyle-grid">
             <div class="lifestyle-item large">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" alt="Estilo Urbano CAPO" loading="lazy">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.webp" alt="Estilo Urbano CAPO" loading="lazy">
                 <div class="lifestyle-content">
                     <span class="lifestyle-tag">LOOKBOOK 2026</span>
                     <h3>SIN LÍMITES</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_50_19.png" alt="Detalle Premium CAPO" loading="lazy">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_50_19.webp" alt="Detalle Premium CAPO" loading="lazy">
                 <div class="lifestyle-content">
                     <span class="lifestyle-tag">DETALLE ARTESANAL</span>
                     <h3>PODER</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_39_47.png" alt="Diseño Exclusivo CAPO" loading="lazy">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_39_47.webp" alt="Diseño Exclusivo CAPO" loading="lazy">
                 <div class="lifestyle-content">
                     <span class="lifestyle-tag">CORTE ESTRUCTURADO</span>
                     <h3>SUPREMACÍA</h3>
                 </div>
             </div>
             <div class="lifestyle-item">
-                <img src="assets/Gemini_Generated_Image_9us3ks9us3ks9us3.png" alt="Estilo de Vida CAPO" loading="lazy">
+                <img src="assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp" alt="Estilo de Vida CAPO" loading="lazy">
                 <div class="lifestyle-content">
                     <span class="lifestyle-tag">AUTENTICIDAD</span>
                     <h3>ACTITUD</h3>
@@ -400,7 +498,16 @@
 
         <!-- Dynamic Cart Items Container -->
         <div class="cart-items" id="cart-items">
-            <!-- Empty State / Dynamically populated items -->
+            <!-- Dynamically populated items -->
+        </div>
+
+        <!-- Promo Code / Coupon Section -->
+        <div class="cart-coupon-section">
+            <div class="coupon-input-group">
+                <input type="text" id="coupon-code-input" placeholder="CÓDIGO DE DESCUENTO (EJ: CAPO10)" uppercase autocomplete="off">
+                <button type="button" id="btn-apply-coupon" class="btn-coupon">APLICAR</button>
+            </div>
+            <div id="coupon-feedback" class="coupon-feedback" aria-live="polite"></div>
         </div>
 
         <!-- Cart Summary Footer -->
@@ -408,6 +515,10 @@
             <div class="cart-summary-line">
                 <span>SUBTOTAL:</span>
                 <span id="cart-subtotal">$0 MXN</span>
+            </div>
+            <div class="cart-summary-line" id="discount-summary-line" style="display: none; color: var(--accent-color);">
+                <span>DESCUENTO APLICADO:</span>
+                <span id="cart-discount-val">-$0 MXN</span>
             </div>
             <div class="cart-summary-line">
                 <span>ENVÍO:</span>
@@ -462,7 +573,7 @@
         </div>
     </div>
 
-    <!-- Checkout Modal -->
+    <!-- Checkout Modal with Dual Dispatch: Card / SPEI & WhatsApp -->
     <div class="modal-overlay" id="checkout-modal" aria-hidden="true">
         <div class="modal-card checkout-card">
             <button class="modal-close-btn" id="checkout-close-btn" aria-label="Cerrar checkout">
@@ -521,9 +632,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary btn-submit-order" id="btn-submit-order">
-                    PAGAR Y ASEGURAR PEDIDO
-                </button>
+                <div class="checkout-actions-row">
+                    <button type="submit" class="btn-primary btn-submit-order" id="btn-submit-order">
+                        PAGAR Y ASEGURAR PEDIDO
+                    </button>
+                    <button type="button" class="btn-whatsapp-order" id="btn-whatsapp-order">
+                        <i class="fab fa-whatsapp"></i> PEDIR DIRECTO POR WHATSAPP
+                    </button>
+                </div>
             </form>
 
             <!-- Order Success Confirmation Screen -->
@@ -532,7 +648,12 @@
                 <h2>¡ORDEN <span class="highlight">CONFIRMADA</span>!</h2>
                 <p class="order-number">PEDIDO REGISTRADO: <strong id="order-success-id">#CAPO-0000</strong></p>
                 <p class="success-details">Hemos recibido tu solicitud. Te enviaremos el número de rastreo y detalles de embalaje blindado vía WhatsApp y correo.</p>
-                <button class="btn-primary" id="btn-finish-success">VOLVER A LA TIENDA</button>
+                <div class="success-buttons-group">
+                    <button class="btn-whatsapp-order" id="btn-whatsapp-success-share">
+                        <i class="fab fa-whatsapp"></i> ENVIAR DETALLES POR WHATSAPP
+                    </button>
+                    <button class="btn-secondary" id="btn-finish-success">VOLVER A LA TIENDA</button>
+                </div>
             </div>
         </div>
     </div>

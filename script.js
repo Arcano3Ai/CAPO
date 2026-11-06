@@ -1,29 +1,55 @@
 /**
  * CAPO Store - Core Application Engine
  * Architecture: Clean, Event-Driven & Modular Vanilla JS
- * Version: 2.0.0
+ * Version: 2.1.0
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     // =========================================================
-    // 1. STATE MANAGEMENT: CART & STORAGE
+    // 0. PWA SERVICE WORKER REGISTRATION
+    // =========================================================
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('✓ Service Worker registrado:', reg.scope))
+                .catch(err => console.warn('Service Worker registration skipped:', err));
+        });
+    }
+
+    // =========================================================
+    // 1. STATE MANAGEMENT: CART, COUPONS & STORAGE
     // =========================================================
     const CART_STORAGE_KEY = 'capo_store_cart_v2';
+    const COUPON_STORAGE_KEY = 'capo_applied_coupon_v2';
     const FREE_SHIPPING_THRESHOLD = 1500;
     const STANDARD_SHIPPING_COST = 149;
+    const WHATSAPP_STORE_PHONE = '5215500000000'; // Número oficial de pedidos CAPO
+
+    const AVAILABLE_COUPONS = {
+        'CAPO10': { type: 'percent', value: 10, label: '10% OFF EN TU ORDEN' },
+        'LEGADO20': { type: 'percent', value: 20, label: '20% OFF EXCLUSIVO' },
+        'ENVIOVIP': { type: 'free_shipping', value: 0, label: 'ENVÍO GRATIS INCONDICIONAL' }
+    };
 
     const CartState = {
         items: [],
+        appliedCoupon: null,
 
         init() {
             try {
-                const stored = localStorage.getItem(CART_STORAGE_KEY);
-                this.items = stored ? JSON.parse(stored) : [];
+                const storedCart = localStorage.getItem(CART_STORAGE_KEY);
+                this.items = storedCart ? JSON.parse(storedCart) : [];
+
+                const storedCoupon = localStorage.getItem(COUPON_STORAGE_KEY);
+                if (storedCoupon && AVAILABLE_COUPONS[storedCoupon]) {
+                    this.appliedCoupon = { code: storedCoupon, ...AVAILABLE_COUPONS[storedCoupon] };
+                }
             } catch (e) {
                 console.warn('LocalStorage not available, falling back to in-memory state.', e);
                 this.items = [];
+                this.appliedCoupon = null;
             }
             this.syncUI();
         },
@@ -31,6 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
         save() {
             try {
                 localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.items));
+                if (this.appliedCoupon) {
+                    localStorage.setItem(COUPON_STORAGE_KEY, this.appliedCoupon.code);
+                } else {
+                    localStorage.removeItem(COUPON_STORAGE_KEY);
+                }
             } catch (e) {
                 console.warn('Could not save cart state to localStorage.', e);
             }
@@ -75,8 +106,27 @@ document.addEventListener('DOMContentLoaded', () => {
             Toast.show(`✕ ${name} REMOVIDO`);
         },
 
+        applyCoupon(code) {
+            const cleanCode = (code || '').trim().toUpperCase();
+            if (AVAILABLE_COUPONS[cleanCode]) {
+                this.appliedCoupon = { code: cleanCode, ...AVAILABLE_COUPONS[cleanCode] };
+                this.save();
+                Toast.show(`✓ CUPÓN ${cleanCode} APLICADO`);
+                return { success: true, message: `CUPÓN APLICADO: ${this.appliedCoupon.label}` };
+            } else {
+                return { success: false, message: 'CÓDIGO DE CUPÓN INVÁLIDO O EXPIRADO.' };
+            }
+        },
+
+        removeCoupon() {
+            this.appliedCoupon = null;
+            this.save();
+            Toast.show('CUPÓN REMOVIDO');
+        },
+
         clear() {
             this.items = [];
+            this.appliedCoupon = null;
             this.save();
             Toast.show('ARSENAL VACIADO');
         },
@@ -89,13 +139,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         },
 
+        getDiscountAmount() {
+            if (!this.appliedCoupon || this.items.length === 0) return 0;
+            if (this.appliedCoupon.type === 'percent') {
+                return Math.round(this.getSubtotal() * (this.appliedCoupon.value / 100));
+            }
+            return 0;
+        },
+
         getShippingCost() {
             if (this.items.length === 0) return 0;
+            if (this.appliedCoupon && this.appliedCoupon.type === 'free_shipping') return 0;
             return this.getSubtotal() >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
         },
 
         getTotal() {
-            return this.getSubtotal() + this.getShippingCost();
+            const sub = this.getSubtotal();
+            const disc = this.getDiscountAmount();
+            const ship = this.getShippingCost();
+            return Math.max(0, sub - disc + ship);
         },
 
         syncUI() {
@@ -141,10 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
         itemsContainer: document.getElementById('cart-items'),
         drawerCount: document.getElementById('cart-drawer-count'),
         subtotalEl: document.getElementById('cart-subtotal'),
+        discountLine: document.getElementById('discount-summary-line'),
+        discountVal: document.getElementById('cart-discount-val'),
         shippingCostEl: document.getElementById('cart-shipping-cost'),
         totalEl: document.getElementById('cart-total'),
         shippingTextEl: document.getElementById('shipping-notice-text'),
         shippingProgressFill: document.getElementById('shipping-progress-fill'),
+        couponInput: document.getElementById('coupon-code-input'),
+        btnApplyCoupon: document.getElementById('btn-apply-coupon'),
+        couponFeedback: document.getElementById('coupon-feedback'),
         clearBtn: document.getElementById('btn-clear-cart'),
         checkoutBtn: document.getElementById('btn-checkout'),
 
@@ -174,6 +241,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     this.close();
                     CheckoutModal.open();
+                });
+            }
+
+            // Coupon Button Handler
+            if (this.btnApplyCoupon && this.couponInput) {
+                this.btnApplyCoupon.addEventListener('click', () => {
+                    const code = this.couponInput.value.trim();
+                    if (!code) return;
+                    const res = CartState.applyCoupon(code);
+                    if (this.couponFeedback) {
+                        this.couponFeedback.className = `coupon-feedback ${res.success ? 'success' : 'error'}`;
+                        this.couponFeedback.textContent = res.message;
+                    }
+                    if (res.success) this.couponInput.value = '';
                 });
             }
 
@@ -222,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         render() {
             const count = CartState.getCount();
             const subtotal = CartState.getSubtotal();
+            const discount = CartState.getDiscountAmount();
             const shipping = CartState.getShippingCost();
             const total = CartState.getTotal();
 
@@ -239,6 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (count === 0) {
                     this.shippingTextEl.textContent = `Agrega $${FREE_SHIPPING_THRESHOLD.toLocaleString()} para ENVÍO GRATIS`;
                     this.shippingProgressFill.style.width = '0%';
+                } else if (CartState.appliedCoupon && CartState.appliedCoupon.type === 'free_shipping') {
+                    this.shippingTextEl.innerHTML = `<span style="color: var(--accent-color);">✓ CUPÓN ENVÍO GRATIS ACTIVO</span>`;
+                    this.shippingProgressFill.style.width = '100%';
                 } else if (subtotal >= FREE_SHIPPING_THRESHOLD) {
                     this.shippingTextEl.innerHTML = `<span style="color: var(--accent-color);">✓ ¡TIENES ENVÍO GRATIS APLICADO!</span>`;
                     this.shippingProgressFill.style.width = '100%';
@@ -287,6 +372,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Update Financial Summaries
             if (this.subtotalEl) this.subtotalEl.textContent = `$${subtotal.toLocaleString()} MXN`;
+
+            if (this.discountLine && this.discountVal) {
+                if (discount > 0) {
+                    this.discountLine.style.display = 'flex';
+                    this.discountVal.textContent = `-$${discount.toLocaleString()} MXN (${CartState.appliedCoupon.code})`;
+                } else {
+                    this.discountLine.style.display = 'none';
+                }
+            }
+
             if (this.shippingCostEl) {
                 this.shippingCostEl.textContent = shipping === 0 ? (count === 0 ? '$0 MXN' : 'GRATIS') : `$${shipping} MXN`;
             }
@@ -368,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================
-    // 5. CHECKOUT MODAL CONTROLLER
+    // 5. CHECKOUT MODAL & WHATSAPP DISPATCHER
     // =========================================================
     const CheckoutModal = {
         overlay: document.getElementById('checkout-modal'),
@@ -376,9 +471,12 @@ document.addEventListener('DOMContentLoaded', () => {
         form: document.getElementById('checkout-form'),
         summaryItems: document.getElementById('checkout-summary-items'),
         summaryTotal: document.getElementById('checkout-summary-total'),
+        whatsappBtn: document.getElementById('btn-whatsapp-order'),
+        whatsappShareBtn: document.getElementById('btn-whatsapp-success-share'),
         successScreen: document.getElementById('order-success-screen'),
         successOrderId: document.getElementById('order-success-id'),
         finishSuccessBtn: document.getElementById('btn-finish-success'),
+        lastGeneratedOrder: null,
 
         init() {
             if (this.closeBtn) {
@@ -403,7 +501,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.form) {
                 this.form.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    this.processOrder();
+                    this.processOrder('card_or_spei');
+                });
+            }
+
+            // Direct WhatsApp Order Button
+            if (this.whatsappBtn) {
+                this.whatsappBtn.addEventListener('click', () => {
+                    const name = document.getElementById('order-name').value.trim();
+                    const phone = document.getElementById('order-phone').value.trim();
+                    const address = document.getElementById('order-address').value.trim();
+
+                    if (!name || !phone || !address) {
+                        Toast.show('COMPLETA LOS DATOS DE ENTREGA ANTES DE ENVIAR A WHATSAPP');
+                        return;
+                    }
+                    this.processOrder('whatsapp');
+                });
+            }
+
+            if (this.whatsappShareBtn) {
+                this.whatsappShareBtn.addEventListener('click', () => {
+                    if (this.lastGeneratedOrder) {
+                        this.openWhatsApp(this.lastGeneratedOrder);
+                    }
                 });
             }
 
@@ -438,31 +559,168 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         },
 
-        processOrder() {
+        buildOrderPayload() {
+            const name = document.getElementById('order-name').value.trim() || 'Cliente VIP';
+            const phone = document.getElementById('order-phone').value.trim() || 'Sin teléfono';
+            const address = document.getElementById('order-address').value.trim() || 'Dirección por confirmar';
+            const paymentInput = document.querySelector('input[name="payment-method"]:checked');
+            const paymentMethod = paymentInput ? paymentInput.value : 'card';
+
+            const methodLabels = {
+                'card': 'Tarjeta Débito / Crédito',
+                'transfer': 'Transferencia SPEI Inmediata',
+                'cod': 'Pago contra Entrega'
+            };
+
+            const randomId = '#CAPO-' + Math.floor(100000 + Math.random() * 900000);
+
+            return {
+                orderId: randomId,
+                name: name,
+                phone: phone,
+                address: address,
+                paymentMethod: methodLabels[paymentMethod] || 'Tarjeta',
+                items: [...CartState.items],
+                subtotal: CartState.getSubtotal(),
+                discount: CartState.getDiscountAmount(),
+                shipping: CartState.getShippingCost(),
+                total: CartState.getTotal()
+            };
+        },
+
+        openWhatsApp(order) {
+            let msg = `👑 *ORDEN OFICIAL CAPO STORE*\n`;
+            msg += `*Folio:* ${order.orderId}\n`;
+            msg += `*Cliente:* ${order.name}\n`;
+            msg += `*Teléfono:* ${order.phone}\n`;
+            msg += `*Dirección:* ${order.address}\n`;
+            msg += `*Método de Pago:* ${order.paymentMethod}\n`;
+            msg += `---------------------------------\n`;
+            msg += `*ARTÍCULOS SOLICITADOS:*\n`;
+
+            order.items.forEach(item => {
+                msg += `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toLocaleString()} MXN\n`;
+            });
+
+            msg += `---------------------------------\n`;
+            msg += `*Subtotal:* $${order.subtotal.toLocaleString()} MXN\n`;
+            if (order.discount > 0) {
+                msg += `*Descuento:* -$${order.discount.toLocaleString()} MXN\n`;
+            }
+            msg += `*Envío:* ${order.shipping === 0 ? 'GRATIS' : `$${order.shipping} MXN`}\n`;
+            msg += `*TOTAL A LIQUIDAR:* $${order.total.toLocaleString()} MXN\n\n`;
+            msg += `_Solicito confirmación de inventario y envío de este pedido._`;
+
+            const encoded = encodeURIComponent(msg);
+            const waUrl = `https://wa.me/${WHATSAPP_STORE_PHONE}?text=${encoded}`;
+            window.open(waUrl, '_blank');
+        },
+
+        processOrder(type = 'card_or_spei') {
             const submitBtn = document.getElementById('btn-submit-order');
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = 'PROCESANDO TRANSACCIÓN...';
 
+            const order = this.buildOrderPayload();
+            this.lastGeneratedOrder = order;
+
             setTimeout(() => {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
 
-                // Generate random unique ID
-                const randomId = '#CAPO-' + Math.floor(100000 + Math.random() * 900000);
-                if (this.successOrderId) this.successOrderId.textContent = randomId;
+                if (this.successOrderId) this.successOrderId.textContent = order.orderId;
 
                 this.form.style.display = 'none';
                 this.successScreen.style.display = 'block';
 
+                if (type === 'whatsapp') {
+                    this.openWhatsApp(order);
+                }
+
                 // Empty cart after successful order
                 CartState.clear();
-            }, 1200);
+            }, 1000);
         }
     };
 
     // =========================================================
-    // 6. INFORMATIONAL POLICY MODAL
+    // 6. CATALOG ENGINE: FILTERING & SORTING
+    // =========================================================
+    const CatalogEngine = {
+        mainGrid: document.getElementById('main-product-grid'),
+        filterTabs: document.querySelectorAll('.filter-tab'),
+        sortSelect: document.getElementById('catalog-sort-select'),
+        countBadge: document.getElementById('catalog-count-badge'),
+        currentFilter: 'all',
+        currentSort: 'featured',
+
+        init() {
+            if (!this.mainGrid) return;
+
+            // Filter Tabs Click
+            this.filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    this.filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    this.currentFilter = tab.getAttribute('data-filter') || 'all';
+                    this.applyFilterAndSort();
+                });
+            });
+
+            // Sort Select Change
+            if (this.sortSelect) {
+                this.sortSelect.addEventListener('change', (e) => {
+                    this.currentSort = e.target.value;
+                    this.applyFilterAndSort();
+                });
+            }
+        },
+
+        applyFilterAndSort() {
+            const cards = Array.from(this.mainGrid.querySelectorAll('.product-card'));
+            let visibleCount = 0;
+
+            // 1. Filter
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category') || '';
+                const matches = (this.currentFilter === 'all') || (category === this.currentFilter);
+
+                if (matches) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // 2. Sort visible cards
+            const visibleCards = cards.filter(card => card.style.display !== 'none');
+
+            visibleCards.sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price')) || 0;
+                const priceB = parseFloat(b.getAttribute('data-price')) || 0;
+                const nameA = (a.getAttribute('data-name') || '').toLowerCase();
+                const nameB = (b.getAttribute('data-name') || '').toLowerCase();
+
+                if (this.currentSort === 'price-asc') return priceA - priceB;
+                if (this.currentSort === 'price-desc') return priceB - priceA;
+                if (this.currentSort === 'alpha') return nameA.localeCompare(nameB);
+                return 0; // Default featured
+            });
+
+            // Re-append sorted cards
+            visibleCards.forEach(card => this.mainGrid.appendChild(card));
+
+            // Update count badge
+            if (this.countBadge) {
+                this.countBadge.textContent = `MOSTRANDO ${visibleCount} ${visibleCount === 1 ? 'PIEZA' : 'PIEZAS'}`;
+            }
+        }
+    };
+
+    // =========================================================
+    // 7. INFORMATIONAL POLICY MODAL
     // =========================================================
     const InfoModal = {
         overlay: document.getElementById('info-modal'),
@@ -538,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================
-    // 7. PRODUCT CARD ACTIONS LISTENER (DELEGATION)
+    // 8. PRODUCT CARD ACTIONS LISTENER (DELEGATION)
     // =========================================================
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-action]');
@@ -566,7 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // 8. INTERACTIVE SEARCH ENGINE IN NAVBAR
+    // 9. INTERACTIVE SEARCH ENGINE IN NAVBAR
     // =========================================================
     const searchToggleBtn = document.getElementById('search-toggle-btn');
     const searchBar = document.getElementById('nav-search-bar');
@@ -602,7 +860,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            let matchesCount = 0;
             productCards.forEach(card => {
                 const name = (card.getAttribute('data-name') || '').toLowerCase();
                 const cat = (card.getAttribute('data-category') || '').toLowerCase();
@@ -610,7 +867,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (name.includes(query) || cat.includes(query) || desc.includes(query)) {
                     card.style.display = '';
-                    matchesCount++;
                 } else {
                     card.style.display = 'none';
                 }
@@ -619,7 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 9. MOBILE MENU CONTROLLER
+    // 10. MOBILE MENU CONTROLLER
     // =========================================================
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const navMenu = document.getElementById('nav-menu');
@@ -631,7 +887,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburgerBtn.setAttribute('aria-expanded', isOpen);
         });
 
-        // Close on link click
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
@@ -642,7 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 10. NEWSLETTER FORM HANDLER
+    // 11. NEWSLETTER FORM HANDLER
     // =========================================================
     const newsletterForm = document.getElementById('newsletter-form');
     const newsletterFeedback = document.getElementById('newsletter-feedback');
@@ -672,7 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 11. AUDIO PLAYER & EQUALIZER CONTROLLER
+    // 12. AUDIO PLAYER & EQUALIZER CONTROLLER
     // =========================================================
     const audio = document.getElementById('bg-music');
     const playBtn = document.getElementById('play-btn');
@@ -686,15 +941,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateAudioState = (isPlaying) => {
             if (isPlaying) {
                 playerWidget.classList.remove('paused');
-                if (playIcon) {
-                    playIcon.className = 'fas fa-pause';
-                }
+                if (playIcon) playIcon.className = 'fas fa-pause';
                 if (playText) playText.textContent = 'PAUSA';
             } else {
                 playerWidget.classList.add('paused');
-                if (playIcon) {
-                    playIcon.className = 'fas fa-play';
-                }
+                if (playIcon) playIcon.className = 'fas fa-play';
                 if (playText) playText.textContent = 'SOUNDTRACK';
             }
         };
@@ -709,7 +960,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
 
-        // Try playing or wait for first gesture
         tryPlayAudio();
         document.addEventListener('click', tryPlayAudio, { once: true });
         document.addEventListener('touchstart', tryPlayAudio, { once: true });
@@ -726,7 +976,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 12. CUSTOM CURSOR (60FPS RAF PERFORMANCE)
+    // 13. CUSTOM CURSOR (60FPS RAF PERFORMANCE)
     // =========================================================
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
@@ -758,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // 13. GLOBAL ESC KEYBOARD LISTENER (ACCESSIBILITY)
+    // 14. GLOBAL ESC KEYBOARD LISTENER (ACCESSIBILITY)
     // =========================================================
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -778,5 +1028,6 @@ document.addEventListener('DOMContentLoaded', () => {
     CartUI.init();
     QuickViewModal.init();
     CheckoutModal.init();
+    CatalogEngine.init();
     InfoModal.init();
 });
