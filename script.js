@@ -47,305 +47,650 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. DATA LAYER: PRODUCTS CATALOG (CENTRALIZED STORE)
     // =========================================================
     const PRODUCTS_CATALOG = [
-        {
-            id: "capo-boss-black",
-            sku: "CP-BB-001",
-            name: "THE BOSS BLACK",
-            category: "jefes",
-            categoryLabel: "LÍNEA JEFES",
-            price: 899,
-            originalPrice: 1099,
-            stock: 4,
-            badge: "BESTSELLER",
-            images: [
-                "assets/mockup (5).webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
-            ],
-            rating: 5.0,
-            reviewCount: 84,
-            description: "La pieza definitiva de autoridad. Corona alta reforzada con entretela indeformable de doble capa, bordado 3D en hilo negro mate con acabado de alta densidad y broche metálico inoxidable con monograma grabado.",
-            specs: {
-                corona: "Estructurada alta (A-Frame 6 paneles)",
-                visera: "Curva pronunciada indeformable",
-                material: "100% Algodón Premium Pesado 380 GSM",
-                broche: "Hebilla metálica antioxidable personalizada",
-                talla: "Ajustable Universal (56 - 62 cm)"
-            }
+    {
+        "id": "capo-boss-black",
+        "sku": "CP-BB-001",
+        "name": "THE BOSS BLACK",
+        "category": "jefes",
+        "categoryLabel": "LÍNEA JEFES",
+        "price": 899,
+        "originalPrice": 1099,
+        "stock": 4,
+        "badge": "BESTSELLER",
+        "images": [
+            "assets/mockup (5).webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 84,
+        "description": "La pieza definitiva de autoridad. Corona alta reforzada con entretela indeformable de doble capa, bordado 3D en hilo negro mate con acabado de alta densidad y broche metálico inoxidable con monograma grabado.",
+        "specs": {
+            "corona": "Estructurada alta (A-Frame 6 paneles)",
+            "visera": "Curva pronunciada indeformable",
+            "material": "100% Algodón Premium Pesado 380 GSM",
+            "broche": "Hebilla metálica antioxidable personalizada",
+            "talla": "Ajustable Universal (56 - 62 cm)"
         },
-        {
-            id: "capo-patron-white",
-            sku: "CP-PW-002",
-            name: "EL PATRÓN WHITE",
-            category: "jefes",
-            categoryLabel: "LÍNEA JEFES",
-            price: 899,
-            originalPrice: 1099,
-            stock: 6,
-            badge: "EXCLUSIVO",
-            images: [
-                "assets/mockup (6).webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp",
-                "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
-            ],
-            rating: 4.9,
-            reviewCount: 62,
-            description: "Una declaración de pulcritud y dominio absoluto. Blanco marfil con bordado en contraste negro industrial, banda antisudor transpirable y ojillos metálicos ventilados.",
-            specs: {
-                corona: "Estructurada rígida indeformable",
-                visera: "Visera semi-plana moldeable",
-                material: "Algodón peinado con tratamiento repelente a polvo",
-                broche: "Snapback reforzado doble hilera",
-                talla: "Ajustable Universal (56 - 62 cm)"
-            }
+        "collection": "imperio",
+        "collectionLabel": "IMPERIO TEXTIL",
+        "printfulBlank": "Otto Cap 18-204 High Structured Crown Cap"
+    },
+    {
+        "id": "capo-patron-white",
+        "sku": "CP-PW-002",
+        "name": "EL PATRÓN WHITE",
+        "category": "jefes",
+        "categoryLabel": "LÍNEA JEFES",
+        "price": 899,
+        "originalPrice": 1099,
+        "stock": 6,
+        "badge": "EXCLUSIVO",
+        "images": [
+            "assets/mockup (6).webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp",
+            "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 62,
+        "description": "Una declaración de pulcritud y dominio absoluto. Blanco marfil con bordado en contraste negro industrial, banda antisudor transpirable y ojillos metálicos ventilados.",
+        "specs": {
+            "corona": "Estructurada rígida indeformable",
+            "visera": "Visera semi-plana moldeable",
+            "material": "Algodón peinado con tratamiento repelente a polvo",
+            "broche": "Snapback reforzado doble hilera",
+            "talla": "Ajustable Universal (56 - 62 cm)"
         },
-        {
-            id: "capo-urban-legend",
-            sku: "CP-UL-003",
-            name: "URBAN LEGEND",
-            category: "calle",
-            categoryLabel: "LÍNEA CALLE",
-            price: 799,
-            originalPrice: 950,
-            stock: 8,
-            badge: "STREET CORE",
-            images: [
-                "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
-            ],
-            rating: 4.8,
-            reviewCount: 51,
-            description: "Nacida para el rigor del asfalto. Tejido ultra resistente a la fricción y desvanecimiento solar con forro interior monogramado y perfil bajo agresivo.",
-            specs: {
-                corona: "Perfil medio semi-estructurado",
-                visera: "Curva clásica con pespunte militar 8 filas",
-                material: "Sarga de alta durabilidad resistente a rasgaduras",
-                broche: "Correa de cuero genuino con hebilla mate",
-                talla: "Ajustable Universal (55 - 61 cm)"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Yupoong 6089M Classic Flat Bill Snapback"
+    },
+    {
+        "id": "capo-urban-legend",
+        "sku": "CP-UL-003",
+        "name": "URBAN LEGEND",
+        "category": "calle",
+        "categoryLabel": "LÍNEA CALLE",
+        "price": 799,
+        "originalPrice": 950,
+        "stock": 8,
+        "badge": "STREET CORE",
+        "images": [
+            "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
+        ],
+        "rating": 4.8,
+        "reviewCount": 51,
+        "description": "Nacida para el rigor del asfalto. Tejido ultra resistente a la fricción y desvanecimiento solar con forro interior monogramado y perfil bajo agresivo.",
+        "specs": {
+            "corona": "Perfil medio semi-estructurado",
+            "visera": "Curva clásica con pespunte militar 8 filas",
+            "material": "Sarga de alta durabilidad resistente a rasgaduras",
+            "broche": "Correa de cuero genuino con hebilla mate",
+            "talla": "Ajustable Universal (55 - 61 cm)"
         },
-        {
-            id: "capo-gold-standard",
-            sku: "CP-GS-004",
-            name: "GOLD STANDARD",
-            category: "oro",
-            categoryLabel: "ORO NEGRO",
-            price: 999,
-            originalPrice: 1299,
-            stock: 2,
-            badge: "EDICIÓN NUMERADA",
-            images: [
-                "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp",
-                "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
-            ],
-            rating: 5.0,
-            reviewCount: 110,
-            description: "La cumbre del streetwear de lujo. Placa metálica frontal con baño dorado de 24K cepillado, forro interno de satén con hilo dorado y certificado holográfico seriado del 001 al 100.",
-            specs: {
-                corona: "Alta estructurada rígida con forro de satén",
-                visera: "Gamuza negra prémium en reverso",
-                material: "Lana virgen y algodón pesado de grado sastre",
-                broche: "Cierre micrométrico de aleación oro vintage",
-                talla: "Ajustable Universal (56 - 62 cm)"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Yupoong 6245CM Low Profile Cotton Dad Hat"
+    },
+    {
+        "id": "capo-gold-standard",
+        "sku": "CP-GS-004",
+        "name": "GOLD STANDARD",
+        "category": "oro",
+        "categoryLabel": "ORO NEGRO",
+        "price": 999,
+        "originalPrice": 1299,
+        "stock": 2,
+        "badge": "EDICIÓN NUMERADA",
+        "images": [
+            "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp",
+            "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 110,
+        "description": "La cumbre del streetwear de lujo. Placa metálica frontal con baño dorado de 24K cepillado, forro interno de satén con hilo dorado y certificado holográfico seriado del 001 al 100.",
+        "specs": {
+            "corona": "Alta estructurada rígida con forro de satén",
+            "visera": "Gamuza negra prémium en reverso",
+            "material": "Lana virgen y algodón pesado de grado sastre",
+            "broche": "Cierre micrométrico de aleación oro vintage",
+            "talla": "Ajustable Universal (56 - 62 cm)"
         },
-        {
-            id: "capo-concrete-king",
-            sku: "CP-CK-005",
-            name: "CONCRETE KING",
-            category: "calle",
-            categoryLabel: "LÍNEA CALLE",
-            price: 799,
-            originalPrice: 950,
-            stock: 5,
-            badge: "LOTE LIMITADO",
-            images: [
-                "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp",
-                "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
-            ],
-            rating: 4.9,
-            reviewCount: 39,
-            description: "Estética desgastada a mano para un acabado único e irrepetible. Estilo rudo con parche engomado en bajo relieve resistente a climas extremos.",
-            specs: {
-                corona: "Baja estructurada tipo Dad Hat pesada",
-                visera: "Curva con bordes biselados",
-                material: "Algodón lavado a la piedra 400 GSM",
-                broche: "Hebilla deslizante de latón envejecido",
-                talla: "Ajustable Universal (55 - 61 cm)"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Otto Cap Wool-Blend Structured Pro Snapback"
+    },
+    {
+        "id": "capo-concrete-king",
+        "sku": "CP-CK-005",
+        "name": "CONCRETE KING",
+        "category": "calle",
+        "categoryLabel": "LÍNEA CALLE",
+        "price": 799,
+        "originalPrice": 950,
+        "stock": 5,
+        "badge": "LOTE LIMITADO",
+        "images": [
+            "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp",
+            "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 39,
+        "description": "Estética desgastada a mano para un acabado único e irrepetible. Estilo rudo con parche engomado en bajo relieve resistente a climas extremos.",
+        "specs": {
+            "corona": "Baja estructurada tipo Dad Hat pesada",
+            "visera": "Curva con bordes biselados",
+            "material": "Algodón lavado a la piedra 400 GSM",
+            "broche": "Hebilla deslizante de latón envejecido",
+            "talla": "Ajustable Universal (55 - 61 cm)"
         },
-        {
-            id: "capo-supremacy-silver",
-            sku: "CP-SS-006",
-            name: "SUPREMACÍA SILVER",
-            category: "oro",
-            categoryLabel: "ORO NEGRO",
-            price: 949,
-            originalPrice: 1199,
-            stock: 3,
-            badge: "NUEVO DROP",
-            images: [
-                "assets/mockup (6).webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
-            ],
-            rating: 5.0,
-            reviewCount: 27,
-            description: "Placa de titanio plata pulido a espejo sobre corona negro carbón. El contraste supremo para quienes buscan el brillo más nítido y frío de la noche.",
-            specs: {
-                corona: "Estructurada alta 6 paneles con refuerzo frontal",
-                visera: "Visera híbrida con ribete plateado reflectivo",
-                material: "Poliéster técnico impermeable y algodón",
-                broche: "Hebilla de aleación de zinc pulida",
-                talla: "Ajustable Universal (56 - 62 cm)"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Flexfit 6277 Wooly Combed Twill Closed Cap"
+    },
+    {
+        "id": "capo-supremacy-silver",
+        "sku": "CP-SS-006",
+        "name": "SUPREMACÍA SILVER",
+        "category": "oro",
+        "categoryLabel": "ORO NEGRO",
+        "price": 949,
+        "originalPrice": 1199,
+        "stock": 3,
+        "badge": "NUEVO DROP",
+        "images": [
+            "assets/mockup (6).webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_39_47.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 27,
+        "description": "Placa de titanio plata pulido a espejo sobre corona negro carbón. El contraste supremo para quienes buscan el brillo más nítido y frío de la noche.",
+        "specs": {
+            "corona": "Estructurada alta 6 paneles con refuerzo frontal",
+            "visera": "Visera híbrida con ribete plateado reflectivo",
+            "material": "Poliéster técnico impermeable y algodón",
+            "broche": "Hebilla de aleación de zinc pulida",
+            "talla": "Ajustable Universal (56 - 62 cm)"
         },
-        {
-            id: "capo-travel-case",
-            sku: "CP-ACC-007",
-            name: "CAJA DE VIAJE BLINDADA (ESTUCHE)",
-            category: "accesorios",
-            categoryLabel: "ARSENAL ACCESORIOS",
-            price: 499,
-            originalPrice: 650,
-            stock: 12,
-            badge: "ACCESORIO VITAL",
-            images: [
-                "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
-            ],
-            rating: 4.9,
-            reviewCount: 46,
-            description: "Maletín rígido indeformable con capacidad para transportar hasta 6 gorras CAPO sin que la corona sufra aplastamientos. Incluye correa al hombro y cremallera impermeable.",
-            specs: {
-                capacidad: "De 4 a 6 gorras",
-                material: "Carcasa rígida de EVA termoformada",
-                cierre: "Cremallera sellada contra agua y polvo",
-                dimensiones: "32 x 24 x 15 cm"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Otto Cap Metallic Accent Snapback Cap"
+    },
+    {
+        "id": "capo-travel-case",
+        "sku": "CP-ACC-007",
+        "name": "CAJA DE VIAJE BLINDADA (ESTUCHE)",
+        "category": "accesorios",
+        "categoryLabel": "ARSENAL ACCESORIOS",
+        "price": 499,
+        "originalPrice": 650,
+        "stock": 12,
+        "badge": "ACCESORIO VITAL",
+        "images": [
+            "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 46,
+        "description": "Maletín rígido indeformable con capacidad para transportar hasta 6 gorras CAPO sin que la corona sufra aplastamientos. Incluye correa al hombro y cremallera impermeable.",
+        "specs": {
+            "capacidad": "De 4 a 6 gorras",
+            "material": "Carcasa rígida de EVA termoformada",
+            "cierre": "Cremallera sellada contra agua y polvo",
+            "peso": "480 gramos",
+            "dimensiones": "32 x 24 x 15 cm"
         },
-        {
-            id: "capo-care-kit",
-            sku: "CP-ACC-008",
-            name: "KIT DE CUIDADO & LIMPIEZA CAPO",
-            category: "accesorios",
-            categoryLabel: "ARSENAL ACCESORIOS",
-            price: 349,
-            originalPrice: 450,
-            stock: 15,
-            badge: "PROTECCIÓN",
-            images: [
-                "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
-            ],
-            rating: 4.8,
-            reviewCount: 33,
-            description: "Espuma limpiadora en seco biodegradable formulada específicamente para no decolorar el algodón pesado ni despegar bordados 3D. Incluye cepillo de cerdas de crin de caballo.",
-            specs: {
-                contenido: "Espuma 200 ml + Cepillo prémium cerda natural",
-                compatibilidad: "Algodón, gamuza, lana y tejidos sintéticos",
-                durabilidad: "Hasta 40 limpiezas completas"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Printful Custom EVA Travel Armor Case"
+    },
+    {
+        "id": "capo-care-kit",
+        "sku": "CP-ACC-008",
+        "name": "KIT DE CUIDADO & LIMPIEZA CAPO",
+        "category": "accesorios",
+        "categoryLabel": "ARSENAL ACCESORIOS",
+        "price": 349,
+        "originalPrice": 450,
+        "stock": 15,
+        "badge": "PROTECCIÓN",
+        "images": [
+            "assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp"
+        ],
+        "rating": 4.8,
+        "reviewCount": 33,
+        "description": "Espuma limpiadora en seco biodegradable formulada específicamente para no decolorar el algodón pesado ni despegar bordados 3D. Incluye cepillo de cerdas de crin de caballo.",
+        "specs": {
+            "contenido": "Espuma 200 ml + Cepillo prémium cerda natural",
+            "compatibilidad": "Algodón, gamuza, lana y tejidos sintéticos",
+            "durabilidad": "Hasta 40 limpiezas completas"
         },
-        {
-            id: "capo-hoodie-imperio",
-            sku: "CP-HD-009",
-            name: "HOODIE OVERSIZED \"IMPERIO\" (500 GSM)",
-            category: "textil",
-            categoryLabel: "TEXTIL & HOODIES",
-            price: 1499,
-            originalPrice: 1899,
-            stock: 7,
-            badge: "DROP TEXTIL",
-            images: [
-                "assets/capo-hoodie-black.webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
-            ],
-            rating: 5.0,
-            reviewCount: 42,
-            description: "Nuestra primera silueta textil de corte pesado. Confeccionado en algodón francés pesado de 500 GSM con capucha estructurada de doble capa. En el pecho destaca el logotipo oficial CAPO bordado en 3D con hilo dorado metalizado y negro carbón mate, complementado con herrajes inoxidables en cordones.",
-            specs: {
-                corte: "Oversized Boxy Fit con hombros caídos",
-                tejido: "100% Algodón Peinado French Terry 500 GSM",
-                bordado: "Relieve 3D de alta densidad con hilo oro 24K",
-                herrajes: "Aglets metálicos pesados con grabado CAPO",
-                talla: "S, M, L, XL (Ajuste holgado prémium)"
-            }
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "CAPO Official Maintenance Care Kit"
+    },
+    {
+        "id": "capo-hoodie-imperio",
+        "sku": "CP-HD-009",
+        "name": "HOODIE OVERSIZED \"IMPERIO\" (500 GSM)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1499,
+        "originalPrice": 1899,
+        "stock": 7,
+        "badge": "DROP TEXTIL",
+        "images": [
+            "assets/capo-hoodie-black.webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 42,
+        "description": "Nuestra primera silueta textil de corte pesado. Confeccionado en algodón francés pesado de 500 GSM con capucha estructurada de doble capa. En el pecho destaca el logotipo oficial CAPO bordado en 3D con hilo dorado metalizado y negro carbón mate, complementado con herrajes inoxidables en cordones.",
+        "specs": {
+            "corte": "Oversized Boxy Fit con hombros caídos",
+            "tejido": "100% Algodón Peinado French Terry 500 GSM",
+            "bordado": "Relieve 3D de alta densidad con hilo oro 24K",
+            "herrajes": "Aglets metálicos pesados con grabado CAPO",
+            "talla": "S, M, L, XL (Ajuste holgado prémium)"
         },
-        {
-            id: "capo-tee-raw-street",
-            sku: "CP-TS-010",
-            name: "CAMISETA PESADA \"RAW STREET\" (260 GSM)",
-            category: "textil",
-            categoryLabel: "TEXTIL & HOODIES",
-            price: 699,
-            originalPrice: 899,
-            stock: 11,
-            badge: "VINTAGE WASH",
-            images: [
-                "assets/capo-tee-vintage.webp",
-                "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
-            ],
-            rating: 4.9,
-            reviewCount: 38,
-            description: "Camiseta de asfalto con lavado industrial al ácido para un acabado carbón desgastado insuperable. Estampado serigráfico de alta densidad con textura de micro-craquelado que luce el logotipo central de la marca CAPO con presencia contundente.",
-            specs: {
-                corte: "Boxy Streetwear Fit (caída recta pesada)",
-                tejido: "100% Algodón Rígido Lavado a Piedra 260 GSM",
-                cuello: "Cuello acanalado grueso de 3.2 cm antielongación",
-                estampado: "Serigrafía de alta densidad libre de plastisol tóxico",
-                talla: "S, M, L, XL"
-            }
+        "collection": "imperio",
+        "collectionLabel": "IMPERIO TEXTIL",
+        "printfulBlank": "Cotton Heritage M2580 500 GSM French Terry"
+    },
+    {
+        "id": "capo-tee-raw-street",
+        "sku": "CP-TS-010",
+        "name": "CAMISETA PESADA \"RAW STREET\" (260 GSM)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 699,
+        "originalPrice": 899,
+        "stock": 11,
+        "badge": "VINTAGE WASH",
+        "images": [
+            "assets/capo-tee-vintage.webp",
+            "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 38,
+        "description": "Camiseta de asfalto con lavado industrial al ácido para un acabado carbón desgastado insuperable. Estampado serigráfico de alta densidad con textura de micro-craquelado que luce el logotipo central de la marca CAPO con presencia contundente.",
+        "specs": {
+            "corte": "Boxy Streetwear Fit (caída recta pesada)",
+            "tejido": "100% Algodón Rígido Lavado a Piedra 260 GSM",
+            "cuello": "Cuello acanalado grueso de 3.2 cm antielongación",
+            "estampado": "Serigrafía de alta densidad libre de plastisol tóxico",
+            "talla": "S, M, L, XL"
         },
-        {
-            id: "capo-chain-medallion",
-            sku: "CP-JW-011",
-            name: "CADENA CUBANA & MEDALLÓN CAPO 24K",
-            category: "oro",
-            categoryLabel: "ORO NEGRO",
-            price: 1299,
-            originalPrice: 1699,
-            stock: 4,
-            badge: "JOYERÍA BLINDADA",
-            images: [
-                "assets/capo-chain-gold.webp",
-                "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp"
-            ],
-            rating: 5.0,
-            reviewCount: 29,
-            description: "Joyería pesada para quienes imponen respeto. Cadena cubana Miami de 14 mm con eslabones biselados a diamante y un medallón circular de latón macizo bañado en oro de 24 quilates con el blasón y corona heráldica de CAPO en altorrelieve.",
-            specs: {
-                eslabon: "Cadena Cubana Miami 14 mm biselada",
-                medallon: "Macizo de 42 mm de diámetro x 4 mm de espesor",
-                acabado: "Triple baño de oro 24K con protección electroforética",
-                broche: "Cierre de cajón de doble traba de seguridad con monograma",
-                longitud: "55 cm (Peso bruto: 142 gramos)"
-            }
+        "collection": "syndicate",
+        "collectionLabel": "SYNDICATE STREET",
+        "printfulBlank": "Comfort Colors 1717 / Shaka Garment-Dye Tee"
+    },
+    {
+        "id": "capo-trucker-retro-club",
+        "sku": "CP-TR-012",
+        "name": "GORRA TRUCKER RETRO \"CAPO CLUB\"",
+        "category": "calle",
+        "categoryLabel": "LÍNEA CALLE",
+        "price": 849,
+        "originalPrice": 1050,
+        "stock": 6,
+        "badge": "CLUB EDITION",
+        "images": [
+            "assets/capo-trucker-retro.webp",
+            "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 35,
+        "description": "Fusión vintage entre la estética clásica de club de tiro y el lujo callejero. Panel frontal de pana prémium burdeos con cordón trenzado de hilo dorado sobre la visera y la insignia caligráfica bordada de la marca CAPO con filigrana dorada.",
+        "specs": {
+            "corona": "Estructurada frontal de pana de algodón 5 paneles",
+            "malla": "Malla trasera negra de polímero transpirable",
+            "visera": "Visera semi-curva con cordón náutico oro trenzado",
+            "broche": "Snapback regulable de 7 posiciones reforzado",
+            "talla": "Ajustable Universal (56 - 62 cm)"
         },
-        {
-            id: "capo-trucker-retro-club",
-            sku: "CP-TR-012",
-            name: "GORRA TRUCKER RETRO \"CAPO CLUB\"",
-            category: "calle",
-            categoryLabel: "LÍNEA CALLE",
-            price: 849,
-            originalPrice: 1050,
-            stock: 6,
-            badge: "CLUB EDITION",
-            images: [
-                "assets/capo-trucker-retro.webp",
-                "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
-            ],
-            rating: 4.9,
-            reviewCount: 35,
-            description: "Fusión vintage entre la estética clásica de club de tiro y el lujo callejero. Panel frontal de pana prémium burdeos con cordón trenzado de hilo dorado sobre la visera y la insignia caligráfica bordada de la marca CAPO con filigrana dorada.",
-            specs: {
-                corona: "Estructurada frontal de pana de algodón 5 paneles",
-                malla: "Malla trasera negra de polímero transpirable",
-                visera: "Visera semi-curva con cordón náutico oro trenzado",
-                broche: "Snapback regulable de 7 posiciones reforzado",
-                talla: "Ajustable Universal (56 - 62 cm)"
-            }
-        }
-    ];
+        "collection": "syndicate",
+        "collectionLabel": "SYNDICATE STREET",
+        "printfulBlank": "Printful Vintage Corduroy Snapback"
+    },
+    {
+        "id": "capo-trucker-syndicate",
+        "sku": "CP-PF-013",
+        "name": "GORRA RETRO TRUCKER \"CAPO SYNDICATE\" (YUPOONG 6606)",
+        "category": "calle",
+        "categoryLabel": "LÍNEA CALLE",
+        "price": 799,
+        "originalPrice": 999,
+        "stock": 15,
+        "badge": "PRINTFUL BLANK",
+        "images": [
+            "assets/capo-trucker-syndicate.webp",
+            "assets/capo-trucker-retro.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 27,
+        "description": "Manufacturada sobre la mítica base Yupoong 6606 de Printful. Panel frontal estructurado de sarga de poliéster/algodón premium y malla trasera respirable. Bordado frontal 3D de alta densidad con hilo oro metalizado con el blasón de corona oficial CAPO.",
+        "specs": {
+            "silueta": "Yupoong 6606 Retro Trucker Hat (Printful Spec)",
+            "material": "47% Algodón, 28% Nailon, 25% Poliéster",
+            "corona": "Perfil medio estructurado de 6 paneles (8.9 cm)",
+            "visera": "Curva clásica con 8 filas de pespuntes",
+            "broche": "Snapback regulable de alta durabilidad (54.9 - 60 cm)"
+        },
+        "collection": "syndicate",
+        "collectionLabel": "SYNDICATE STREET",
+        "printfulBlank": "Yupoong 6606 Retro Trucker Hat"
+    },
+    {
+        "id": "capo-snapback-the-don",
+        "sku": "CP-PF-014",
+        "name": "GORRA SNAPBACK 5-PANELES \"THE DON\" (OTTO CAP 18-204)",
+        "category": "jefes",
+        "categoryLabel": "LÍNEA JEFES",
+        "price": 899,
+        "originalPrice": 1150,
+        "stock": 12,
+        "badge": "CORONA ALTA",
+        "images": [
+            "assets/capo-snapback-the-don.webp",
+            "assets/mockup (5).webp"
+        ],
+        "rating": 5,
+        "reviewCount": 34,
+        "description": "La silueta snapback más imponente del catálogo Printful: Otto Cap 18-204 de 5 paneles con panel frontal continuo sin costura divisoria. Luce un monumental bordado 3D Puff en negro sobre negro (tone-on-tone) con el escudo CAPO y sotovisera verde vintage tradicional.",
+        "specs": {
+            "silueta": "Otto Cap 18-204 High Crown Snapback (Printful Spec)",
+            "material": "100% Sarga de Algodón Pesada de Grado Pro",
+            "corona": "Alta estructurada de 5 paneles (10.2 cm)",
+            "visera": "Plana rígida con sotovisera verde 'Kelly Green'",
+            "broche": "Snapback clásico de doble fila reforzada"
+        },
+        "collection": "noir-gold",
+        "collectionLabel": "NOIR & GOLD",
+        "printfulBlank": "Otto Cap 18-204 5-Panel High Crown Snapback"
+    },
+    {
+        "id": "capo-beanie-noir",
+        "sku": "CP-PF-015",
+        "name": "GORRO TEJIDO BEANIE \"NOIR GANG\" (YUPOONG 1501KC)",
+        "category": "calle",
+        "categoryLabel": "LÍNEA CALLE",
+        "price": 599,
+        "originalPrice": 750,
+        "stock": 20,
+        "badge": "WINTER DROP",
+        "images": [
+            "assets/capo-beanie-noir.webp",
+            "assets/capo-hoodie-black.webp"
+        ],
+        "rating": 4.8,
+        "reviewCount": 45,
+        "description": "El beanie oficial de invierno basado en el blank Yupoong 1501KC de Printful. Tejido denso de punto acanalado elástico en negro carbón que retiene el calor corporal. En el puño doblado destaca un parche damasco negro con ribete dorado e insignia heráldica CAPO.",
+        "specs": {
+            "silueta": "Yupoong 1501KC Cuffed Beanie (Printful Spec)",
+            "material": "100% Acrílico Turbo Spun hipoalergénico",
+            "dimension": "Longitud 30 cm desplegado / 21.6 cm con dobladillo",
+            "ajuste": "Tejido acanalado autoajustable a cualquier cráneo",
+            "detalle": "Parche frontal de alta resolución con costura invisible"
+        },
+        "collection": "syndicate",
+        "collectionLabel": "SYNDICATE STREET",
+        "printfulBlank": "Yupoong 1501KC Cuffed Ribbed Beanie"
+    },
+    {
+        "id": "capo-hoodie-boss-m2580",
+        "sku": "CP-PF-016",
+        "name": "HOODIE ULTRA-PESADO 3-PANELES \"THE BOSS\" (COTTON HERITAGE M2580)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1599,
+        "originalPrice": 1999,
+        "stock": 8,
+        "badge": "475 GSM MONSTER",
+        "images": [
+            "assets/capo-hoodie-boss-m2580.webp",
+            "assets/capo-hoodie-black.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 58,
+        "description": "El hoodie más pesado, denso y prémium disponible en Printful. Modelo Cotton Heritage M2580 en algodón peinado de 475 GSM (14 oz) con capucha arquitectónica de 3 paneles sin cordones para un perfil minimalista brutalista. En el pecho resalta el bordado 3D en hilo metálico oro de 24K con el logo CAPO.",
+        "specs": {
+            "silueta": "Cotton Heritage M2580 Heavyweight Hoodie (Printful Spec)",
+            "material": "65% Algodón Peinado, 35% Poliéster (100% cara algodón)",
+            "gramaje": "475 GSM / 14 oz (Ultra-Heavyweight)",
+            "capucha": "3 paneles con forro polar interior y bolsillo canguro",
+            "talla": "S, M, L, XL, 2XL (Corte Boxy Streetwear)"
+        },
+        "collection": "imperio",
+        "collectionLabel": "IMPERIO TEXTIL",
+        "printfulBlank": "Cotton Heritage M2580 Heavyweight 3-Panel Hoodie"
+    },
+    {
+        "id": "capo-tee-shaka-wear",
+        "sku": "CP-PF-017",
+        "name": "CAMISETA BOXY PESADA \"VINTAGE DYNASTY\" (SHAKA WEAR 7.5 OZ)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 749,
+        "originalPrice": 950,
+        "stock": 18,
+        "badge": "CULT SHRED",
+        "images": [
+            "assets/capo-tee-shaka-wear.webp",
+            "assets/capo-tee-vintage.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 49,
+        "description": "La silueta legendaria que domina la escena del streetwear en Los Ángeles y Nueva York: Shaka Wear Garment-Dye Heavyweight de 7.5 oz (254 GSM) distribuida por Printful. Algodón estadounidense teñido en prenda con cuello alto acanalado de 1 pulgada y serigrafía vintage distressed CAPO en oro envejecido.",
+        "specs": {
+            "silueta": "Shaka Wear SHMHSS Heavyweight Tee (Printful Spec)",
+            "material": "100% Algodón USA hilado en anillos teñido en prenda",
+            "gramaje": "254 GSM / 7.5 oz/yd²",
+            "cuello": "Cuello cerrado grueso de 1 pulgada (2.5 cm) indeformable",
+            "corte": "Drop-Shoulder Boxy Fit (Ajuste urbano holgado)"
+        },
+        "collection": "noir-gold",
+        "collectionLabel": "NOIR & GOLD",
+        "printfulBlank": "Shaka Wear SHMHSS 7.5 oz Heavyweight Tee"
+    },
+    {
+        "id": "capo-jacket-champion",
+        "sku": "CP-PF-018",
+        "name": "CHAQUETA ROMPEVIENTOS PLEGABLE \"AGENT ZERO\" (CHAMPION V1012)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1399,
+        "originalPrice": 1750,
+        "stock": 9,
+        "badge": "CHAMPION DROP",
+        "images": [
+            "assets/capo-jacket-champion.webp",
+            "assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 31,
+        "description": "Chaqueta anorak técnica de medio cierre producida bajo licencia oficial de Champion en el catálogo Printful. Fabricada en micro-popelín resistente a ráfagas de viento y llovizna. Cuenta con cierre de cremallera metálica dorada, capucha con ajuste elástico, bordado del escudo CAPO en el pecho izquierdo y la icónica 'C' de Champion bordada en el puño.",
+        "specs": {
+            "silueta": "Champion V1012 Packable Anorak (Printful Spec)",
+            "material": "100% Micro-Popelín de Poliéster repelente al agua",
+            "plegable": "Se guarda completamente en su propio bolsillo canguro oculto",
+            "herrajes": "Cremallera dorada de medio pecho y cordones con tope",
+            "talla": "S, M, L, XL (Calce atlético streetwear)"
+        },
+        "collection": "imperio",
+        "collectionLabel": "IMPERIO TEXTIL",
+        "printfulBlank": "Champion V1012 Packable Anorak Windbreaker"
+    },
+    {
+        "id": "capo-backpack-tactical",
+        "sku": "CP-PF-019",
+        "name": "MOCHILA TÁCTICA URBANA \"BLACK OPS\" (PRINTFUL 600D)",
+        "category": "accesorios",
+        "categoryLabel": "ACCESORIOS",
+        "price": 1199,
+        "originalPrice": 1499,
+        "stock": 10,
+        "badge": "IMPERMEABLE",
+        "images": [
+            "assets/capo-backpack-tactical.webp",
+            "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 26,
+        "description": "Mochila táctica para desplazamientos urbanos blindados del catálogo de accesorios Printful. Construida en poliéster balístico 600D impermeable con textura gofrada del monograma CAPO. Integra compartimento acolchado para laptop de hasta 15 pulgadas, bolsillo trasero antirrobo oculto y tiradores de cremallera metálicos en oro mate.",
+        "specs": {
+            "silueta": "Printful All-Over Print Urban Backpack",
+            "material": "100% Poliéster Balístico 600D impermeable",
+            "capacidad": "Volumen de 20 Litros (Soporta hasta 20 kg de carga)",
+            "compartimentos": "Funda acolchada para laptop 15″ + bolsillo oculto antirrobo",
+            "dimensiones": "42 cm alto x 31 cm ancho x 10 cm profundidad"
+        },
+        "collection": "stealth",
+        "collectionLabel": "STEALTH TACTICAL",
+        "printfulBlank": "Printful All-Over Print 600D Ballistic Backpack"
+    },
+    {
+        "id": "capo-tumbler-gold-cipher",
+        "sku": "CP-PF-020",
+        "name": "TERMO TÁCTICO ACERO 20 OZ \"GOLD CIPHER\" (PRINTFUL)",
+        "category": "accesorios",
+        "categoryLabel": "ACCESORIOS",
+        "price": 549,
+        "originalPrice": 699,
+        "stock": 25,
+        "badge": "GRABADO LÁSER",
+        "images": [
+            "assets/capo-tumbler-gold-cipher.webp",
+            "assets/capo-backpack-tactical.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 41,
+        "description": "Vaso térmico de viaje de 20 onzas de acero inoxidable 18/8 de grado quirúrgico con aislamiento al vacío de doble pared. Acabado en recubrimiento de polvo negro mate de alta fricción. El escudo de la corona CAPO y el lema 'DEFINE TU LEGADO' están grabados con láser de precisión militar, dejando al descubierto el acero dorado pulido.",
+        "specs": {
+            "silueta": "Stainless Steel Tumbler 20 oz (Printful Spec)",
+            "material": "Acero Inoxidable 18/8 de Grado Alimenticio libre de BPA",
+            "aislamiento": "Doble pared al vacío: 6h caliente / 12h frío",
+            "tapa": "Tapa transparente con sellado antifugas y boquilla deslizante",
+            "acabado": "Pintura electrostática mate antideslizante con grabado láser"
+        },
+        "collection": "noir-gold",
+        "collectionLabel": "NOIR & GOLD",
+        "printfulBlank": "Printful Stainless Steel Tumbler 20 oz"
+    },
+    {
+        "id": "capo-hoodie-micro-gold",
+        "sku": "CP-HD-021",
+        "name": "HOODIE \"SILENT POWER\" (MICRO-BORDADO ORO)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1399,
+        "originalPrice": 1699,
+        "stock": 14,
+        "badge": "QUIET LUXURY",
+        "images": [
+            "assets/capo-hoodie-micro-gold.webp",
+            "assets/capo-hoodie-black.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 33,
+        "description": "La máxima expresión de lujo silencioso y sobriedad. Confeccionado en algodón francés peinado de 380 GSM en negro absoluto. En el pecho superior izquierdo presenta una tipografía en micro-bordado de precisión de apenas 2.5 cm que reza 'CAPO' con hilo oro metalizado de 24K. Cordones pesados con aglets metálicos dorados grabados.",
+        "specs": {
+            "silueta": "Lane Seven LS14001 Urban Pullover Hoodie (Printful Spec)",
+            "material": "80% Algodón Peinado Ringspun, 20% Poliéster (380 GSM)",
+            "bordado": "Micro-bordado suizo de alta precisión 2.5 cm en hilo oro",
+            "herrajes": "Puntas de cordón (aglets) en latón pulido con baño oro",
+            "talla": "S, M, L, XL, 2XL (Corte regular prémium estructurado)"
+        },
+        "collection": "noir-gold",
+        "collectionLabel": "NOIR & GOLD",
+        "printfulBlank": "Lane Seven LS14001 Urban Heavyweight Hoodie"
+    },
+    {
+        "id": "capo-hoodie-arch-heritage",
+        "sku": "CP-HD-022",
+        "name": "HOODIE ARCH LOGO \"HERITAGE\" (LETRAS ORO 3D)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1499,
+        "originalPrice": 1850,
+        "stock": 10,
+        "badge": "COLLEGIATE GOLD",
+        "images": [
+            "assets/capo-hoodie-arch-heritage.webp",
+            "assets/capo-hoodie-boss-m2580.webp"
+        ],
+        "rating": 4.9,
+        "reviewCount": 47,
+        "description": "Inspirado en la sastrería deportiva universitaria clásica con la ferocidad del streetwear brutalista. Capucha estructurada de doble capa y peso pesado de 420 GSM. En el centro del pecho luce la palabra 'CAPO' en un arco semicircular esculpido en bordado 3D Puff de 4 mm de altorrelieve con hilo dorado lustroso.",
+        "specs": {
+            "silueta": "Independent Trading Co. IND4000 Heavyweight Hoodie",
+            "material": "70% Algodón, 30% Poliéster con forro polar interior (420 GSM)",
+            "bordado": "Letras 'CAPO' en arco con técnica 3D Puff bordado en oro",
+            "bolsillo": "Bolsillo canguro frontal con costuras reforzadas bar-tack",
+            "talla": "S, M, L, XL (Ajuste Boxy contemporáneo)"
+        },
+        "collection": "imperio",
+        "collectionLabel": "IMPERIO TEXTIL",
+        "printfulBlank": "Independent Trading IND4000 Heavyweight Hoodie"
+    },
+    {
+        "id": "capo-hoodie-sleeves-gold",
+        "sku": "CP-HD-023",
+        "name": "HOODIE \"RUTHLESS\" (LETRAS VERTICALES EN MANGA ORO)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1449,
+        "originalPrice": 1799,
+        "stock": 12,
+        "badge": "SLEEVE PRINT",
+        "images": [
+            "assets/capo-hoodie-sleeves-gold.webp",
+            "assets/capo-hoodie-black.webp"
+        ],
+        "rating": 4.8,
+        "reviewCount": 39,
+        "description": "Diseñado para destacar en cualquier ángulo. Al frente luce un limpio logotipo minimalista dorado en el centro del pecho, mientras que a lo largo del brazo izquierdo desciende una monumental tipografía vertical serigrafiada en oro satinado con las letras espaciadas 'C A P O' de hombro a puño.",
+        "specs": {
+            "silueta": "Champion S700 Eco Fleece Pullover Hoodie (Printful Spec)",
+            "material": "Algodón peinado pesado 390 GSM con interior cepillado",
+            "estampado": "Serigrafía de alta densidad en oro líquido anti-agrietamiento",
+            "manga": "Tipografía vertical corrida 'C A P O' de 48 cm en manga",
+            "talla": "S, M, L, XL"
+        },
+        "collection": "syndicate",
+        "collectionLabel": "SYNDICATE STREET",
+        "printfulBlank": "Champion S700 Sleeve Print Pullover Hoodie"
+    },
+    {
+        "id": "capo-hoodie-giant-chest",
+        "sku": "CP-HD-024",
+        "name": "HOODIE MONUMENTAL \"GRAND EMPIRE\" (LETRAS GIGANTES FOIL)",
+        "category": "textil",
+        "categoryLabel": "TEXTIL & HOODIES",
+        "price": 1649,
+        "originalPrice": 2099,
+        "stock": 6,
+        "badge": "FOIL STATEMENT",
+        "images": [
+            "assets/capo-hoodie-giant-chest.webp",
+            "assets/capo-hoodie-boss-m2580.webp"
+        ],
+        "rating": 5,
+        "reviewCount": 54,
+        "description": "La pieza más imponente y llamativa de la colección textil. El frente completo de sisa a sisa está dominado por las letras gigantes 'CAPO' de 35 cm de envergadura, estampadas en foil dorado metalizado de acabado líquido espejado con micro-textura cepillada que captura la luz con intensidad deslumbrante.",
+        "specs": {
+            "silueta": "Cotton Heritage M2580 Ultra-Heavyweight Boxy Hoodie",
+            "material": "100% Algodón Peinado French Terry de 480 GSM",
+            "estampado": "Foil dorado líquido reflectante de máxima dimensión frontal",
+            "capucha": "Capucha envolvente sin cordón de corte arquitectónico",
+            "talla": "S, M, L, XL, 2XL (Oversized Boxy Fit)"
+        },
+        "collection": "noir-gold",
+        "collectionLabel": "NOIR & GOLD",
+        "printfulBlank": "Cotton Heritage M2580 Heavyweight Boxy Hoodie"
+    }
+];
 
     // =========================================================
     // 2. STATE MANAGEMENT: CART, WISHLIST & COUPONS
@@ -608,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Filter products
             let filtered = PRODUCTS_CATALOG.filter(p => {
                 if (this.currentFilter === 'all') return true;
-                return p.category === this.currentFilter;
+                return p.category === this.currentFilter || p.collection === this.currentFilter;
             });
 
             // Sort products
@@ -648,7 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="product-info">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span class="product-category">${p.categoryLabel}</span>
+                            <span class="product-category">${p.collectionLabel || p.categoryLabel}</span>
                             <span style="font-size:0.75rem; color:#888;">★ ${p.rating} (${p.reviewCount})</span>
                         </div>
                         <h3>${p.name}</h3>
