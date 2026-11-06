@@ -35,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/Arcano3Ai/CAPO/issues"
   },
-  "homepage": "https://arcano3ai.github.io/CAPO/",
+  "homepage": "https://capo.com.mx/",
   "engines": {
     "node": ">=18.0.0"
   }
