@@ -20,74 +20,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // HERO & CINEMATIC BACKGROUND VIDEOS (1, 2, 3) - PLAYLIST & AUTOPLAY
+    // HERO 3-VIDEO SEAMLESS SEQUENCE ENGINE (1 -> 2 -> 3 -> 1)
     // =========================================================
-    const HERO_VIDEOS = [
-        'assets/fondo-1.mp4',
-        'assets/fondo-2.mp4',
-        'assets/fondo-3.mp4'
-    ];
-    let currentHeroVideoIdx = 0;
-    const heroVideo = document.querySelector('#hero-video-player') || document.querySelector('.hero-video');
+    const heroVid0 = document.getElementById('hero-vid-0');
+    const heroVid1 = document.getElementById('hero-vid-1');
+    const heroVid2 = document.getElementById('hero-vid-2');
+    const heroLayers = [heroVid0, heroVid1, heroVid2].filter(Boolean);
     const seqBtns = document.querySelectorAll('.video-seq-btn');
+    let currentHeroVideoIdx = 0;
 
-    function switchHeroVideo(index) {
-        if (!heroVideo || index < 0 || index >= HERO_VIDEOS.length) return;
-        currentHeroVideoIdx = index;
-        
-        // Cambio suave de fuente
-        heroVideo.src = HERO_VIDEOS[currentHeroVideoIdx];
-        heroVideo.load();
-        const p = heroVideo.play();
-        if (p !== undefined) {
-            p.catch(() => {});
-        }
+    function activateHeroVideo(targetIdx) {
+        if (!heroLayers.length || targetIdx < 0 || targetIdx >= heroLayers.length) return;
+        currentHeroVideoIdx = targetIdx;
+
+        heroLayers.forEach((vid, idx) => {
+            if (idx === targetIdx) {
+                vid.classList.add('active');
+                vid.currentTime = 0;
+                vid.muted = true;
+                const p = vid.play();
+                if (p !== undefined) p.catch(() => {});
+            } else {
+                vid.classList.remove('active');
+                vid.pause();
+            }
+        });
 
         seqBtns.forEach((btn, idx) => {
             btn.classList.toggle('active', idx === currentHeroVideoIdx);
         });
     }
 
-    if (heroVideo) {
-        heroVideo.muted = true;
-        heroVideo.playsInline = true;
-        heroVideo.setAttribute('muted', '');
-        heroVideo.setAttribute('playsinline', '');
+    if (heroLayers.length > 0) {
+        heroLayers.forEach((vid, idx) => {
+            vid.muted = true;
+            vid.defaultMuted = true;
+            vid.playsInline = true;
+            vid.setAttribute('muted', '');
+            vid.setAttribute('playsinline', '');
 
-        // Auto avance secuencial al terminar cada video (1 -> 2 -> 3 -> 1)
-        heroVideo.addEventListener('ended', () => {
-            const nextIdx = (currentHeroVideoIdx + 1) % HERO_VIDEOS.length;
-            switchHeroVideo(nextIdx);
+            // Hand-off automático: cuando termina el video actual, avanza al siguiente (1 -> 2 -> 3 -> 1)
+            vid.addEventListener('ended', () => {
+                const nextIdx = (idx + 1) % heroLayers.length;
+                activateHeroVideo(nextIdx);
+            });
         });
 
-        // Click en los botones de secuencia 01, 02, 03
+        // Autoplay del primer video
+        const firstPlay = heroLayers[0].play();
+        if (firstPlay !== undefined) {
+            firstPlay.catch(() => {
+                const unlockHero = () => {
+                    heroLayers[currentHeroVideoIdx].play().catch(() => {});
+                };
+                ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(evt => {
+                    window.addEventListener(evt, unlockHero, { once: true, passive: true });
+                });
+            });
+        }
+
+        // Selección manual con botones 01, 02, 03
         seqBtns.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetIdx = parseInt(btn.getAttribute('data-index'), 10);
                 if (!isNaN(targetIdx)) {
-                    switchHeroVideo(targetIdx);
+                    activateHeroVideo(targetIdx);
                 }
             });
         });
-
-        const playPromise = heroVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                const triggerPlay = () => {
-                    heroVideo.play().catch(() => {});
-                };
-                window.addEventListener('click', triggerPlay, { once: true });
-                window.addEventListener('touchstart', triggerPlay, { once: true });
-                window.addEventListener('scroll', triggerPlay, { once: true });
-            });
-        }
     }
 
-    // Inicializar videos de las secciones cinemáticas secundarias
+    // Inicializar videos de las secciones cinemáticas secundarias (Secuencia 2 y Secuencia 3)
     const cinematicVideos = document.querySelectorAll('.cinematic-showcase-video');
     cinematicVideos.forEach((vid) => {
         vid.muted = true;
+        vid.defaultMuted = true;
         vid.playsInline = true;
         vid.setAttribute('muted', '');
         vid.setAttribute('playsinline', '');
@@ -95,8 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p !== undefined) {
             p.catch(() => {
                 const triggerSecondary = () => vid.play().catch(() => {});
-                window.addEventListener('scroll', triggerSecondary, { once: true });
-                window.addEventListener('click', triggerSecondary, { once: true });
+                ['scroll', 'click', 'touchstart', 'pointerdown'].forEach(evt => {
+                    window.addEventListener(evt, triggerSecondary, { once: true, passive: true });
+                });
             });
         }
     });
@@ -2194,42 +2203,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Audio
+    // =========================================================
+    // AUDIO CONTROLLER: REINAS DEL DEMBOW (AUTOPLAY AGRESIVO)
+    // =========================================================
     const audio = document.getElementById('bg-music');
     const playBtn = document.getElementById('play-btn');
     const playerWidget = document.getElementById('audio-player-widget');
 
     if (audio && playBtn && playerWidget) {
-        audio.volume = 0.4;
+        audio.volume = 0.55;
         const playIcon = playBtn.querySelector('i');
         const playText = playBtn.querySelector('.btn-audio-text');
 
         const updateAudioState = (isPlaying) => {
             if (isPlaying) {
                 playerWidget.classList.remove('paused');
+                playerWidget.classList.add('playing');
                 if (playIcon) playIcon.className = 'fas fa-pause';
-                if (playText) playText.textContent = 'PAUSA';
+                if (playText) playText.textContent = 'DEMBOW SONANDO';
             } else {
+                playerWidget.classList.remove('playing');
                 playerWidget.classList.add('paused');
                 if (playIcon) playIcon.className = 'fas fa-play';
-                if (playText) playText.textContent = 'SOUNDTRACK';
+                if (playText) playText.textContent = 'REINAS DEL DEMBOW';
             }
         };
 
-        const tryPlayAudio = () => {
-            audio.play().then(() => {
-                updateAudioState(true);
-                document.removeEventListener('click', tryPlayAudio);
-                document.removeEventListener('touchstart', tryPlayAudio);
-            }).catch(() => {
-                updateAudioState(false);
-            });
+        audio.addEventListener('play', () => updateAudioState(true));
+        audio.addEventListener('pause', () => updateAudioState(false));
+
+        const autoplayEvents = ['click', 'touchstart', 'pointerdown', 'scroll', 'wheel', 'keydown'];
+        const triggerAutoplay = () => {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    updateAudioState(true);
+                    autoplayEvents.forEach(evt => {
+                        window.removeEventListener(evt, triggerAutoplay);
+                        document.removeEventListener(evt, triggerAutoplay);
+                    });
+                }).catch(() => {
+                    updateAudioState(false);
+                });
+            }
         };
 
-        tryPlayAudio();
-        document.addEventListener('click', tryPlayAudio, { once: true });
-        document.addEventListener('touchstart', tryPlayAudio, { once: true });
+        // 1. Intento de inicio automático inmediato al cargar la web
+        triggerAutoplay();
 
+        // 2. Si la política de autoplay del navegador requiere interacción del usuario,
+        // reproducir al primer contacto físico, toque, scroll o tecla
+        autoplayEvents.forEach(evt => {
+            window.addEventListener(evt, triggerAutoplay, { once: true, passive: true });
+            document.addEventListener(evt, triggerAutoplay, { once: true, passive: true });
+        });
+
+        // 3. Control manual con el botón flotante
         playBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (audio.paused) {

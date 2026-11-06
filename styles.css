@@ -502,6 +502,16 @@ button {
     display: none; /* Sin opacidad en el video según instrucción del usuario */
 }
 
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
 .hero-video {
     position: absolute;
     top: 0;
@@ -512,6 +522,26 @@ button {
     z-index: 0;
     opacity: 1 !important; /* 100% nítido, sin opacidad */
     filter: none !important;
+}
+
+.hero-vid-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0 !important;
+    filter: none !important;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-vid-layer.active {
+    opacity: 1 !important;
+    z-index: 1;
+    pointer-events: auto;
 }
 
 /* Playlist indicator & selector bar en Hero */

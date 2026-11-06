@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v2';
+const CACHE_NAME = 'capo-store-v3';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -8,7 +8,7 @@ const ASSETS_TO_CACHE = [
     './manifest.json',
     './data/products.json',
     './data/sync-service.js',
-    './assets/CAPOCANCION.mp3',
+    './assets/reinas-del-dembow.mp3',
     './assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp',
     './assets/mockup (5).webp',
     './assets/mockup (6).webp',
