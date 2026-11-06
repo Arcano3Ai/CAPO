@@ -209,4 +209,5 @@ if (failedTests > 0) {
     process.exit(1);
 } else {
     console.log('✨ TODAS LAS PRUEBAS PASARON EXITOSAMENTE.');
+    process.exit(0);
 }

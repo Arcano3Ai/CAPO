@@ -510,8 +510,152 @@ button {
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    opacity: 1; /* 100% nítido, sin opacidad */
-    filter: none;
+    opacity: 1 !important; /* 100% nítido, sin opacidad */
+    filter: none !important;
+}
+
+/* Playlist indicator & selector bar en Hero */
+.hero-video-playlist-bar {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.video-seq-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cccccc;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-seq-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(212, 175, 55, 0.12);
+}
+
+.video-seq-btn.active {
+    background: var(--accent-color);
+    color: var(--black);
+    border-color: var(--accent-color);
+    font-weight: 900;
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+}
+
+.video-seq-btn .seq-num {
+    font-family: 'Space Grotesk', monospace;
+    font-weight: 900;
+}
+
+/* ========================================================
+   SECCIONES CINEMÁTICAS (VIDEOS 2 Y 3 SIN OPACIDAD)
+   ======================================================== */
+.cinematic-showcase-section {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top: var(--border-width) solid var(--dark-grey);
+    border-bottom: var(--border-width) solid var(--dark-grey);
+    background: var(--black);
+}
+
+.cinematic-showcase-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 1 !important; /* 100% nítido, sin opacidad */
+    filter: none !important;
+}
+
+.cinematic-showcase-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 780px;
+    padding: 2.5rem 3rem;
+    background: rgba(10, 10, 10, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    margin: 2rem;
+}
+
+.cinematic-showcase-content .reel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-color);
+    color: var(--black);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 1.2rem;
+}
+
+.cinematic-showcase-content h2 {
+    font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.95);
+    line-height: 1.2;
+}
+
+.cinematic-showcase-content p {
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    color: #e5e5e5;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-video-playlist-bar {
+        bottom: 20px;
+        right: 50%;
+        transform: translateX(50%);
+        width: max-content;
+    }
+    .cinematic-showcase-section {
+        min-height: 380px;
+    }
+    .cinematic-showcase-content {
+        padding: 1.8rem 1.4rem;
+        margin: 1rem;
+    }
 }
 
 .hero-bg {

@@ -82,10 +82,14 @@ catalog.forEach(p => {
 
 assertAudit(allAssetsExist, 'Todas las imágenes del catálogo existen en el disco con formato WebP optimizado', missingAssets.join(', '));
 
-// Verificar video del Hero y Audio del reproductor
-const heroVideo = path.join(rootDir, 'assets/hero-video.mp4');
+// Verificar 3 videos de fondo secuenciales y Audio del reproductor
+const video1 = path.join(rootDir, 'assets/fondo-1.mp4');
+const video2 = path.join(rootDir, 'assets/fondo-2.mp4');
+const video3 = path.join(rootDir, 'assets/fondo-3.mp4');
 const audioMp3 = path.join(rootDir, 'assets/CAPOCANCION.mp3');
-assertAudit(fs.existsSync(heroVideo) && fs.statSync(heroVideo).size > 1000000, 'Video cinematográfico del Hero verificado y disponible');
+
+const allVideosExist = [video1, video2, video3].every(v => fs.existsSync(v) && fs.statSync(v).size > 1000000);
+assertAudit(allVideosExist, '3 Videos de fondo secuenciales (fondo-1, fondo-2, fondo-3) verificados y disponibles');
 assertAudit(fs.existsSync(audioMp3) && fs.statSync(audioMp3).size > 500000, 'Soundtrack oficial MP3 optimizado verificado');
 
 // 3. Auditoría PWA y Service Worker
@@ -149,4 +153,5 @@ if (auditFails > 0) {
     process.exit(1);
 } else {
     console.log('🚀 AUDITORÍA DEVOPS APROBADA CON ÉXITO.');
+    process.exit(0);
 }

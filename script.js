@@ -19,21 +19,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const heroVideo = document.querySelector('.hero-video');
+    // =========================================================
+    // HERO & CINEMATIC BACKGROUND VIDEOS (1, 2, 3) - PLAYLIST & AUTOPLAY
+    // =========================================================
+    const HERO_VIDEOS = [
+        'assets/fondo-1.mp4',
+        'assets/fondo-2.mp4',
+        'assets/fondo-3.mp4'
+    ];
+    let currentHeroVideoIdx = 0;
+    const heroVideo = document.querySelector('#hero-video-player') || document.querySelector('.hero-video');
+    const seqBtns = document.querySelectorAll('.video-seq-btn');
+
+    function switchHeroVideo(index) {
+        if (!heroVideo || index < 0 || index >= HERO_VIDEOS.length) return;
+        currentHeroVideoIdx = index;
+        
+        // Cambio suave de fuente
+        heroVideo.src = HERO_VIDEOS[currentHeroVideoIdx];
+        heroVideo.load();
+        const p = heroVideo.play();
+        if (p !== undefined) {
+            p.catch(() => {});
+        }
+
+        seqBtns.forEach((btn, idx) => {
+            btn.classList.toggle('active', idx === currentHeroVideoIdx);
+        });
+    }
+
     if (heroVideo) {
         heroVideo.muted = true;
         heroVideo.playsInline = true;
         heroVideo.setAttribute('muted', '');
         heroVideo.setAttribute('playsinline', '');
+
+        // Auto avance secuencial al terminar cada video (1 -> 2 -> 3 -> 1)
+        heroVideo.addEventListener('ended', () => {
+            const nextIdx = (currentHeroVideoIdx + 1) % HERO_VIDEOS.length;
+            switchHeroVideo(nextIdx);
+        });
+
+        // Click en los botones de secuencia 01, 02, 03
+        seqBtns.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetIdx = parseInt(btn.getAttribute('data-index'), 10);
+                if (!isNaN(targetIdx)) {
+                    switchHeroVideo(targetIdx);
+                }
+            });
+        });
+
         const playPromise = heroVideo.play();
         if (playPromise !== undefined) {
             playPromise.catch(() => {
-                window.addEventListener('click', () => heroVideo.play(), { once: true });
-                window.addEventListener('touchstart', () => heroVideo.play(), { once: true });
-                window.addEventListener('scroll', () => heroVideo.play(), { once: true });
+                const triggerPlay = () => {
+                    heroVideo.play().catch(() => {});
+                };
+                window.addEventListener('click', triggerPlay, { once: true });
+                window.addEventListener('touchstart', triggerPlay, { once: true });
+                window.addEventListener('scroll', triggerPlay, { once: true });
             });
         }
     }
+
+    // Inicializar videos de las secciones cinemáticas secundarias
+    const cinematicVideos = document.querySelectorAll('.cinematic-showcase-video');
+    cinematicVideos.forEach((vid) => {
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.setAttribute('muted', '');
+        vid.setAttribute('playsinline', '');
+        const p = vid.play();
+        if (p !== undefined) {
+            p.catch(() => {
+                const triggerSecondary = () => vid.play().catch(() => {});
+                window.addEventListener('scroll', triggerSecondary, { once: true });
+                window.addEventListener('click', triggerSecondary, { once: true });
+            });
+        }
+    });
 
     // =========================================================
     // 1. DATA LAYER: PRODUCTS CATALOG (CENTRALIZED STORE)
