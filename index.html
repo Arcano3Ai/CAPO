@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPO | Gorras Exclusivas</title>
+    <meta name="description" content="CAPO - La marca definitiva en gorras de lujo y estilo urbano.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <audio id="bg-music" loop autoplay preload="auto">
+            <source src="assets/CAPOCANCION.wav" type="audio/wav">
+        </audio>
+        <div class="player-controls">
+            <button id="play-btn" class="btn-audio">
+                <i class="fas fa-play"></i> SOUNDTRACK
+            </button>
+            <div class="equalizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">CAPO</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#estilo">Estilo</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+
+    <header id="inicio" class="hero">
+        <div class="hero-overlay"></div>
+        <img src="assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.png" alt="CAPO Hero Background" class="hero-bg">
+        <div class="hero-content">
+            <h1 class="fade-in-up">DEFINE TU <span class="highlight">LEGADO</span></h1>
+            <a href="#coleccion" class="btn-primary fade-in-up delay-2">COMPRAR AHORA</a>
+        </div>
+    </header>
+
+    <!-- Main Collection: IMPERIO -->
+    <section id="coleccion" class="collection section-padding">
+        <div class="container-fluid">
+            <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="assets/mockup%20(5).png" alt="Gorra CAPO Edición Limitada">
+                        <button class="btn-quick-view">AGREGAR</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>THE BOSS BLACK</h3>
+                        <p class="price">$899</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="assets/mockup%20(6).png" alt="Gorra CAPO Signature">
+                        <button class="btn-quick-view">AGREGAR</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>EL PATRÓN WHITE</h3>
+                        <p class="price">$899</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Gorra CAPO Urban">
+                        <button class="btn-quick-view">AGREGAR</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>URBAN LEGEND</h3>
+                        <p class="price">$799</p>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gorra CAPO Gold">
+                        <button class="btn-quick-view">AGREGAR</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>GOLD STANDARD</h3>
+                        <p class="price">$999</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sub Collection: JEFES -->
+    <section class="collection section-padding" style="border-top: 1px solid #111;">
+        <div class="collection-header">
+            <h2 class="section-title">LÍNEA <span class="text-outline">JEFES</span></h2>
+            <p class="collection-desc">PARA LOS QUE MANDAN. SIN PERMISO.</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assets/mockup%20(5).png" alt="The Boss">
+                    <button class="btn-quick-view">AGREGAR</button>
+                </div>
+                <div class="product-info">
+                    <h3>THE BOSS BLACK</h3>
+                    <p class="price">$899</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assets/mockup%20(6).png" alt="El Patron">
+                    <button class="btn-quick-view">AGREGAR</button>
+                </div>
+                <div class="product-info">
+                    <h3>EL PATRÓN WHITE</h3>
+                    <p class="price">$899</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sub Collection: CALLE -->
+    <section class="collection section-padding dark-bg">
+        <div class="collection-header right-align">
+            <h2 class="section-title">LÍNEA <span class="text-outline">CALLE</span></h2>
+            <p class="collection-desc">RESPETO SE GANA EN EL ASFALTO.</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assets/48be2ed7-cfb4-465b-826a-cc669465221e.png" alt="Urban Legend">
+                    <button class="btn-quick-view">AGREGAR</button>
+                </div>
+                <div class="product-info">
+                    <h3>URBAN LEGEND</h3>
+                    <p class="price">$799</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png"
+                        style="filter: brightness(0.8);" alt="Concrete King">
+                    <button class="btn-quick-view">AGREGAR</button>
+                </div>
+                <div class="product-info">
+                    <h3>CONCRETE KING</h3>
+                    <p class="price">$799</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sub Collection: ORO -->
+    <section class="collection section-padding">
+        <div class="collection-header">
+            <h2 class="section-title">ORO <span class="text-outline">NEGRO</span></h2>
+            <p class="collection-desc">LUJO PURO. EDICIÓN LIMITADA.</p>
+        </div>
+        <div class="product-grid single-focus">
+            <div class="product-card featured">
+                <div class="product-image">
+                    <img src="assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.png" alt="Gold Standard">
+                    <button class="btn-quick-view">AGREGAR</button>
+                </div>
+                <div class="product-info big-info">
+                    <h3>GOLD STANDARD</h3>
+                    <p class="price">$999</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="estilo" class="lifestyle">
+        <div class="lifestyle-grid">
+            <div class="lifestyle-item large">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_44_18.png" alt="Estilo Urbano">
+                <div class="lifestyle-content">
+                    <h3>SIN LÍMITES</h3>
+                </div>
+            </div>
+            <div class="lifestyle-item">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_50_19.png" alt="Detalle Premium">
+                <div class="lifestyle-content">
+                    <h3>PODER</h3>
+                </div>
+            </div>
+            <div class="lifestyle-item">
+                <img src="assets/ChatGPT%20Image%2013%20feb%202026%2C%2021_39_47.png" alt="Diseño Exclusivo">
+                <div class="lifestyle-content">
+                    <h3>SUPREMACÍA</h3>
+                </div>
+            </div>
+            <div class="lifestyle-item">
+                <img src="assets/Gemini_Generated_Image_9us3ks9us3ks9us3.png" alt="Estilo de Vida">
+                <div class="lifestyle-content">
+                    <h3>ACTITUD</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container-fluid">
+            <h2>ÚNETE AL CLAN</h2>
+            <form class="newsletter-form">
+                <input type="email" placeholder="CORREO ELECTRÓNICO">
+                <button type="submit">SUSCRIBIRSE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>CAPO</h2>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">TÉRMINOS</a></li>
+                    <li><a href="#">PRIVACIDAD</a></li>
+                    <li><a href="#">ENVÍOS</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CAPO. TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

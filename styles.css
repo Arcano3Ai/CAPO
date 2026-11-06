@@ -1,0 +1,836 @@
+/* Global Styles - ESTILO RUDA (BRUTALIST/STREET) */
+:root {
+    --primary-color: #050505;
+    --secondary-color: #ffffff;
+    --accent-color: #D4AF37;
+    /* Gold remains, but sharper usage */
+    --accent-hover: #b5952f;
+    --text-color: #f0f0f0;
+    --dark-grey: #111111;
+    --border-width: 2px;
+    --font-main: 'Outfit', sans-serif;
+    --transition-speed: 0.2s;
+    /* Faster, punchier transitions */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-weight: 400;
+    overflow-x: hidden;
+    line-height: 1.4;
+    text-transform: uppercase;
+    /* Aggressive typography */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-speed);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Custom Cursor - Crosshair Style */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--secondary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--secondary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+    /* Just below dot */
+    pointer-events: none;
+    transition: width 0.1s, height 0.1s;
+    mix-blend-mode: difference;
+    /* Crosshair lines */
+}
+
+/* Navbar - Heavy & Industrial */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(5, 5, 5, 0.9);
+    border-bottom: var(--border-width) solid var(--dark-grey);
+    backdrop-filter: blur(5px);
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--secondary-color);
+    /* Glitch effect on hover could go here */
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    /* Thick underline */
+    background-color: var(--accent-color);
+    transition: width var(--transition-speed);
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.nav-icons i:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+/* Hero Section - Impactful */
+.hero {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: var(--border-width) solid var(--dark-grey);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: contrast(1.1) brightness(0.9);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 90%;
+}
+
+.hero-content h1 {
+    font-size: 8vw;
+    /* Massive responsive text */
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -4px;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.hero-content .highlight {
+    color: var(--accent-color);
+    -webkit-text-stroke: 0;
+    position: relative;
+    display: block;
+    /* Stack it */
+}
+
+/* Brutalist Button */
+.btn-primary {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background-color: transparent;
+    color: var(--secondary-color);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    border: 4px solid var(--secondary-color);
+    position: relative;
+    transition: all 0.2s steps(5);
+    z-index: 1;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    z-index: -1;
+    transition: width 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.btn-primary:hover {
+    color: var(--primary-color);
+}
+
+.btn-primary:hover::after {
+    width: 100%;
+}
+
+/* Collection Section - Grid */
+.section-padding {
+    padding: 8rem 3%;
+}
+
+.section-title {
+    font-size: 4rem;
+    text-align: left;
+    /* Brutalist alignment */
+    margin-bottom: 4rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    border-bottom: 2px solid var(--dark-grey);
+    padding-bottom: 2rem;
+}
+
+.text-outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--accent-color);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0;
+    /* No gap for brutalist grid */
+    border: var(--border-width) solid var(--dark-grey);
+}
+
+.product-card {
+    background: var(--primary-color);
+    padding: 2rem;
+    text-align: left;
+    border: 1px solid var(--dark-grey);
+    position: relative;
+    transition: background 0.3s;
+}
+
+.product-card:hover {
+    background: #0f0f0f;
+    z-index: 1;
+    border-color: var(--accent-color);
+}
+
+.product-image {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background: radial-gradient(circle, #222 0%, #050505 70%);
+    /* Highlight product */
+}
+
+.product-image img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.btn-quick-view {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.product-card:hover .btn-quick-view {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.product-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.product-info .price {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Lifestyle Section - Acomodando la Media */
+.lifestyle {
+    padding: 0;
+    /* Full bleed */
+    border-top: var(--border-width) solid var(--dark-grey);
+    border-bottom: var(--border-width) solid var(--dark-grey);
+}
+
+.lifestyle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 50vh;
+    /* Fixed prominent height */
+    gap: 0;
+    /* Seamless */
+}
+
+.lifestyle-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+    /* Thin separator */
+    height: 100%;
+}
+
+.lifestyle-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 100vh;
+    /* Massive hero-like item */
+}
+
+.lifestyle-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: grayscale(100%) contrast(1.2);
+}
+
+.lifestyle-item:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%) contrast(1.1);
+}
+
+.lifestyle-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(0deg, #000 0%, transparent 100%);
+    z-index: 2;
+}
+
+.lifestyle-content h3 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    line-height: 1;
+    text-shadow: 2px 2px 0px #000;
+}
+
+/* Newsletter - Stark */
+.newsletter {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 8rem 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.newsletter h2 {
+    font-size: 5rem;
+    line-height: 0.8;
+    margin-bottom: 2rem;
+    font-weight: 900;
+}
+
+.newsletter-form {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    border: 4px solid var(--primary-color);
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.newsletter-form input::placeholder {
+    color: #555;
+    text-transform: uppercase;
+}
+
+.newsletter-form button {
+    padding: 1.5rem 3rem;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-left: 4px solid var(--primary-color);
+    font-weight: 900;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.newsletter-form button:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+/* Animations Utilities */
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Audio Player - Hidden Background Loop */
+.audio-player {
+    display: none;
+}
+
+.btn-audio {
+    background: #000;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    font-family: var(--font-main);
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 1px;
+    outline: none;
+}
+
+.btn-audio:hover {
+    background: #fff;
+    color: #000;
+}
+
+
+.equalizer {
+    display: flex;
+    gap: 2px;
+    height: 20px;
+    align-items: flex-end;
+}
+
+.equalizer .bar {
+    width: 4px;
+    background: #fff;
+    animation: bounce 0.5s infinite ease-in-out alternate;
+}
+
+.equalizer .bar:nth-child(1) {
+    animation-delay: 0.1s;
+    height: 10px;
+}
+
+.equalizer .bar:nth-child(2) {
+    animation-delay: 0.3s;
+    height: 15px;
+}
+
+.equalizer .bar:nth-child(3) {
+    animation-delay: 0.2s;
+    height: 8px;
+}
+
+.equalizer .bar:nth-child(4) {
+    animation-delay: 0.4s;
+    height: 12px;
+}
+
+.audio-player.paused .bar {
+    animation-play-state: paused;
+    height: 2px !important;
+}
+
+@keyframes bounce {
+    to {
+        height: 100%;
+    }
+}
+
+/* Collections specific styles */
+.collections-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.collection-section {
+    padding: 6rem 5%;
+    border-bottom: var(--border-width) solid var(--dark-grey);
+}
+
+.collection-section.dark-bg {
+    background: #080808;
+}
+
+.collection-header {
+    margin-bottom: 3rem;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 2rem;
+}
+
+.collection-header.right-align {
+    text-align: right;
+    border-left: none;
+    border-right: 5px solid var(--white);
+    /* or accent */
+    border-right-color: var(--secondary-color);
+    /* White contrast */
+    padding-right: 2rem;
+    padding-left: 0;
+}
+
+.collection-desc {
+    font-size: 1.2rem;
+    color: #888;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+/* Single Focus Collection */
+.product-grid.single-focus {
+    display: flex;
+    justify-content: center;
+}
+
+.product-card.featured {
+    width: 100%;
+    max-width: 600px;
+    border: 4px solid var(--accent-color);
+    background: radial-gradient(circle, #222 0%, #000 100%);
+}
+
+.featured .product-image {
+    height: 500px;
+    /* Bigger image */
+}
+
+.product-info.big-info h3 {
+    font-size: 3rem;
+}
+
+.product-info.big-info .price {
+    font-size: 2rem;
+}
+
+
+/* Footer */
+footer {
+    padding: 6rem 5%;
+    background: #000;
+    border-top: 2px solid var(--dark-grey);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-brand h2 {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--dark-grey);
+    /* Subtle watermark style */
+    -webkit-text-stroke: 1px var(--secondary-color);
+}
+
+.footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-links a {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.footer-social a {
+    font-size: 2rem;
+    margin-left: 1rem;
+    color: var(--secondary-color);
+}
+
+/* Mobile Nav Styles (Moved from JS for reliability) */
+.nav-links.active {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    /* Push below navbar */
+    left: 0;
+    width: 100%;
+    background: #000;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+
+    /* Hide custom cursor */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+    }
+
+    /* Navbar */
+    .navbar {
+        padding: 1rem 5%;
+        /* Smaller padding */
+        background: #000;
+        /* Solid background on mobile */
+    }
+
+    .nav-links,
+    .nav-icons {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        filter: invert(1);
+    }
+
+    .hamburger .line {
+        width: 35px;
+        height: 3px;
+        background: #fff;
+        margin: 6px 0;
+    }
+
+    /* Hero */
+    .hero-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+        /* Fixed readable size */
+        line-height: 1;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Sections */
+    .section-padding {
+        padding: 4rem 1.5rem;
+        /* More side padding */
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-align: left;
+        line-height: 1;
+    }
+
+    /* Grids */
+    .product-grid {
+        grid-template-columns: 1fr;
+        /* Single column */
+        gap: 2rem;
+        border: none;
+    }
+
+    .product-card {
+        border: 1px solid #333;
+    }
+
+    /* Collections */
+    .collection-header {
+        padding-left: 1rem;
+        border-left-width: 4px;
+        margin-bottom: 2rem;
+    }
+
+    .collection-header.right-align {
+        text-align: left;
+        border-right: none;
+        border-left: 4px solid var(--secondary-color);
+        padding-left: 1rem;
+    }
+
+    /* Featured Product */
+    .featured .product-image {
+        height: 350px;
+    }
+
+    .product-info.big-info h3 {
+        font-size: 2rem;
+    }
+
+    .product-info.big-info .price {
+        font-size: 1.5rem;
+    }
+
+    /* Lifestyle */
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 300px;
+        /* Smaller height for mobile */
+    }
+
+    .lifestyle-item.large {
+        grid-column: span 1;
+        grid-row: span 1;
+        height: 300px;
+    }
+
+    .lifestyle-content h3 {
+        font-size: 2rem;
+    }
+
+    /* Newsletter */
+    .newsletter {
+        padding: 4rem 1.5rem;
+    }
+
+    .newsletter h2 {
+        font-size: 2.5rem;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+        border: none;
+    }
+
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+        border: 2px solid #333;
+        margin-bottom: 1rem;
+    }
+
+    .newsletter-form button {
+        background: #fff;
+        color: #000;
+        border-color: #fff;
+    }
+
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .footer-brand h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* Ensure cursor is hidden on all touch devices regardless of size */
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+
+    body {
+        cursor: auto;
+    }
+}
