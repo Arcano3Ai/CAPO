@@ -1,0 +1,8 @@
+.git
+.github
+tests
+node_modules
+*.md
+.gitignore
+assets/*.wav
+assets/*.png

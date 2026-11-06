@@ -1,0 +1,39 @@
+{
+  "name": "capo-store",
+  "version": "2.0.0",
+  "description": "CAPO Store - Tienda E-Commerce Brutalista de Lujo Urbano con Pagos Multi-Método y Radar de Rastreo en Tiempo Real",
+  "main": "script.js",
+  "scripts": {
+    "test": "node tests/run-tests.js && node tests/devops-audit.js",
+    "test:unit": "node tests/run-tests.js",
+    "test:audit": "node tests/devops-audit.js",
+    "dev": "python -m http.server 3000",
+    "docker:build": "docker build -t capo-store:2.0.0 .",
+    "docker:run": "docker-compose up -d",
+    "docker:stop": "docker-compose down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arcano3Ai/CAPO.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "streetwear",
+    "luxury-caps",
+    "stripe",
+    "spei",
+    "oxxo-pay",
+    "pwa",
+    "devops",
+    "sre"
+  ],
+  "author": "Arcano Solutions DevOps",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Arcano3Ai/CAPO/issues"
+  },
+  "homepage": "https://arcano3ai.github.io/CAPO/",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
