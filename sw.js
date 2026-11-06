@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v3';
+const CACHE_NAME = 'capo-store-v4';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -17,7 +17,11 @@ const ASSETS_TO_CACHE = [
     './assets/ChatGPT Image 13 feb 2026, 21_44_18.webp',
     './assets/ChatGPT Image 13 feb 2026, 21_50_19.webp',
     './assets/ChatGPT Image 13 feb 2026, 21_39_47.webp',
-    './assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp'
+    './assets/Gemini_Generated_Image_9us3ks9us3ks9us3.webp',
+    './assets/capo-hoodie-black.webp',
+    './assets/capo-tee-vintage.webp',
+    './assets/capo-chain-gold.webp',
+    './assets/capo-trucker-retro.webp'
 ];
 
 self.addEventListener('install', (event) => {

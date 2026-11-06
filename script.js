@@ -311,6 +311,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 compatibilidad: "Algodón, gamuza, lana y tejidos sintéticos",
                 durabilidad: "Hasta 40 limpiezas completas"
             }
+        },
+        {
+            id: "capo-hoodie-imperio",
+            sku: "CP-HD-009",
+            name: "HOODIE OVERSIZED \"IMPERIO\" (500 GSM)",
+            category: "textil",
+            categoryLabel: "TEXTIL & HOODIES",
+            price: 1499,
+            originalPrice: 1899,
+            stock: 7,
+            badge: "DROP TEXTIL",
+            images: [
+                "assets/capo-hoodie-black.webp",
+                "assets/ChatGPT Image 13 feb 2026, 21_44_18.webp"
+            ],
+            rating: 5.0,
+            reviewCount: 42,
+            description: "Nuestra primera silueta textil de corte pesado. Confeccionado en algodón francés pesado de 500 GSM con capucha estructurada de doble capa. En el pecho destaca el logotipo oficial CAPO bordado en 3D con hilo dorado metalizado y negro carbón mate, complementado con herrajes inoxidables en cordones.",
+            specs: {
+                corte: "Oversized Boxy Fit con hombros caídos",
+                tejido: "100% Algodón Peinado French Terry 500 GSM",
+                bordado: "Relieve 3D de alta densidad con hilo oro 24K",
+                herrajes: "Aglets metálicos pesados con grabado CAPO",
+                talla: "S, M, L, XL (Ajuste holgado prémium)"
+            }
+        },
+        {
+            id: "capo-tee-raw-street",
+            sku: "CP-TS-010",
+            name: "CAMISETA PESADA \"RAW STREET\" (260 GSM)",
+            category: "textil",
+            categoryLabel: "TEXTIL & HOODIES",
+            price: 699,
+            originalPrice: 899,
+            stock: 11,
+            badge: "VINTAGE WASH",
+            images: [
+                "assets/capo-tee-vintage.webp",
+                "assets/48be2ed7-cfb4-465b-826a-cc669465221e.webp"
+            ],
+            rating: 4.9,
+            reviewCount: 38,
+            description: "Camiseta de asfalto con lavado industrial al ácido para un acabado carbón desgastado insuperable. Estampado serigráfico de alta densidad con textura de micro-craquelado que luce el logotipo central de la marca CAPO con presencia contundente.",
+            specs: {
+                corte: "Boxy Streetwear Fit (caída recta pesada)",
+                tejido: "100% Algodón Rígido Lavado a Piedra 260 GSM",
+                cuello: "Cuello acanalado grueso de 3.2 cm antielongación",
+                estampado: "Serigrafía de alta densidad libre de plastisol tóxico",
+                talla: "S, M, L, XL"
+            }
+        },
+        {
+            id: "capo-chain-medallion",
+            sku: "CP-JW-011",
+            name: "CADENA CUBANA & MEDALLÓN CAPO 24K",
+            category: "oro",
+            categoryLabel: "ORO NEGRO",
+            price: 1299,
+            originalPrice: 1699,
+            stock: 4,
+            badge: "JOYERÍA BLINDADA",
+            images: [
+                "assets/capo-chain-gold.webp",
+                "assets/b3409bb5-63e0-483f-8dbc-20c7f2c33384.webp"
+            ],
+            rating: 5.0,
+            reviewCount: 29,
+            description: "Joyería pesada para quienes imponen respeto. Cadena cubana Miami de 14 mm con eslabones biselados a diamante y un medallón circular de latón macizo bañado en oro de 24 quilates con el blasón y corona heráldica de CAPO en altorrelieve.",
+            specs: {
+                eslabon: "Cadena Cubana Miami 14 mm biselada",
+                medallon: "Macizo de 42 mm de diámetro x 4 mm de espesor",
+                acabado: "Triple baño de oro 24K con protección electroforética",
+                broche: "Cierre de cajón de doble traba de seguridad con monograma",
+                longitud: "55 cm (Peso bruto: 142 gramos)"
+            }
+        },
+        {
+            id: "capo-trucker-retro-club",
+            sku: "CP-TR-012",
+            name: "GORRA TRUCKER RETRO \"CAPO CLUB\"",
+            category: "calle",
+            categoryLabel: "LÍNEA CALLE",
+            price: 849,
+            originalPrice: 1050,
+            stock: 6,
+            badge: "CLUB EDITION",
+            images: [
+                "assets/capo-trucker-retro.webp",
+                "assets/ChatGPT Image 13 feb 2026, 21_50_19.webp"
+            ],
+            rating: 4.9,
+            reviewCount: 35,
+            description: "Fusión vintage entre la estética clásica de club de tiro y el lujo callejero. Panel frontal de pana prémium burdeos con cordón trenzado de hilo dorado sobre la visera y la insignia caligráfica bordada de la marca CAPO con filigrana dorada.",
+            specs: {
+                corona: "Estructurada frontal de pana de algodón 5 paneles",
+                malla: "Malla trasera negra de polímero transpirable",
+                visera: "Visera semi-curva con cordón náutico oro trenzado",
+                broche: "Snapback regulable de 7 posiciones reforzado",
+                talla: "Ajustable Universal (56 - 62 cm)"
+            }
         }
     ];
 
