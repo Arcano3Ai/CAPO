@@ -2237,7 +2237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // AUDIO CONTROLLER: REINAS DEL DEMBOW (AUTOPLAY AGRESIVO)
+    // AUDIO CONTROLLER: MODO PATRÓN ACTIVADO (AUTOPLAY AGRESIVO)
     // =========================================================
     const audio = document.getElementById('bg-music');
     const playBtn = document.getElementById('play-btn');
@@ -2253,12 +2253,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerWidget.classList.remove('paused');
                 playerWidget.classList.add('playing');
                 if (playIcon) playIcon.className = 'fas fa-pause';
-                if (playText) playText.textContent = 'DEMBOW SONANDO';
+                if (playText) playText.textContent = 'PATRÓN SONANDO';
             } else {
                 playerWidget.classList.remove('playing');
                 playerWidget.classList.add('paused');
                 if (playIcon) playIcon.className = 'fas fa-play';
-                if (playText) playText.textContent = 'REINAS DEL DEMBOW';
+                if (playText) playText.textContent = 'MODO PATRÓN ACTIVADO';
             }
         };
 
