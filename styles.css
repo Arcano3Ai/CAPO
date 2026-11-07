@@ -2603,10 +2603,50 @@ footer {
 }
 
 /* ================================================= */
-/* RESPONSIVE DESIGN                                 */
+/* RESPONSIVE DESIGN & DESKTOP INTERSTITIAL VIDEOS  */
 /* ================================================= */
 
+/* Reglas Desktop (pantallas grandes: computadoras y laptops) */
+@media (min-width: 993px) {
+    .mobile-facade-floor {
+        display: none !important;
+    }
+
+    .hero-building {
+        height: 100vh !important;
+        min-height: 640px !important;
+        max-height: 900px !important;
+    }
+
+    .hero-building .floor-1 {
+        height: 100% !important;
+    }
+
+    .hero-building .floor-1 video.building-video {
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .desktop-only-break {
+        display: flex !important;
+    }
+
+    .desktop-only-grid {
+        display: grid !important;
+    }
+}
+
+/* Reglas Móvil & Tablets */
 @media (max-width: 992px) {
+    .desktop-only-break,
+    .desktop-only-grid {
+        display: none !important;
+    }
+
+    .mobile-facade-floor {
+        display: block !important;
+    }
+
     .section-title { font-size: 2.8rem; }
     .hero-content h1 { font-size: 8vw; }
     .quick-view-grid { grid-template-columns: 1fr; }

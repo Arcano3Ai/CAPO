@@ -208,20 +208,20 @@
     <!-- Hero Section: EDIFICIO CONTINUO CAPO (PISOS 1, 2 Y 3 EN EL HERO SIN OPACIDAD) -->
     <header id="inicio" class="hero hero-building">
         <div class="building-facade" id="building-facade">
-            <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro -->
+            <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro (Hero en Desktop y Móvil) -->
             <div class="building-tier floor-1">
                 <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-1-poster.webp">
                     <source src="assets/fondo-1.mp4" type="video/mp4">
                 </video>
             </div>
-            <!-- Piso 2: Planta Media / Ventanas con Postigos & Hoodies CAPO -->
-            <div class="building-tier floor-2">
+            <!-- Piso 2: Planta Media (Fachada continua exclusiva en móvil) -->
+            <div class="building-tier floor-2 mobile-facade-floor">
                 <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-2-poster.webp">
                     <source src="assets/fondo-2.mp4" type="video/mp4">
                 </video>
             </div>
-            <!-- Piso 3: Planta Baja / Puerta Principal, Líder con Máscara, Gorras & Boombox -->
-            <div class="building-tier floor-3">
+            <!-- Piso 3: Planta Baja (Fachada continua exclusiva en móvil) -->
+            <div class="building-tier floor-3 mobile-facade-floor">
                 <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-3-poster.webp">
                     <source src="assets/fondo-3.mp4" type="video/mp4">
                 </video>
@@ -270,8 +270,46 @@
                 </div>
             </div>
             
-            <!-- Dynamic Grid: Primeros 10 productos -->
+            <!-- Dynamic Grid: Primeros productos (Gorras Insignia) -->
             <div class="product-grid" id="main-product-grid">
+                <!-- Products injected dynamically from products.json -->
+            </div>
+
+            <!-- Interstitial Video Showcase Desktop 1: Piso 2 del Edificio CAPO -->
+            <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-2">
+                <div class="cinematic-break-video-wrap">
+                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-2-poster.webp">
+                        <source src="assets/fondo-2.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cinematic-break-content">
+                    <span class="cinematic-break-tag"><i class="fas fa-layer-group"></i> NIVEL 2 // IMPERIO TEXTIL</span>
+                    <h2>FORJADO EN LA CIMA.</h2>
+                    <p>ALTA INGENIERÍA 500 GSM // CORTE OVERSIZED Y ESTRUCTURADO</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid Desktop: Hoodies pesados y chamarras -->
+            <div class="product-grid desktop-only-grid" id="desktop-piso-2-grid">
+                <!-- Products injected dynamically from products.json -->
+            </div>
+
+            <!-- Interstitial Video Showcase Desktop 2: Piso 3 del Edificio CAPO -->
+            <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-3">
+                <div class="cinematic-break-video-wrap">
+                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-3-poster.webp">
+                        <source src="assets/fondo-3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cinematic-break-content">
+                    <span class="cinematic-break-tag"><i class="fas fa-door-closed"></i> NIVEL 1 // ACCESO PRINCIPAL</span>
+                    <h2>EL ORIGEN DEL IMPERIO.</h2>
+                    <p>PIEZAS EMBLEMÁTICAS SERIADAS // EDICIÓN BÓVEDA</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid Desktop: Streetwear táctico y equipamiento -->
+            <div class="product-grid desktop-only-grid" id="desktop-piso-3-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
 
@@ -289,7 +327,7 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Siguientes 10 productos (11 al 20) -->
+            <!-- Dynamic Grid: Siguientes productos -->
             <div class="product-grid" id="secondary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
