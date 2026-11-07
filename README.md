@@ -1,6 +1,22 @@
-iero compartirla nom# 👑 CAPO Store - Lujo Urbano & Gorras Exclusivas
+# 👑 CAPO Store - Lujo Urbano & Indumentaria Exclusiva
 
-Plataforma e-commerce completa de alto rendimiento con arquitectura *Dark Brutalist / Streetwear* diseñada para la marca de gorras de lujo urbano **CAPO**.
+Plataforma e-commerce completa de alto rendimiento con arquitectura *Dark Brutalist / Streetwear* diseñada para la marca de lujo urbano **CAPO**.
+
+---
+
+## 🔒 INVARIANTE ARQUITECTÓNICO BLOQUEADO (LAYOUT Y VIDEOS)
+
+La disposición de los videos y catálogos está blindada y protegida por la suite de auditoría DevOps (`tests/devops-audit.js`):
+1. **Hero `#inicio` (Edificio Continuo):** Pisos 1, 2 y 3 (`fondo-1.mp4`, `fondo-2.mp4`, `fondo-3.mp4`) van estrictamente continuos y apilados sin cortes ni productos intermedios.
+2. **Catálogo `#coleccion`:**
+   - **Grid 1** (`#main-product-grid`): 12 piezas de Streetwear.
+   - **Video 4** (`#cinematic-break-section-1`): *EL PODER NO SE PIDE. SE TOMA.* (`capo-showcase.mp4`).
+   - **Grid 2** (`#secondary-product-grid`): 12 piezas de Streetwear Pesado (separando físicamente el video 4 del 5).
+   - **Video 5** (`#cinematic-break-section-2`): *FORJADO EN EL SILENCIO.* (`capo-showcase-2.mp4`).
+   - **Grid 3** (`#tertiary-product-grid`): 6 piezas de la Línea Femme Printful.
+   - **Video 6** (`#cinematic-break-section-3`): *ZONA CAPO SYNDICATE* (`capo-showcase-3.mp4`).
+   - **Grid 4** (`#quaternary-product-grid`): 20 pulseras de piedras naturales.
+3. **Footer `#contacto`:** Video ambiental nocturno en bucle continuo (`campfire-footer.mp4`).
 
 ---
 

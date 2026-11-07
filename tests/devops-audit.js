@@ -149,6 +149,60 @@ assertAudit(styleSize < 120 * 1024, `Hoja de estilos CSS optimizada (< 120 KB): 
 assertAudit(scriptSize < 200 * 1024, `Frontend Engine JS dentro de presupuesto (< 200 KB): ${(scriptSize / 1024).toFixed(1)} KB`);
 assertAudit(syncSize < 40 * 1024, `Capa SyncService ligera (< 40 KB): ${(syncSize / 1024).toFixed(1)} KB`);
 
+// 6. Bloqueo Invariable de Arquitectura de Pantalla y Orden de Videos
+console.log('\n--- 6. Bloqueo Invariable de Arquitectura de Pantalla y Orden de Videos ---');
+const htmlContent = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
+
+// 6.1 Hero Edificio Continuo: Pisos 1, 2 y 3 consecutivos sin productos
+const heroMatches = htmlContent.match(/<header id="inicio"[\s\S]*?<\/header>/);
+assertAudit(heroMatches !== null, 'Hero #inicio presente en DOM');
+if (heroMatches) {
+    const heroHtml = heroMatches[0];
+    const hasFloor1 = heroHtml.includes('fondo-1.mp4');
+    const hasFloor2 = heroHtml.includes('fondo-2.mp4');
+    const hasFloor3 = heroHtml.includes('fondo-3.mp4');
+    const hasNoProductsInHero = !heroHtml.includes('product-card') && !heroHtml.includes('product-grid');
+    assertAudit(hasFloor1 && hasFloor2 && hasFloor3 && hasNoProductsInHero, 'Hero contiene exclusivamente Pisos 1, 2 y 3 continuos (fondo-1, fondo-2, fondo-3)');
+}
+
+// 6.2 Separación estricta de Showcases por Grids de Productos en Colección
+const coleccionMatches = htmlContent.match(/<section id="coleccion"[\s\S]*?<\/section>/);
+assertAudit(coleccionMatches !== null, 'Sección #coleccion presente en DOM');
+if (coleccionMatches) {
+    const colHtml = coleccionMatches[0];
+    const posMainGrid = colHtml.indexOf('id="main-product-grid"');
+    const posBreak1 = colHtml.indexOf('id="cinematic-break-section-1"');
+    const posSecGrid = colHtml.indexOf('id="secondary-product-grid"');
+    const posBreak2 = colHtml.indexOf('id="cinematic-break-section-2"');
+    const posTerGrid = colHtml.indexOf('id="tertiary-product-grid"');
+    const posBreak3 = colHtml.indexOf('id="cinematic-break-section-3"');
+    const posQuatGrid = colHtml.indexOf('id="quaternary-product-grid"');
+
+    const strictOrder = (
+        posMainGrid < posBreak1 &&
+        posBreak1 < posSecGrid &&
+        posSecGrid < posBreak2 &&
+        posBreak2 < posTerGrid &&
+        posTerGrid < posBreak3 &&
+        posBreak3 < posQuatGrid
+    );
+    assertAudit(strictOrder, 'Orden Invariable: Grid 1 -> Showcase 1 -> Grid 2 -> Showcase 2 -> Grid 3 -> Showcase 3 -> Grid 4');
+}
+
+// 6.3 Footer con video ambiental nocturno
+const footerMatches = htmlContent.match(/<footer id="contacto"[\s\S]*?<\/footer>/);
+assertAudit(footerMatches !== null && footerMatches[0].includes('campfire-footer.mp4'), 'Footer #contacto contiene video ambiental en bucle campfire-footer.mp4');
+
+// 6.4 Motor de Catálogo inyecta en todos los 4 grids
+const jsContent = fs.readFileSync(path.join(rootDir, 'script.js'), 'utf8');
+const rendersAllGrids = (
+    jsContent.includes('this.mainGrid.innerHTML = batch1') &&
+    jsContent.includes('this.secondaryGrid.innerHTML = batch2') &&
+    jsContent.includes('this.tertiaryGrid.innerHTML = femmeList') &&
+    jsContent.includes('this.quaternaryGrid.innerHTML = syndicateList')
+);
+assertAudit(rendersAllGrids, 'CatalogEngine inyecta deterministamente productos en los 4 grids intercalados');
+
 console.log('\n==================================================');
 console.log(`RESUMEN DE AUDITORÍA: ${auditPasses} PASADAS | ${auditFails} OBSERVACIONES`);
 console.log('==================================================');
