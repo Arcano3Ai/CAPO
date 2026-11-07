@@ -195,6 +195,8 @@ button {
 .nav-links {
     display: flex;
     gap: 2rem;
+    margin-left: auto;
+    margin-right: 2.5rem;
 }
 
 .nav-links a {
@@ -1286,18 +1288,13 @@ footer.footer-with-video {
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    opacity: 0.40;
+    opacity: 1 !important; /* 100% nitido, sin opacidad */
+    filter: none !important;
     display: block;
 }
 
 .footer-video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.70) 50%, rgba(5, 5, 5, 0.95) 100%);
-    pointer-events: none;
+    display: none !important; /* Quitada la opacidad por solicitud */
 }
 
 .footer-content {
@@ -1312,9 +1309,10 @@ footer.footer-with-video {
 .footer-brand h2 {
     font-size: 3.5rem;
     font-weight: 900;
-    color: var(--dark-grey);
+    color: #fff;
     -webkit-text-stroke: 1px var(--secondary-color);
     margin-bottom: 0.5rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 8px #000;
 }
 
 .brand-sub {
@@ -1323,6 +1321,7 @@ footer.footer-with-video {
     color: var(--accent-color);
     font-weight: 700;
     margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
 }
 
 .footer-guarantee {
@@ -1332,9 +1331,17 @@ footer.footer-with-video {
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #aaa;
-    border: 1px solid #222;
+    color: #eee;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid #333;
     padding: 8px 12px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+.footer-links,
+.footer-social-wrapper {
+    text-align: right;
 }
 
 .footer-links h4,
@@ -1344,29 +1351,36 @@ footer.footer-with-video {
     letter-spacing: 2px;
     color: #fff;
     margin-bottom: 1.5rem;
-    border-left: 3px solid var(--accent-color);
-    padding-left: 10px;
+    border-right: 3px solid var(--accent-color);
+    border-left: none;
+    padding-right: 10px;
+    padding-left: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
 }
 
 .footer-links ul {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: 0.8rem;
 }
 
 .footer-links a {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #888;
+    color: #ddd;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 4px #000;
 }
 
 .footer-links a:hover {
-    color: #fff;
-    padding-left: 5px;
+    color: var(--accent-color);
+    padding-right: 5px;
+    padding-left: 0;
 }
 
 .footer-social {
     display: flex;
+    justify-content: flex-end;
     gap: 1.2rem;
     margin-bottom: 1.5rem;
 }
@@ -1374,6 +1388,7 @@ footer.footer-with-video {
 .footer-social a {
     font-size: 1.5rem;
     color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
     transition: color 0.2s, transform 0.2s;
 }
 
@@ -1386,7 +1401,8 @@ footer.footer-with-video {
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #888;
+    color: #eee;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
 }
 
 .contact-email a {
@@ -1394,12 +1410,15 @@ footer.footer-with-video {
 }
 
 .footer-bottom {
-    border-top: 1px solid #1a1a1a;
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: 2rem;
     text-align: center;
     font-size: 0.8rem;
-    color: #555;
+    color: #ccc;
     letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
 }
 
 /* ================================================= */
@@ -2691,14 +2710,17 @@ footer.footer-with-video {
         flex-direction: column;
         position: absolute;
         top: 100%;
-        left: 0;
-        width: 100%;
-        background: #050505;
-        padding: 2.5rem 1.5rem;
-        text-align: center;
+        right: 0;
+        left: auto;
+        width: min(85vw, 340px);
+        background: #080808;
+        padding: 2.5rem 2rem;
+        text-align: right;
+        align-items: flex-end;
         border-bottom: 2px solid var(--accent-color);
+        border-left: 1px solid var(--dark-grey);
         gap: 1.5rem;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
+        box-shadow: -10px 15px 35px rgba(0, 0, 0, 0.95);
     }
 
     .nav-links.active {

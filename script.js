@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navigator.serviceWorker.register('./sw.js')
                 .then(reg => {
                     reg.update();
-                    console.log('✓ Service Worker v29 activo:', reg.scope);
+                    console.log('✓ Service Worker v30 activo:', reg.scope);
                 })
                 .catch(err => console.warn('Service Worker registration skipped:', err));
         });
