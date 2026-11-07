@@ -345,117 +345,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 0; // featured default
             });
 
-            const isDesktop = window.innerWidth >= 993;
-
             if (this.currentFilter === 'all') {
-                // Colecciones específicas con destino curado
+                // Distribución curada: Videos 1, 2 y 3 van seguidos en el Hero (Edificio continuo)
+                // y los videos 4, 5 y 6 van rigurosamente separados por productos en móvil y desktop
                 const femmeList = filtered.filter(p => p.category === 'mujer');
                 const syndicateList = filtered.filter(p => p.category === 'pulseras');
                 const generalList = filtered.filter(p => p.category !== 'mujer' && p.category !== 'pulseras');
 
-                if (isDesktop) {
-                    // DESKTOP: Distribución completa con los 6 videos intercalados
-                    const gBatch1 = generalList.slice(0, 8);               // Gorras & Snapbacks
-                    const gBatch2 = generalList.slice(8, 14);              // Hoodies & Chamarras
-                    const gBatch3 = generalList.slice(14, 19);             // Streetwear & Accesorios
-                    const gBatch4 = generalList.slice(19);                 // Hoodies Monumentales & Joggers
+                // Reparto equitativo de los 24 productos de streetwear
+                const batch1 = generalList.slice(0, 12); // Grid 1: Tras Edificio (Piso 3)
+                const batch2 = generalList.slice(12);    // Grid 2: Entre Video 4 y Video 5
 
-                    // 1. Grid 1: Tras Video 1 (Hero)
-                    this.mainGrid.innerHTML = gBatch1.map(p => this.renderCardHTML(p)).join('');
+                // 1. Grid 1: Tras el Edificio CAPO continuo (Videos 1, 2 y 3)
+                this.mainGrid.innerHTML = batch1.map(p => this.renderCardHTML(p)).join('');
 
-                    // 2. Video 2 (Piso 2) + Grid 2
-                    if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = gBatch2.length > 0 ? '' : 'none';
-                    if (this.desktopPiso2Grid) {
-                        this.desktopPiso2Grid.style.display = gBatch2.length > 0 ? '' : 'none';
-                        this.desktopPiso2Grid.innerHTML = gBatch2.map(p => this.renderCardHTML(p)).join('');
-                    }
+                // 2. Video 4 (EL PODER NO SE PIDE. SE TOMA.) + Grid 2 (12 productos de poder)
+                if (this.breakSection1) this.breakSection1.style.display = batch2.length > 0 ? '' : 'none';
+                if (this.secondaryGrid) {
+                    this.secondaryGrid.style.display = batch2.length > 0 ? '' : 'none';
+                    this.secondaryGrid.innerHTML = batch2.map(p => this.renderCardHTML(p)).join('');
+                }
 
-                    // 3. Video 3 (Piso 3) + Grid 3
-                    if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = gBatch3.length > 0 ? '' : 'none';
-                    if (this.desktopPiso3Grid) {
-                        this.desktopPiso3Grid.style.display = gBatch3.length > 0 ? '' : 'none';
-                        this.desktopPiso3Grid.innerHTML = gBatch3.map(p => this.renderCardHTML(p)).join('');
-                    }
+                // 3. Video 5 (FORJADO EN EL SILENCIO.) + Grid 3 (6 productos Línea Femme Printful)
+                if (this.breakSection2) this.breakSection2.style.display = femmeList.length > 0 ? '' : 'none';
+                if (this.femmeHeading) this.femmeHeading.style.display = femmeList.length > 0 ? '' : 'none';
+                if (this.tertiaryGrid) {
+                    this.tertiaryGrid.style.display = femmeList.length > 0 ? '' : 'none';
+                    this.tertiaryGrid.innerHTML = femmeList.map(p => this.renderCardHTML(p)).join('');
+                }
 
-                    // 4. Video 4 (EL PODER NO SE PIDE. SE TOMA.) + Grid 4 (secondaryGrid)
-                    // NUNCA VACÍO: Siempre cargado de hoodies monumentales y joggers
-                    if (this.breakSection1) this.breakSection1.style.display = gBatch4.length > 0 ? '' : 'none';
-                    if (this.secondaryGrid) {
-                        this.secondaryGrid.style.display = gBatch4.length > 0 ? '' : 'none';
-                        this.secondaryGrid.innerHTML = gBatch4.map(p => this.renderCardHTML(p)).join('');
-                    }
-
-                    // 5. Video 5 (FORJADO EN EL SILENCIO.) + Línea Femme (tertiaryGrid)
-                    if (this.breakSection2) this.breakSection2.style.display = femmeList.length > 0 ? '' : 'none';
-                    if (this.femmeHeading) this.femmeHeading.style.display = femmeList.length > 0 ? '' : 'none';
-                    if (this.tertiaryGrid) {
-                        this.tertiaryGrid.style.display = femmeList.length > 0 ? '' : 'none';
-                        this.tertiaryGrid.innerHTML = femmeList.map(p => this.renderCardHTML(p)).join('');
-                    }
-
-                    // 6. Video 6 (ZONA SYNDICATE) + Joyería & Pulseras (quaternaryGrid)
-                    if (this.breakSection3) this.breakSection3.style.display = syndicateList.length > 0 ? '' : 'none';
-                    if (this.quaternaryGrid) {
-                        this.quaternaryGrid.style.display = syndicateList.length > 0 ? '' : 'none';
-                        this.quaternaryGrid.innerHTML = syndicateList.map(p => this.renderCardHTML(p)).join('');
-                    }
-                } else {
-                    // MÓVIL: Reparto equitativo de generalList entre mainGrid y secondaryGrid
-                    if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = 'none';
-                    if (this.desktopPiso2Grid) {
-                        this.desktopPiso2Grid.style.display = 'none';
-                        this.desktopPiso2Grid.innerHTML = '';
-                    }
-                    if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = 'none';
-                    if (this.desktopPiso3Grid) {
-                        this.desktopPiso3Grid.style.display = 'none';
-                        this.desktopPiso3Grid.innerHTML = '';
-                    }
-
-                    // Mitad 1 de generalList (12 productos) en mainGrid tras Hero
-                    // Mitad 2 de generalList (12 productos) en secondaryGrid ENTRE Video 4 y Video 5
-                    const mBatch1 = generalList.slice(0, 12);
-                    const mBatch2 = generalList.slice(12);
-
-                    // 1. Grid 1: Tras Hero
-                    this.mainGrid.innerHTML = mBatch1.map(p => this.renderCardHTML(p)).join('');
-
-                    // 2. Video 4 (EL PODER NO SE PIDE. SE TOMA.) + Grid 4 (secondaryGrid)
-                    // GARANTÍA TOTAL: mBatch2 tiene 12 productos que van DIRECTO entre Video 4 y Video 5
-                    if (this.breakSection1) this.breakSection1.style.display = mBatch2.length > 0 ? '' : 'none';
-                    if (this.secondaryGrid) {
-                        this.secondaryGrid.style.display = mBatch2.length > 0 ? '' : 'none';
-                        this.secondaryGrid.innerHTML = mBatch2.map(p => this.renderCardHTML(p)).join('');
-                    }
-
-                    // 3. Video 5 (FORJADO EN EL SILENCIO.) + Línea Femme (tertiaryGrid)
-                    if (this.breakSection2) this.breakSection2.style.display = femmeList.length > 0 ? '' : 'none';
-                    if (this.femmeHeading) this.femmeHeading.style.display = femmeList.length > 0 ? '' : 'none';
-                    if (this.tertiaryGrid) {
-                        this.tertiaryGrid.style.display = femmeList.length > 0 ? '' : 'none';
-                        this.tertiaryGrid.innerHTML = femmeList.map(p => this.renderCardHTML(p)).join('');
-                    }
-
-                    // 4. Video 6 (ZONA SYNDICATE) + Pulseras (quaternaryGrid)
-                    if (this.breakSection3) this.breakSection3.style.display = syndicateList.length > 0 ? '' : 'none';
-                    if (this.quaternaryGrid) {
-                        this.quaternaryGrid.style.display = syndicateList.length > 0 ? '' : 'none';
-                        this.quaternaryGrid.innerHTML = syndicateList.map(p => this.renderCardHTML(p)).join('');
-                    }
+                // 4. Video 6 (ZONA SYNDICATE) + Grid 4 (20 pulseras de piedras naturales)
+                if (this.breakSection3) this.breakSection3.style.display = syndicateList.length > 0 ? '' : 'none';
+                if (this.quaternaryGrid) {
+                    this.quaternaryGrid.style.display = syndicateList.length > 0 ? '' : 'none';
+                    this.quaternaryGrid.innerHTML = syndicateList.map(p => this.renderCardHTML(p)).join('');
                 }
             } else {
                 // CUANDO HAY FILTRO ACTIVO (ej. GORRAS, TEXTIL, MUJER, ACCESORIOS)
                 // Ocultar todos los breaks intermedios para que no colisionen sin productos
-                if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = 'none';
-                if (this.desktopPiso2Grid) {
-                    this.desktopPiso2Grid.style.display = 'none';
-                    this.desktopPiso2Grid.innerHTML = '';
-                }
-                if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = 'none';
-                if (this.desktopPiso3Grid) {
-                    this.desktopPiso3Grid.style.display = 'none';
-                    this.desktopPiso3Grid.innerHTML = '';
-                }
                 if (this.breakSection1) this.breakSection1.style.display = 'none';
                 if (this.secondaryGrid) {
                     this.secondaryGrid.style.display = 'none';

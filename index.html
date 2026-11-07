@@ -46,7 +46,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
     <!-- Stylesheets & Fonts -->
-    <link rel="stylesheet" href="styles.css?v=25">
+    <link rel="stylesheet" href="styles.css?v=28">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -200,7 +200,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section: EDIFICIO CAPO (PLANTA ALTA / HERO CINEMATOGRÁFICO) -->
+    <!-- Hero Section: EDIFICIO CONTINUO CAPO (PISOS 1, 2 Y 3 SEGUIDOS SIN CORTES) -->
     <header id="inicio" class="hero hero-building">
         <div class="building-facade" id="building-facade">
             <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro -->
@@ -208,6 +208,20 @@
                 <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
                     poster="assets/fondo-1-poster.webp">
                     <source src="assets/fondo-1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- Piso 2: Planta Media / Ventanas con Postigos & Hoodies CAPO -->
+            <div class="building-tier floor-2">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
+                    poster="assets/fondo-2-poster.webp">
+                    <source src="assets/fondo-2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <!-- Piso 3: Planta Baja / Puerta Principal & Acceso Bóveda -->
+            <div class="building-tier floor-3">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
+                    poster="assets/fondo-3-poster.webp">
+                    <source src="assets/fondo-3.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
@@ -259,50 +273,8 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Primeros productos (Gorras Insignia) -->
+            <!-- Dynamic Grid: Primeros productos (Gorras Insignia & Hoodies) -->
             <div class="product-grid" id="main-product-grid">
-                <!-- Products injected dynamically from products.json -->
-            </div>
-
-            <!-- Interstitial Video Showcase Desktop 1: Piso 2 del Edificio CAPO -->
-            <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-2">
-                <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline
-                        preload="auto" poster="assets/fondo-2-poster.webp">
-                        <source src="assets/fondo-2.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="cinematic-break-content">
-                    <span class="cinematic-break-tag"><i class="fas fa-layer-group"></i> NIVEL 2 // IMPERIO
-                        TEXTIL</span>
-                    <h2>FORJADO EN LA CIMA.</h2>
-                    <p>ALTA INGENIERÍA 500 GSM // CORTE OVERSIZED Y ESTRUCTURADO</p>
-                </div>
-            </div>
-
-            <!-- Dynamic Grid Desktop: Hoodies pesados y chamarras -->
-            <div class="product-grid desktop-only-grid" id="desktop-piso-2-grid">
-                <!-- Products injected dynamically from products.json -->
-            </div>
-
-            <!-- Interstitial Video Showcase Desktop 2: Piso 3 del Edificio CAPO -->
-            <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-3">
-                <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline
-                        preload="auto" poster="assets/fondo-3-poster.webp">
-                        <source src="assets/fondo-3.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="cinematic-break-content">
-                    <span class="cinematic-break-tag"><i class="fas fa-door-closed"></i> NIVEL 1 // ACCESO
-                        PRINCIPAL</span>
-                    <h2>EL ORIGEN DEL IMPERIO.</h2>
-                    <p>PIEZAS EMBLEMÁTICAS SERIADAS // EDICIÓN BÓVEDA</p>
-                </div>
-            </div>
-
-            <!-- Dynamic Grid Desktop: Streetwear táctico y equipamiento -->
-            <div class="product-grid desktop-only-grid" id="desktop-piso-3-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
 
@@ -321,7 +293,7 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Siguientes productos -->
+            <!-- Dynamic Grid: Siguientes productos (Streetwear pesado & Equipamiento) -->
             <div class="product-grid" id="secondary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
@@ -356,7 +328,7 @@
                 </p>
             </div>
 
-            <!-- Dynamic Grid: Siguientes 10 productos (21 al 30: Colección Dama Femme) -->
+            <!-- Dynamic Grid: Siguientes 6 productos (Colección Dama Femme de Printful) -->
             <div class="product-grid" id="tertiary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
@@ -390,7 +362,7 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Resto de los productos (31 en adelante) -->
+            <!-- Dynamic Grid: Resto de los productos (Joyería y Pulseras Syndicate) -->
             <div class="product-grid" id="quaternary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
@@ -559,8 +531,15 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contacto">
+    <!-- Footer con Video Ambiental Campfire -->
+    <footer id="contacto" class="footer-with-video">
+        <div class="footer-video-wrap">
+            <video class="footer-ambient-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
+                poster="assets/campfire-footer-poster.webp">
+                <source src="assets/campfire-footer.mp4" type="video/mp4">
+            </video>
+            <div class="footer-video-overlay"></div>
+        </div>
         <div class="footer-content">
             <div class="footer-brand">
                 <h2>CAPO</h2>
@@ -1290,9 +1269,9 @@
     <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
     <!-- Core Data Layer & Synchronization Service -->
-    <script src="data/sync-service.js?v=25"></script>
+    <script src="data/sync-service.js?v=28"></script>
     <!-- Logic Script -->
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=28"></script>
 </body>
 
 </html>
