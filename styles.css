@@ -80,18 +80,9 @@ button {
     mix-blend-mode: difference;
 }
 
-/* Audio Player - Floating Brutalist Widget */
+/* Audio Player - Retirado según instrucción del usuario (Música ambiental continua) */
 .audio-player {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 950;
-    background: rgba(5, 5, 5, 0.95);
-    border: var(--border-width) solid var(--dark-grey);
-    padding: 8px 14px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-    transition: border-color var(--transition-speed), transform var(--transition-speed);
+    display: none !important;
 }
 
 .audio-player:hover {
@@ -2853,16 +2844,7 @@ footer {
     }
 
     .audio-player {
-        bottom: 18px;
-        left: 18px;
-        padding: 6px 12px;
-        z-index: 1060;
-    }
-
-    .btn-audio-text {
-        display: inline-block;
-        font-size: 0.72rem;
-        letter-spacing: 1px;
+        display: none !important;
     }
 
     .lab-container {

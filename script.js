@@ -2081,105 +2081,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // AUDIO CONTROLLER: MODO PATRÓN ACTIVADO (REPRODUCCIÓN ULTRA OPTIMIZADA)
+    // AUDIO ENGINE: MODO PATRÓN PERPETUO (REPRODUCCIÓN SIN CONTROLES EN LOOP)
     // =========================================================
-    const audio = document.getElementById('bg-music');
-    const playBtn = document.getElementById('play-btn');
-    const playerWidget = document.getElementById('audio-player-widget');
+    const bgAudio = document.getElementById('bg-music');
+    if (bgAudio) {
+        bgAudio.volume = 0.70;
+        bgAudio.loop = true;
 
-    if (audio && playBtn && playerWidget) {
-        audio.volume = 0.70;
-        const playIcon = playBtn.querySelector('i');
-        const playText = playBtn.querySelector('.btn-audio-text');
-        let userManuallyPaused = false;
-
-        const updateAudioState = (isPlaying) => {
-            if (isPlaying) {
-                playerWidget.classList.remove('paused');
-                playerWidget.classList.add('playing');
-                if (playIcon) playIcon.className = 'fas fa-pause';
-                if (playText) playText.textContent = 'PATRÓN SONANDO ♫';
-            } else {
-                playerWidget.classList.remove('playing');
-                playerWidget.classList.add('paused');
-                if (playIcon) playIcon.className = 'fas fa-play';
-                if (playText) playText.textContent = 'ACTIVAR MODO PATRÓN ▶';
+        const forcePlay = () => {
+            if (bgAudio.paused) {
+                const p = bgAudio.play();
+                if (p !== undefined) {
+                    p.catch(() => {});
+                }
             }
         };
 
-        audio.addEventListener('play', () => updateAudioState(true));
-        audio.addEventListener('pause', () => updateAudioState(false));
-        audio.addEventListener('ended', () => {
-            // Loop garantizado en cualquier navegador
-            audio.currentTime = 0;
-            audio.play().catch(() => {});
+        // Bucle infinito garantizado sin control manual
+        bgAudio.addEventListener('ended', () => {
+            bgAudio.currentTime = 0;
+            forcePlay();
         });
 
-        // Eventos táctiles, gestuales y de scroll para desbloqueo instantáneo en iOS/Android/Desktop
-        const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'keydown', 'scroll', 'wheel'];
+        // Intentos automáticos escalonados al cargar
+        forcePlay();
+        setTimeout(forcePlay, 300);
+        setTimeout(forcePlay, 600);
+        setTimeout(forcePlay, 1000);
+        setTimeout(forcePlay, 2000);
 
-        const removeListeners = () => {
-            unlockEvents.forEach(evt => {
-                window.removeEventListener(evt, handleGestureAutoplay, { capture: true });
-                document.removeEventListener(evt, handleGestureAutoplay, { capture: true });
-            });
+        // Desbloqueo agresivo ante cualquier interacción (toque, clic, scroll, swipe, movimiento)
+        const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'keydown', 'scroll', 'wheel', 'mousemove'];
+        const unlockHandler = () => {
+            forcePlay();
+            if (!bgAudio.paused) {
+                unlockEvents.forEach(evt => window.removeEventListener(evt, unlockHandler, { capture: true }));
+            }
         };
 
-        const tryPlay = () => {
-            if (userManuallyPaused) return;
-            const p = audio.play();
-            if (p !== undefined) {
-                p.then(() => {
-                    updateAudioState(true);
-                    removeListeners();
-                }).catch(() => {
-                    updateAudioState(false);
+        unlockEvents.forEach(evt => {
+            window.addEventListener(evt, unlockHandler, { capture: true, passive: true });
+            document.addEventListener(evt, unlockHandler, { capture: true, passive: true });
+        });
+
+        // Recuperación ante segundo plano / cambio de pestaña / reanudación
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) forcePlay();
+        });
+        window.addEventListener('pageshow', forcePlay);
+        window.addEventListener('focus', forcePlay);
+    }
+
+    // =========================================================
+    // VIDEO MEMORY & GPU CONTROLLER (PREVENCIÓN DE CRASHES Y OOM)
+    // =========================================================
+    const VideoMemoryController = {
+        init() {
+            const allVideos = document.querySelectorAll('video');
+            if (!allVideos.length) return;
+
+            if ('IntersectionObserver' in window) {
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const vid = entry.target;
+                        if (entry.isIntersecting) {
+                            // Solo decodificar y reproducir cuando el video esté en pantalla
+                            const p = vid.play();
+                            if (p !== undefined) p.catch(() => {});
+                        } else {
+                            // Pausar y liberar decodificador de hardware cuando salga de pantalla
+                            if (!vid.paused) {
+                                vid.pause();
+                            }
+                        }
+                    });
+                }, {
+                    rootMargin: '150px 0px 150px 0px',
+                    threshold: 0.1
+                });
+
+                allVideos.forEach(v => {
+                    if (!v.closest('#inicio')) {
+                        v.preload = 'none';
+                    }
+                    videoObserver.observe(v);
                 });
             }
-        };
-
-        function handleGestureAutoplay() {
-            if (userManuallyPaused) return;
-            if (!audio.paused) {
-                removeListeners();
-                return;
-            }
-            tryPlay();
         }
-
-        // 1. Intentos progresivos de inicio automático (inmediato, 500ms y 1000ms tras carga)
-        tryPlay();
-        setTimeout(tryPlay, 500);
-        setTimeout(tryPlay, 1000);
-
-        // 2. Intentos complementarios en eventos de ventana
-        window.addEventListener('load', () => setTimeout(tryPlay, 1000), { once: true });
-        window.addEventListener('pageshow', () => setTimeout(tryPlay, 1000), { once: true });
-
-        // 3. Activación inmediata al primer toque, clic o scroll en cualquier parte de la pantalla
-        unlockEvents.forEach(evt => {
-            window.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
-            document.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
-        });
-
-        // 4. Control manual instantáneo con el botón flotante
-        playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (audio.paused) {
-                userManuallyPaused = false;
-                audio.play()
-                    .then(() => updateAudioState(true))
-                    .catch(err => {
-                        console.warn('Audio play request blocked:', err);
-                        updateAudioState(false);
-                    });
-            } else {
-                userManuallyPaused = true;
-                audio.pause();
-                updateAudioState(false);
-            }
-        });
-    }
+    };
+    VideoMemoryController.init();
 
     // Newsletter
     const newsletterForm = document.getElementById('newsletter-form');

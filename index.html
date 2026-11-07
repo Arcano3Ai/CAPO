@@ -121,24 +121,10 @@
         </div>
     </div>
 
-    <!-- Audio Player (Floating Widget con Modo Patrón Activado) -->
-    <div class="audio-player" id="audio-player-widget">
-        <audio id="bg-music" autoplay loop preload="auto">
-            <source src="assets/modo-patron-activado.mp3" type="audio/mpeg">
-        </audio>
-        <div class="player-controls">
-            <button id="play-btn" class="btn-audio" aria-label="Reproducir o pausar soundtrack">
-                <i class="fas fa-play"></i>
-                <span class="btn-audio-text">MODO PATRÓN ACTIVADO</span>
-            </button>
-            <div class="equalizer" aria-hidden="true">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </div>
-    </div>
+    <!-- Invisible Soundtrack Engine (Reproducción Continua Infinita Sin Controles) -->
+    <audio id="bg-music" autoplay loop preload="auto" playsinline>
+        <source src="assets/modo-patron-activado.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Header Navigation -->
     <nav class="navbar" id="main-nav">
@@ -205,25 +191,13 @@
         </div>
     </nav>
 
-    <!-- Hero Section: EDIFICIO CONTINUO CAPO (PISOS 1, 2 Y 3 EN EL HERO SIN OPACIDAD) -->
+    <!-- Hero Section: EDIFICIO CAPO (PLANTA ALTA / HERO CINEMATOGRÁFICO) -->
     <header id="inicio" class="hero hero-building">
         <div class="building-facade" id="building-facade">
-            <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro (Hero en Desktop y Móvil) -->
+            <!-- Piso 1: Planta Alta / Ventanas & Graffiti CAPO Oro -->
             <div class="building-tier floor-1">
-                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-1-poster.webp">
+                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="assets/fondo-1-poster.webp">
                     <source src="assets/fondo-1.mp4" type="video/mp4">
-                </video>
-            </div>
-            <!-- Piso 2: Planta Media (Fachada continua exclusiva en móvil) -->
-            <div class="building-tier floor-2 mobile-facade-floor">
-                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-2-poster.webp">
-                    <source src="assets/fondo-2.mp4" type="video/mp4">
-                </video>
-            </div>
-            <!-- Piso 3: Planta Baja (Fachada continua exclusiva en móvil) -->
-            <div class="building-tier floor-3 mobile-facade-floor">
-                <video class="building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-3-poster.webp">
-                    <source src="assets/fondo-3.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
@@ -278,7 +252,7 @@
             <!-- Interstitial Video Showcase Desktop 1: Piso 2 del Edificio CAPO -->
             <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-2">
                 <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-2-poster.webp">
+                    <video class="cinematic-break-video building-video" muted loop playsinline webkit-playsinline preload="none" poster="assets/fondo-2-poster.webp">
                         <source src="assets/fondo-2.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -297,7 +271,7 @@
             <!-- Interstitial Video Showcase Desktop 2: Piso 3 del Edificio CAPO -->
             <div class="cinematic-break desktop-only-break" id="cinematic-break-piso-3">
                 <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/fondo-3-poster.webp">
+                    <video class="cinematic-break-video building-video" muted loop playsinline webkit-playsinline preload="none" poster="assets/fondo-3-poster.webp">
                         <source src="assets/fondo-3.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -316,7 +290,7 @@
             <!-- Interstitial Video Showcase 1: Video Project 48 sin opacidad -->
             <div class="cinematic-break" id="cinematic-break-section-1">
                 <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/capo-showcase-poster.webp">
+                    <video class="cinematic-break-video building-video" muted loop playsinline webkit-playsinline preload="none" poster="assets/capo-showcase-poster.webp">
                         <source src="assets/capo-showcase.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -335,7 +309,7 @@
             <!-- Interstitial Video Showcase 2: Video Project 48 (1) sin opacidad -->
             <div class="cinematic-break" id="cinematic-break-section-2">
                 <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/capo-showcase-2-poster.webp">
+                    <video class="cinematic-break-video building-video" muted loop playsinline webkit-playsinline preload="none" poster="assets/capo-showcase-2-poster.webp">
                         <source src="assets/capo-showcase-2.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -367,7 +341,7 @@
             <!-- Interstitial Video Showcase 3 / ZONA CAPO SYNDICATE: Video Project 49 sin opacidad -->
             <div class="cinematic-break syndicate-portal" id="cinematic-break-section-3">
                 <div class="cinematic-break-video-wrap">
-                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/capo-showcase-3-poster.webp">
+                    <video class="cinematic-break-video building-video" muted loop playsinline webkit-playsinline preload="none" poster="assets/capo-showcase-3-poster.webp">
                         <source src="assets/capo-showcase-3.mp4" type="video/mp4">
                     </video>
                 </div>
