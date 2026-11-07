@@ -2133,43 +2133,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================
-    // VIDEO MEMORY & GPU CONTROLLER (PREVENCIÓN DE CRASHES Y OOM)
+    // ALWAYS-ON VIDEO ENGINE: TODOS LOS VIDEOS EN PLAY SIEMPRE
     // =========================================================
-    const VideoMemoryController = {
+    const AlwaysOnVideoEngine = {
         init() {
             const allVideos = document.querySelectorAll('video');
             if (!allVideos.length) return;
 
-            if ('IntersectionObserver' in window) {
-                const videoObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const vid = entry.target;
-                        if (entry.isIntersecting) {
-                            // Solo decodificar y reproducir cuando el video esté en pantalla
-                            const p = vid.play();
-                            if (p !== undefined) p.catch(() => {});
-                        } else {
-                            // Pausar y liberar decodificador de hardware cuando salga de pantalla
-                            if (!vid.paused) {
-                                vid.pause();
-                            }
-                        }
-                    });
-                }, {
-                    rootMargin: '150px 0px 150px 0px',
-                    threshold: 0.1
-                });
-
+            const playAllVideos = () => {
                 allVideos.forEach(v => {
-                    if (!v.closest('#inicio')) {
-                        v.preload = 'none';
+                    v.muted = true;
+                    v.defaultMuted = true;
+                    v.setAttribute('playsinline', '');
+                    v.setAttribute('webkit-playsinline', '');
+                    v.loop = true;
+                    if (v.paused) {
+                        const p = v.play();
+                        if (p !== undefined) p.catch(() => {});
                     }
-                    videoObserver.observe(v);
                 });
-            }
+            };
+
+            // Reproducción inmediata continua
+            playAllVideos();
+
+            // Garantía ininterrumpida ante cualquier intento de pausa o fin de video
+            allVideos.forEach(v => {
+                v.addEventListener('pause', () => {
+                    const p = v.play();
+                    if (p !== undefined) p.catch(() => {});
+                });
+                v.addEventListener('ended', () => {
+                    v.currentTime = 0;
+                    const p = v.play();
+                    if (p !== undefined) p.catch(() => {});
+                });
+            });
+
+            // Disparadores en interacción y ciclo de vida de la página
+            const triggers = ['touchstart', 'pointerdown', 'click', 'scroll', 'visibilitychange', 'pageshow', 'focus'];
+            triggers.forEach(evt => {
+                window.addEventListener(evt, playAllVideos, { passive: true });
+                document.addEventListener(evt, playAllVideos, { passive: true });
+            });
+
+            // Loop de vigilancia cada 2 segundos para asegurar que todos sigan en play siempre
+            setInterval(playAllVideos, 2000);
         }
     };
-    VideoMemoryController.init();
+    AlwaysOnVideoEngine.init();
 
     // Newsletter
     const newsletterForm = document.getElementById('newsletter-form');
