@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v25';
+const CACHE_NAME = 'capo-store-v26';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -6,6 +6,14 @@ const ASSETS_TO_CACHE = [
     './styles.css',
     './script.js',
     './manifest.json',
+    './favicon.ico',
+    './assets/favicon-32x32.png',
+    './assets/favicon-16x16.png',
+    './assets/apple-touch-icon.png',
+    './assets/capo-pwa-icon-192.png',
+    './assets/capo-pwa-icon-512.png',
+    './assets/capo-pwa-icon-192.webp',
+    './assets/capo-pwa-icon-512.webp',
     './data/products.json',
     './data/sync-service.js',
     './assets/fondo-1-poster.webp',
