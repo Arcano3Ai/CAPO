@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('✓ Service Worker registrado:', reg.scope))
+                .then(reg => {
+                    reg.update();
+                    console.log('✓ Service Worker v25 activo:', reg.scope);
+                })
                 .catch(err => console.warn('Service Worker registration skipped:', err));
         });
     }
@@ -344,55 +347,105 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isDesktop = window.innerWidth >= 993;
 
-            if (isDesktop && this.currentFilter === 'all') {
-                // DISTRIBUCIÓN CINEMATOGRÁFICA EN ESCRITORIO:
-                // Productos intercalados entre CADA UNO de los videos (nunca 2 videos seguidos)
-                const batch1 = filtered.slice(0, 8);               // Gorras Insignia
-                const batch2 = filtered.slice(8, 14);              // Hoodies & Chamarras
-                const batch3 = filtered.slice(14, 20);             // Streetwear & Equipamiento
-                const batchFemme = filtered.filter(p => p.category === 'mujer'); // Línea Femme (6 piezas Printful)
-                const batchPulseras = filtered.filter(p => p.category === 'pulseras' || p.category === 'accesorios'); // Pulseras & Joyería
+            if (this.currentFilter === 'all') {
+                // Colecciones específicas con destino curado
+                const femmeList = filtered.filter(p => p.category === 'mujer');
+                const syndicateList = filtered.filter(p => p.category === 'pulseras');
+                const generalList = filtered.filter(p => p.category !== 'mujer' && p.category !== 'pulseras');
 
-                // 1. Grid Principal (después de Hero Video 1 fondo-1.mp4)
-                this.mainGrid.innerHTML = batch1.map(p => this.renderCardHTML(p)).join('');
+                if (isDesktop) {
+                    // DESKTOP: Distribución completa con los 6 videos intercalados
+                    const gBatch1 = generalList.slice(0, 8);               // Gorras & Snapbacks
+                    const gBatch2 = generalList.slice(8, 14);              // Hoodies & Chamarras
+                    const gBatch3 = generalList.slice(14, 19);             // Streetwear & Accesorios
+                    const gBatch4 = generalList.slice(19);                 // Hoodies Monumentales & Joggers
 
-                // 2. Break Video 2 (Piso 2 fondo-2.mp4) + Grid Hoodies
-                if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = batch2.length > 0 ? '' : 'none';
-                if (this.desktopPiso2Grid) {
-                    this.desktopPiso2Grid.style.display = batch2.length > 0 ? '' : 'none';
-                    this.desktopPiso2Grid.innerHTML = batch2.map(p => this.renderCardHTML(p)).join('');
-                }
+                    // 1. Grid 1: Tras Video 1 (Hero)
+                    this.mainGrid.innerHTML = gBatch1.map(p => this.renderCardHTML(p)).join('');
 
-                // 3. Break Video 3 (Piso 3 fondo-3.mp4) + Grid Streetwear
-                if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = batch3.length > 0 ? '' : 'none';
-                if (this.desktopPiso3Grid) {
-                    this.desktopPiso3Grid.style.display = batch3.length > 0 ? '' : 'none';
-                    this.desktopPiso3Grid.innerHTML = batch3.map(p => this.renderCardHTML(p)).join('');
-                }
+                    // 2. Video 2 (Piso 2) + Grid 2
+                    if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = gBatch2.length > 0 ? '' : 'none';
+                    if (this.desktopPiso2Grid) {
+                        this.desktopPiso2Grid.style.display = gBatch2.length > 0 ? '' : 'none';
+                        this.desktopPiso2Grid.innerHTML = gBatch2.map(p => this.renderCardHTML(p)).join('');
+                    }
 
-                // 4. Break Video 4 (Showcase 1: EL PODER NO SE PIDE. SE TOMA.)
-                if (this.breakSection1) this.breakSection1.style.display = '';
-                if (this.secondaryGrid) {
-                    this.secondaryGrid.style.display = 'none';
-                    this.secondaryGrid.innerHTML = '';
-                }
+                    // 3. Video 3 (Piso 3) + Grid 3
+                    if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = gBatch3.length > 0 ? '' : 'none';
+                    if (this.desktopPiso3Grid) {
+                        this.desktopPiso3Grid.style.display = gBatch3.length > 0 ? '' : 'none';
+                        this.desktopPiso3Grid.innerHTML = gBatch3.map(p => this.renderCardHTML(p)).join('');
+                    }
 
-                // 5. Break Video 5 (Showcase 2: FORJADO EN EL SILENCIO.)
-                if (this.breakSection2) this.breakSection2.style.display = '';
-                if (this.femmeHeading) this.femmeHeading.style.display = batchFemme.length > 0 ? '' : 'none';
-                if (this.tertiaryGrid) {
-                    this.tertiaryGrid.style.display = batchFemme.length > 0 ? '' : 'none';
-                    this.tertiaryGrid.innerHTML = batchFemme.map(p => this.renderCardHTML(p)).join('');
-                }
+                    // 4. Video 4 (EL PODER NO SE PIDE. SE TOMA.) + Grid 4 (secondaryGrid)
+                    // NUNCA VACÍO: Siempre cargado de hoodies monumentales y joggers
+                    if (this.breakSection1) this.breakSection1.style.display = gBatch4.length > 0 ? '' : 'none';
+                    if (this.secondaryGrid) {
+                        this.secondaryGrid.style.display = gBatch4.length > 0 ? '' : 'none';
+                        this.secondaryGrid.innerHTML = gBatch4.map(p => this.renderCardHTML(p)).join('');
+                    }
 
-                // 6. Break Video 6 (Showcase 3: ZONA SYNDICATE: LA ENTRADA NO SE OTORGA. SE CONCEDE.)
-                if (this.breakSection3) this.breakSection3.style.display = '';
-                if (this.quaternaryGrid) {
-                    this.quaternaryGrid.style.display = batchPulseras.length > 0 ? '' : 'none';
-                    this.quaternaryGrid.innerHTML = batchPulseras.map(p => this.renderCardHTML(p)).join('');
+                    // 5. Video 5 (FORJADO EN EL SILENCIO.) + Línea Femme (tertiaryGrid)
+                    if (this.breakSection2) this.breakSection2.style.display = femmeList.length > 0 ? '' : 'none';
+                    if (this.femmeHeading) this.femmeHeading.style.display = femmeList.length > 0 ? '' : 'none';
+                    if (this.tertiaryGrid) {
+                        this.tertiaryGrid.style.display = femmeList.length > 0 ? '' : 'none';
+                        this.tertiaryGrid.innerHTML = femmeList.map(p => this.renderCardHTML(p)).join('');
+                    }
+
+                    // 6. Video 6 (ZONA SYNDICATE) + Joyería & Pulseras (quaternaryGrid)
+                    if (this.breakSection3) this.breakSection3.style.display = syndicateList.length > 0 ? '' : 'none';
+                    if (this.quaternaryGrid) {
+                        this.quaternaryGrid.style.display = syndicateList.length > 0 ? '' : 'none';
+                        this.quaternaryGrid.innerHTML = syndicateList.map(p => this.renderCardHTML(p)).join('');
+                    }
+                } else {
+                    // MÓVIL: Reparto equitativo de generalList entre mainGrid y secondaryGrid
+                    if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = 'none';
+                    if (this.desktopPiso2Grid) {
+                        this.desktopPiso2Grid.style.display = 'none';
+                        this.desktopPiso2Grid.innerHTML = '';
+                    }
+                    if (this.desktopBreakPiso3) this.desktopBreakPiso3.style.display = 'none';
+                    if (this.desktopPiso3Grid) {
+                        this.desktopPiso3Grid.style.display = 'none';
+                        this.desktopPiso3Grid.innerHTML = '';
+                    }
+
+                    // Mitad 1 de generalList (12 productos) en mainGrid tras Hero
+                    // Mitad 2 de generalList (12 productos) en secondaryGrid ENTRE Video 4 y Video 5
+                    const mBatch1 = generalList.slice(0, 12);
+                    const mBatch2 = generalList.slice(12);
+
+                    // 1. Grid 1: Tras Hero
+                    this.mainGrid.innerHTML = mBatch1.map(p => this.renderCardHTML(p)).join('');
+
+                    // 2. Video 4 (EL PODER NO SE PIDE. SE TOMA.) + Grid 4 (secondaryGrid)
+                    // GARANTÍA TOTAL: mBatch2 tiene 12 productos que van DIRECTO entre Video 4 y Video 5
+                    if (this.breakSection1) this.breakSection1.style.display = mBatch2.length > 0 ? '' : 'none';
+                    if (this.secondaryGrid) {
+                        this.secondaryGrid.style.display = mBatch2.length > 0 ? '' : 'none';
+                        this.secondaryGrid.innerHTML = mBatch2.map(p => this.renderCardHTML(p)).join('');
+                    }
+
+                    // 3. Video 5 (FORJADO EN EL SILENCIO.) + Línea Femme (tertiaryGrid)
+                    if (this.breakSection2) this.breakSection2.style.display = femmeList.length > 0 ? '' : 'none';
+                    if (this.femmeHeading) this.femmeHeading.style.display = femmeList.length > 0 ? '' : 'none';
+                    if (this.tertiaryGrid) {
+                        this.tertiaryGrid.style.display = femmeList.length > 0 ? '' : 'none';
+                        this.tertiaryGrid.innerHTML = femmeList.map(p => this.renderCardHTML(p)).join('');
+                    }
+
+                    // 4. Video 6 (ZONA SYNDICATE) + Pulseras (quaternaryGrid)
+                    if (this.breakSection3) this.breakSection3.style.display = syndicateList.length > 0 ? '' : 'none';
+                    if (this.quaternaryGrid) {
+                        this.quaternaryGrid.style.display = syndicateList.length > 0 ? '' : 'none';
+                        this.quaternaryGrid.innerHTML = syndicateList.map(p => this.renderCardHTML(p)).join('');
+                    }
                 }
             } else {
-                // DISTRIBUCIÓN MÓVIL Y CUANDO HAY FILTRO ACTIVO
+                // CUANDO HAY FILTRO ACTIVO (ej. GORRAS, TEXTIL, MUJER, ACCESORIOS)
+                // Ocultar todos los breaks intermedios para que no colisionen sin productos
                 if (this.desktopBreakPiso2) this.desktopBreakPiso2.style.display = 'none';
                 if (this.desktopPiso2Grid) {
                     this.desktopPiso2Grid.style.display = 'none';
@@ -403,59 +456,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.desktopPiso3Grid.style.display = 'none';
                     this.desktopPiso3Grid.innerHTML = '';
                 }
-
-                const batch1 = filtered.slice(0, 10);
-                const batch2 = filtered.slice(10, 20);
-                const batch3 = filtered.slice(20, 30);
-                const batch4 = filtered.slice(30);
-
-                // Tier 1: Primeros 10 productos
-                this.mainGrid.innerHTML = batch1.map(p => this.renderCardHTML(p)).join('');
-
-                // Tier 2: Video Break 1 + Productos 11 al 20
-                if (this.breakSection1) {
-                    this.breakSection1.style.display = batch2.length > 0 ? '' : 'none';
-                }
+                if (this.breakSection1) this.breakSection1.style.display = 'none';
                 if (this.secondaryGrid) {
-                    if (batch2.length > 0) {
-                        this.secondaryGrid.style.display = '';
-                        this.secondaryGrid.innerHTML = batch2.map(p => this.renderCardHTML(p)).join('');
-                    } else {
-                        this.secondaryGrid.innerHTML = '';
-                        this.secondaryGrid.style.display = 'none';
-                    }
+                    this.secondaryGrid.style.display = 'none';
+                    this.secondaryGrid.innerHTML = '';
                 }
-
-                // Tier 3: Video Break 2 + Productos 21 al 30 (Línea Femme)
-                if (this.breakSection2) {
-                    this.breakSection2.style.display = batch3.length > 0 ? '' : 'none';
-                }
-                if (this.femmeHeading) {
-                    this.femmeHeading.style.display = (batch3.length > 0 && (this.currentFilter === 'all' || this.currentFilter === 'mujer')) ? '' : 'none';
-                }
+                if (this.breakSection2) this.breakSection2.style.display = 'none';
+                if (this.femmeHeading) this.femmeHeading.style.display = 'none';
                 if (this.tertiaryGrid) {
-                    if (batch3.length > 0) {
-                        this.tertiaryGrid.style.display = '';
-                        this.tertiaryGrid.innerHTML = batch3.map(p => this.renderCardHTML(p)).join('');
-                    } else {
-                        this.tertiaryGrid.innerHTML = '';
-                        this.tertiaryGrid.style.display = 'none';
-                    }
+                    this.tertiaryGrid.style.display = 'none';
+                    this.tertiaryGrid.innerHTML = '';
+                }
+                if (this.breakSection3) this.breakSection3.style.display = 'none';
+                if (this.quaternaryGrid) {
+                    this.quaternaryGrid.style.display = 'none';
+                    this.quaternaryGrid.innerHTML = '';
                 }
 
-                // Tier 4: Video Break 3 (ZONA CAPO SYNDICATE) + Productos 31 en adelante
-                if (this.breakSection3) {
-                    this.breakSection3.style.display = (batch4.length > 0 || this.currentFilter === 'all' || this.currentFilter === 'syndicate') ? '' : 'none';
-                }
-                if (this.quaternaryGrid) {
-                    if (batch4.length > 0) {
-                        this.quaternaryGrid.style.display = '';
-                        this.quaternaryGrid.innerHTML = batch4.map(p => this.renderCardHTML(p)).join('');
-                    } else {
-                        this.quaternaryGrid.innerHTML = '';
-                        this.quaternaryGrid.style.display = 'none';
-                    }
-                }
+                // Mostrar todos los productos filtrados en el grid principal de forma limpia
+                this.mainGrid.innerHTML = filtered.map(p => this.renderCardHTML(p)).join('');
             }
 
             if (this.countBadge) {
@@ -2085,16 +2104,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     const bgAudio = document.getElementById('bg-music');
     if (bgAudio) {
-        bgAudio.volume = 0.70;
+        bgAudio.volume = 0.75;
+        bgAudio.muted = false;
         bgAudio.loop = true;
 
+        const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'keydown', 'scroll', 'wheel', 'mousemove'];
+
         const forcePlay = () => {
-            if (bgAudio.paused) {
-                const p = bgAudio.play();
-                if (p !== undefined) {
-                    p.catch(() => {});
-                }
+            if (!bgAudio) return;
+            bgAudio.muted = false;
+            bgAudio.volume = 0.75;
+            const p = bgAudio.play();
+            if (p !== undefined) {
+                p.then(() => {
+                    unlockEvents.forEach(evt => {
+                        window.removeEventListener(evt, unlockHandler, { capture: true });
+                        document.removeEventListener(evt, unlockHandler, { capture: true });
+                    });
+                }).catch(() => {});
             }
+        };
+
+        const unlockHandler = () => {
+            forcePlay();
         };
 
         // Bucle infinito garantizado sin control manual
@@ -2103,26 +2135,21 @@ document.addEventListener('DOMContentLoaded', () => {
             forcePlay();
         });
 
-        // Intentos automáticos escalonados al cargar
+        // Intentos automáticos inmediatos y escalonados al cargar
         forcePlay();
-        setTimeout(forcePlay, 300);
-        setTimeout(forcePlay, 600);
+        setTimeout(forcePlay, 200);
+        setTimeout(forcePlay, 500);
         setTimeout(forcePlay, 1000);
         setTimeout(forcePlay, 2000);
 
-        // Desbloqueo agresivo ante cualquier interacción (toque, clic, scroll, swipe, movimiento)
-        const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'keydown', 'scroll', 'wheel', 'mousemove'];
-        const unlockHandler = () => {
-            forcePlay();
-            if (!bgAudio.paused) {
-                unlockEvents.forEach(evt => window.removeEventListener(evt, unlockHandler, { capture: true }));
-            }
-        };
-
+        // Desbloqueo ante cualquier interacción táctil, clic o scroll en móvil
         unlockEvents.forEach(evt => {
             window.addEventListener(evt, unlockHandler, { capture: true, passive: true });
             document.addEventListener(evt, unlockHandler, { capture: true, passive: true });
         });
+
+        document.body.addEventListener('click', forcePlay, { capture: true, passive: true });
+        document.body.addEventListener('touchstart', forcePlay, { capture: true, passive: true });
 
         // Recuperación ante segundo plano / cambio de pestaña / reanudación
         document.addEventListener('visibilitychange', () => {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v22';
+const CACHE_NAME = 'capo-store-v25';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -108,6 +108,30 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Network-First para código, scripts, estilos y catálogo para garantizar que cualquier celular
+    // reciba inmediatamente la versión actualizada sin quedarse atrapado en cachés antiguas
+    const isCodeOrDoc = 
+        event.request.mode === 'navigate' ||
+        url.pathname.endsWith('.html') ||
+        url.pathname.endsWith('.css') ||
+        url.pathname.endsWith('.js') ||
+        url.pathname.endsWith('.json');
+
+    if (isCodeOrDoc) {
+        event.respondWith(
+            fetch(event.request)
+                .then((networkResponse) => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        const responseToCache = networkResponse.clone();
+                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+                    }
+                    return networkResponse;
+                })
+                .catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
             if (cachedResponse) {
@@ -122,11 +146,6 @@ self.addEventListener('fetch', (event) => {
                     cache.put(event.request, responseToCache);
                 });
                 return networkResponse;
-            }).catch(() => {
-                // Fallback for offline mode
-                if (event.request.headers.get('accept').includes('text/html')) {
-                    return caches.match('./index.html');
-                }
             });
         })
     );
