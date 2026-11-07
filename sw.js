@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v16';
+const CACHE_NAME = 'capo-store-v17';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -20,6 +20,7 @@ const ASSETS_TO_CACHE = [
     './assets/capo-crop-top-femme.webp',
     './assets/capo-biker-femme.webp',
     './assets/capo-blusa-relaxed-femme.webp',
+    './assets/og-capo-whatsapp.jpg',
     './assets/og-capo-store.jpg',
     './assets/og-capo-square.jpg',
     './assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp',
