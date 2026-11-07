@@ -1,4 +1,4 @@
-# 👑 CAPO Store - Lujo Urbano & Gorras Exclusivas
+iero compartirla nom# 👑 CAPO Store - Lujo Urbano & Gorras Exclusivas
 
 Plataforma e-commerce completa de alto rendimiento con arquitectura *Dark Brutalist / Streetwear* diseñada para la marca de gorras de lujo urbano **CAPO**.
 

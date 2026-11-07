@@ -559,6 +559,168 @@
     "printfulBlank": "Lane Seven LS14001 Urban Heavyweight Hoodie"
   },
   {
+    "id": "capo-leggings-femme",
+    "sku": "CP-LG-045",
+    "name": "LEGGINGS TIRO ALTO COMPRESIÓN FEMME",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "imperio",
+    "collectionLabel": "IMPERIO FEMME",
+    "printfulBlank": "Printful Women's Recycled High-Waisted Leggings",
+    "price": 999,
+    "originalPrice": 1299,
+    "stock": 8,
+    "badge": "FEMME EXCLUSIVE",
+    "images": [
+      "assets/capo-leggings-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 29,
+    "description": "Leggings técnicos de compresión progresiva y tiro alto moldeador. Confeccionados en tejido ultrasuave anti-transparencia (Squat-Proof) con acabado negro mate aterciopelado. Monograma CAPO dorado sutil termofijado en la parte posterior de la pretina para un estilo urbano y atlético de alta costura.",
+    "specs": {
+      "material": "82% Poliéster Reciclado / 18% Elastano (230 GSM)",
+      "tiro": "Cintura extra alta anatómica sin elásticos rígidos (Efecto moldeador)",
+      "acabado": "Squat-Proof 100% opaco con microfibra anti-fricción",
+      "detalles": "Monograma CAPO en oro mate en pretina posterior",
+      "origen": "Printful Women's Recycled Yoga Leggings Blank"
+    }
+  },
+  {
+    "id": "capo-biker-femme",
+    "sku": "CP-BK-047",
+    "name": "BIKER SHORTS COMPRESIÓN FEMME",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "syndicate",
+    "collectionLabel": "SYNDICATE STREET",
+    "printfulBlank": "Printful All-Over Print Biker Shorts",
+    "price": 799,
+    "originalPrice": 999,
+    "stock": 6,
+    "badge": "STREETWEAR",
+    "images": [
+      "assets/capo-biker-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 21,
+    "description": "Shorts tipo biker de longitud media con pretina anatómica de compresión alta y costuras planas ergonómicas anti-rozaduras. Estampado minimalista CAPO en transfer dorado mate sobre muslo lateral.",
+    "specs": {
+      "material": "82% Poliéster / 18% Spandex (224 GSM)",
+      "pretina": "Alta anatómica con costuras flatlock de alta resistencia",
+      "corte": "Largo medio encima de rodilla (20 cm de entrepierna)",
+      "detalles": "Logo CAPO lateral dorado de alta densidad",
+      "origen": "Printful Women's Compression Biker Blank"
+    }
+  },
+  {
+    "id": "capo-crop-top-femme",
+    "sku": "CP-CT-046",
+    "name": "BLUSA CROP TOP SIGNATURE ORO",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "noir-gold",
+    "collectionLabel": "NOIR & GOLD FEMME",
+    "printfulBlank": "Bella + Canvas 6681 Women's Crop Tee",
+    "price": 699,
+    "originalPrice": 899,
+    "stock": 10,
+    "badge": "NOIR & GOLD",
+    "images": [
+      "assets/capo-crop-top-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 34,
+    "description": "Crop top estructurado de cuello redondo y mangas entalladas, confeccionado en algodón peinado hilado en anillo de alta suavidad. Logotipo frontal CAPO centrado en relieve sutil de hilo dorado metalizado. Caída impecable y resistencia tras cada lavado.",
+    "specs": {
+      "silueta": "Bella + Canvas 6681 Slim Fit Crop Tee",
+      "material": "100% Algodón Peinado Ringspun (142 GSM)",
+      "corte": "Largo recortado contemporáneo a la altura de la cintura",
+      "acabado": "Bordado / estampado CAPO en dorado mate líquido",
+      "origen": "Bella + Canvas 6681 Blank"
+    }
+  },
+  {
+    "id": "capo-crop-hoodie-femme",
+    "sku": "CP-CH-049",
+    "name": "CROPPED FLEECE HOODIE HEAVYWEIGHT FEMME",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "imperio",
+    "collectionLabel": "IMPERIO FEMME",
+    "printfulBlank": "Bella + Canvas 7502 Women's Cropped Fleece Hoodie",
+    "price": 1199,
+    "originalPrice": 1499,
+    "stock": 8,
+    "badge": "FEMME LUXE",
+    "images": [
+      "assets/capo-crop-hoodie-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 26,
+    "description": "Sudadera crop top de felpa suave ultra premium con dobladillo en corte vivo (raw hem) y cordones a juego. Bordado de alta densidad 'CAPO' en hilo dorado mate en el pecho y forro polar interior de máxima calidez.",
+    "specs": {
+      "silueta": "Bella + Canvas 7502 Cropped Fleece Hoodie",
+      "material": "52% Algodón Peinado Airlume / 48% Felpa Poliéster (220 GSM)",
+      "corte": "Cropped boxy relajado con hombros caídos",
+      "detalles": "Bordado CAPO oro mate + dobladillo crudo moderno",
+      "origen": "Bella + Canvas 7502 Blank"
+    }
+  },
+  {
+    "id": "capo-sports-bra-femme",
+    "sku": "CP-SB-050",
+    "name": "TOP DEPORTIVO PADDED SPORTS BRA FEMME",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "syndicate",
+    "collectionLabel": "SYNDICATE STREET",
+    "printfulBlank": "Printful All-Over Print Padded Sports Bra",
+    "price": 649,
+    "originalPrice": 850,
+    "stock": 12,
+    "badge": "COMPRESIÓN",
+    "images": [
+      "assets/capo-sports-bra-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 31,
+    "description": "Top deportivo de compresión media-alta con almohadillas removibles y soporte reforzado en hombros. Tejido técnico anti-humedad de secado rápido con banda elástica ancha jacquard y monograma CAPO dorado reflectante.",
+    "specs": {
+      "material": "82% Poliéster / 18% Spandex (224 GSM)",
+      "soporte": "Compresión anatómica con relleno acolchado removible",
+      "espalda": "Corte olímpico deportivo para libertad total de movimiento",
+      "detalles": "Monograma CAPO en dorado mate termosellado",
+      "origen": "Printful Women's Padded Sports Bra Blank"
+    }
+  },
+  {
+    "id": "capo-blusa-relaxed-femme",
+    "sku": "CP-BL-048",
+    "name": "BLUSA OVERSIZE LUXE RELAXED FEMME",
+    "category": "mujer",
+    "categoryLabel": "LÍNEA FEMME",
+    "collection": "imperio",
+    "collectionLabel": "IMPERIO TEXTIL",
+    "printfulBlank": "Bella + Canvas 6400 Women's Relaxed T-Shirt",
+    "price": 749,
+    "originalPrice": 950,
+    "stock": 7,
+    "badge": "NUEVO",
+    "images": [
+      "assets/capo-blusa-relaxed-femme.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 17,
+    "description": "Blusa de silueta relajada con caída fluida elegante y tacto ultrasuave. Monograma CAPO en dorado mate sutil sobre el pecho izquierdo y cuello acanalado fino de perfil bajo.",
+    "specs": {
+      "silueta": "Bella + Canvas 6400 Relaxed Fit",
+      "material": "100% Algodón Peinado Airlume (145 GSM)",
+      "estilo": "Corte drapeado relajado con mangas descolgadas",
+      "detalles": "Monograma CAPO en foil dorado mate",
+      "origen": "Bella + Canvas 6400 Blank"
+    }
+  },
+  {
     "id": "capo-hoodie-arch-heritage",
     "sku": "CP-HD-022",
     "name": "HOODIE ARCH LOGO \"HERITAGE\" (LETRAS ORO 3D)",
@@ -1247,114 +1409,6 @@
       "detalles": "Bordado CAPO hilo oro mate + herrajes metálicos dorados",
       "bolsillos": "2 laterales reforzados + 1 trasero con broche magnético oculto",
       "origen": "Cotton Heritage M2480 Fleece Jogger Blank"
-    }
-  },
-  {
-    "id": "capo-leggings-femme",
-    "sku": "CP-LG-045",
-    "name": "LEGGINGS TIRO ALTO COMPRESIÓN FEMME",
-    "category": "mujer",
-    "categoryLabel": "LÍNEA FEMME",
-    "collection": "imperio",
-    "collectionLabel": "IMPERIO FEMME",
-    "printfulBlank": "Printful Women's Recycled High-Waisted Leggings",
-    "price": 999,
-    "originalPrice": 1299,
-    "stock": 8,
-    "badge": "FEMME EXCLUSIVE",
-    "images": [
-      "assets/capo-leggings-femme.webp"
-    ],
-    "rating": 5,
-    "reviewCount": 29,
-    "description": "Leggings técnicos de compresión progresiva y tiro alto moldeador. Confeccionados en tejido ultrasuave anti-transparencia (Squat-Proof) con acabado negro mate aterciopelado. Monograma CAPO dorado sutil termofijado en la parte posterior de la pretina para un estilo urbano y atlético de alta costura.",
-    "specs": {
-      "material": "82% Poliéster Reciclado / 18% Elastano (230 GSM)",
-      "tiro": "Cintura extra alta anatómica sin elásticos rígidos (Efecto moldeador)",
-      "acabado": "Squat-Proof 100% opaco con microfibra anti-fricción",
-      "detalles": "Monograma CAPO en oro mate en pretina posterior",
-      "origen": "Printful Women's Recycled Yoga Leggings Blank"
-    }
-  },
-  {
-    "id": "capo-crop-top-femme",
-    "sku": "CP-CT-046",
-    "name": "BLUSA CROP TOP SIGNATURE ORO",
-    "category": "mujer",
-    "categoryLabel": "LÍNEA FEMME",
-    "collection": "noir-gold",
-    "collectionLabel": "NOIR & GOLD FEMME",
-    "printfulBlank": "Bella + Canvas 6681 Women's Crop Tee",
-    "price": 699,
-    "originalPrice": 899,
-    "stock": 10,
-    "badge": "NOIR & GOLD",
-    "images": [
-      "assets/capo-crop-top-femme.webp"
-    ],
-    "rating": 5,
-    "reviewCount": 34,
-    "description": "Crop top estructurado de cuello redondo y mangas entalladas, confeccionado en algodón peinado hilado en anillo de alta suavidad. Logotipo frontal CAPO centrado en relieve sutil de hilo dorado metalizado. Caída impecable y resistencia tras cada lavado.",
-    "specs": {
-      "silueta": "Bella + Canvas 6681 Slim Fit Crop Tee",
-      "material": "100% Algodón Peinado Ringspun (142 GSM)",
-      "corte": "Largo recortado contemporáneo a la altura de la cintura",
-      "acabado": "Bordado / estampado CAPO en dorado mate líquido",
-      "origen": "Bella + Canvas 6681 Blank"
-    }
-  },
-  {
-    "id": "capo-biker-femme",
-    "sku": "CP-BK-047",
-    "name": "BIKER SHORTS COMPRESIÓN FEMME",
-    "category": "mujer",
-    "categoryLabel": "LÍNEA FEMME",
-    "collection": "syndicate",
-    "collectionLabel": "SYNDICATE STREET",
-    "printfulBlank": "Printful All-Over Print Biker Shorts",
-    "price": 799,
-    "originalPrice": 999,
-    "stock": 6,
-    "badge": "STREETWEAR",
-    "images": [
-      "assets/capo-biker-femme.webp"
-    ],
-    "rating": 5,
-    "reviewCount": 21,
-    "description": "Shorts tipo biker de longitud media con pretina anatómica de compresión alta y costuras planas ergonómicas anti-rozaduras. Estampado minimalista CAPO en transfer dorado mate sobre muslo lateral.",
-    "specs": {
-      "material": "82% Poliéster / 18% Spandex (224 GSM)",
-      "pretina": "Alta anatómica con costuras flatlock de alta resistencia",
-      "corte": "Largo medio encima de rodilla (20 cm de entrepierna)",
-      "detalles": "Logo CAPO lateral dorado de alta densidad",
-      "origen": "Printful Women's Compression Biker Blank"
-    }
-  },
-  {
-    "id": "capo-blusa-relaxed-femme",
-    "sku": "CP-BL-048",
-    "name": "BLUSA OVERSIZE LUXE RELAXED FEMME",
-    "category": "mujer",
-    "categoryLabel": "LÍNEA FEMME",
-    "collection": "imperio",
-    "collectionLabel": "IMPERIO TEXTIL",
-    "printfulBlank": "Bella + Canvas 6400 Women's Relaxed T-Shirt",
-    "price": 749,
-    "originalPrice": 950,
-    "stock": 7,
-    "badge": "NUEVO",
-    "images": [
-      "assets/capo-blusa-relaxed-femme.webp"
-    ],
-    "rating": 5,
-    "reviewCount": 17,
-    "description": "Blusa de silueta relajada con caída fluida elegante y tacto ultrasuave. Monograma CAPO en dorado mate sutil sobre el pecho izquierdo y cuello acanalado fino de perfil bajo.",
-    "specs": {
-      "silueta": "Bella + Canvas 6400 Relaxed Fit",
-      "material": "100% Algodón Peinado Airlume (145 GSM)",
-      "estilo": "Corte drapeado relajado con mangas descolgadas",
-      "detalles": "Monograma CAPO en foil dorado mate",
-      "origen": "Bella + Canvas 6400 Blank"
     }
   }
 ]

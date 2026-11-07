@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v18';
+const CACHE_NAME = 'capo-store-v20';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -8,7 +8,6 @@ const ASSETS_TO_CACHE = [
     './manifest.json',
     './data/products.json',
     './data/sync-service.js',
-    './assets/modo-patron-activado.mp3',
     './assets/fondo-1-poster.webp',
     './assets/fondo-2-poster.webp',
     './assets/fondo-3-poster.webp',
@@ -19,6 +18,8 @@ const ASSETS_TO_CACHE = [
     './assets/capo-leggings-femme.webp',
     './assets/capo-crop-top-femme.webp',
     './assets/capo-biker-femme.webp',
+    './assets/capo-crop-hoodie-femme.webp',
+    './assets/capo-sports-bra-femme.webp',
     './assets/capo-blusa-relaxed-femme.webp',
     './assets/og-capo-whatsapp.jpg',
     './assets/og-capo-store.jpg',
@@ -94,6 +95,18 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     // Only cache GET requests
     if (event.request.method !== 'GET') return;
+
+    // Bypass Service Worker cache for media files (audio / video) and range requests
+    // to allow native HTTP 206 Partial Content, streaming, and unhindered mobile playback
+    const url = new URL(event.request.url);
+    if (
+        url.pathname.endsWith('.mp3') ||
+        url.pathname.endsWith('.mp4') ||
+        url.pathname.endsWith('.webm') ||
+        event.request.headers.has('range')
+    ) {
+        return;
+    }
 
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {

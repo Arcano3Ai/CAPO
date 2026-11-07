@@ -8,7 +8,7 @@
     <!-- Open Graph / WhatsApp / Facebook Priority Tags (Byte 0-1KB) -->
     <meta property="og:site_name" content="CAPO">
     <meta property="og:title" content="CAPO | Tienda Oficial - Streetwear & Gorras de Élite">
-    <meta property="og:description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, cadenas de oro 24K y piezas seriadas numeradas. Define tu legado. Envío gratis a todo México.">
+    <meta property="og:description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, pulseras y collares de piedras naturales y piezas seriadas numeradas. Define tu legado. Envío gratis a todo México.">
     <meta property="og:image" content="https://capo.com.mx/assets/og-capo-store.jpg">
     <meta property="og:image:secure_url" content="https://capo.com.mx/assets/og-capo-store.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -20,18 +20,18 @@
 
     <!-- Standard Link & Fallback Tags -->
     <link rel="image_src" href="https://capo.com.mx/assets/og-capo-store.jpg">
-    <meta name="description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, cadenas de oro 24K y piezas seriadas numeradas. Define tu legado. Envío gratis a todo México.">
+    <meta name="description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, pulseras y collares de piedras naturales y piezas seriadas numeradas. Define tu legado. Envío gratis a todo México.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#D4AF37">
+    <meta name="theme-color" content="#050505">
     <meta name="author" content="CAPO Store">
-    <meta name="keywords" content="gorras capo, hoodies capo, streetwear mexico, ropa de lujo, the boss black, gold standard, snapback premium, capo store oficial">
+    <meta name="keywords" content="gorras capo, hoodies capo, streetwear mexico, ropa de lujo, the boss black, gold standard, snapback premium, pulseras piedras naturales, collares capo, capo store oficial">
     <link rel="canonical" href="https://capo.com.mx/">
 
     <!-- Twitter / X Card Preview -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://capo.com.mx/">
     <meta name="twitter:title" content="CAPO | Tienda Oficial - Streetwear & Gorras de Élite">
-    <meta name="twitter:description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, cadenas de oro 24K y piezas seriadas numeradas. Define tu legado.">
+    <meta name="twitter:description" content="Edición Limitada 2026. Gorras estructuradas indeformables, hoodies pesados de 500 GSM, pulseras y collares de piedras naturales y piezas seriadas numeradas. Define tu legado.">
     <meta name="twitter:image" content="https://capo.com.mx/assets/og-capo-store.jpg">
 
     <!-- PWA Manifest & Favicons -->
@@ -126,24 +126,6 @@
         <audio id="bg-music" autoplay loop preload="auto">
             <source src="assets/modo-patron-activado.mp3" type="audio/mpeg">
         </audio>
-        <script>
-            (function() {
-                var bgAudio = document.getElementById('bg-music');
-                if (!bgAudio) return;
-                bgAudio.volume = 0.65;
-                var playAttempt = function() {
-                    try {
-                        if (bgAudio.paused) {
-                            var p = bgAudio.play();
-                            if (p !== undefined) p.catch(function(){});
-                        }
-                    } catch(e) {}
-                };
-                playAttempt();
-                setTimeout(playAttempt, 500);
-                setTimeout(playAttempt, 1000);
-            })();
-        </script>
         <div class="player-controls">
             <button id="play-btn" class="btn-audio" aria-label="Reproducir o pausar soundtrack">
                 <i class="fas fa-play"></i>
@@ -259,14 +241,14 @@
         <div class="container-fluid">
             <div class="collection-header-row">
                 <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
-                <span class="section-count" id="catalog-count-badge">MOSTRANDO 48 PIEZAS</span>
+                <span class="section-count" id="catalog-count-badge">MOSTRANDO 50 PIEZAS</span>
             </div>
 
             <!-- Interactive Catalog Filter & Sorter Toolbar -->
             <div class="catalog-toolbar">
                 <div class="filter-tabs" id="catalog-filter-tabs">
-                    <button class="filter-tab active" data-filter="all">TODAS (48)</button>
-                    <button class="filter-tab" data-filter="mujer"><i class="fas fa-venus"></i> LÍNEA FEMME (4)</button>
+                    <button class="filter-tab active" data-filter="all">TODAS (50)</button>
+                    <button class="filter-tab" data-filter="mujer"><i class="fas fa-venus"></i> LÍNEA FEMME (6)</button>
                     <button class="filter-tab" data-filter="pulseras"><i class="fas fa-circle-nodes"></i> PULSERAS 8MM (20)</button>
                     <button class="filter-tab" data-filter="noir-gold"><i class="fas fa-crown"></i> NOIR & GOLD</button>
                     <button class="filter-tab" data-filter="syndicate"><i class="fas fa-fingerprint"></i> SYNDICATE</button>
@@ -326,7 +308,20 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Siguientes 10 productos (21 al 30) -->
+            <!-- Colección Dama / Haute Femme Interstitial Heading -->
+            <div class="femme-showcase-heading" style="text-align:center; padding: 2.8rem 1rem 1rem; border-top: 1px solid #1a1a1a;">
+                <span style="color:var(--accent-color); font-size:0.8rem; font-weight:900; letter-spacing:3px; display:inline-block; margin-bottom:8px;">
+                    <i class="fas fa-venus"></i> ALTA COSTURA URBANA FEMENINA
+                </span>
+                <h3 style="font-size:1.9rem; font-weight:900; letter-spacing:2px; color:#ffffff; margin:0;">
+                    LÍNEA FEMME & ACTIVEWEAR
+                </h3>
+                <p style="color:#888; font-size:0.85rem; letter-spacing:1px; margin-top:6px;">
+                    TEJIDOS DE COMPRESIÓN SQUAT-PROOF // BLUSAS LUXE & HOODIES OVERSIZED
+                </p>
+            </div>
+
+            <!-- Dynamic Grid: Siguientes 10 productos (21 al 30: Colección Dama Femme) -->
             <div class="product-grid" id="tertiary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>

@@ -14,3 +14,4 @@ User-agent: Twitterbot
 Allow: /
 
 Sitemap: https://capo.com.mx/sitemap.xml
+
