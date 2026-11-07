@@ -4312,4 +4312,142 @@ footer {
     color: #fff;
 }
 
+/* ========================================================
+   ZONA CAPO SYNDICATE: "LA ENTRADA NO SE OTORGA. SE CONCEDE."
+   ======================================================== */
+.syndicate-portal {
+    position: relative;
+    border-top: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+}
+
+.syndicate-badge {
+    background: rgba(0, 0, 0, 0.88) !important;
+    border: 1px solid var(--accent-color) !important;
+    color: var(--accent-color) !important;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+    letter-spacing: 4px;
+}
+
+.syndicate-title {
+    font-size: clamp(2.3rem, 5.8vw, 4.6rem) !important;
+    font-weight: 900 !important;
+    letter-spacing: -1px !important;
+    color: #fff !important;
+    line-height: 1.05 !important;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 0 20px #000;
+}
+
+.syndicate-title .highlight {
+    color: var(--accent-color);
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+}
+
+.syndicate-subtitle {
+    font-size: clamp(0.9rem, 1.7vw, 1.15rem) !important;
+    letter-spacing: 3px !important;
+    color: #e5e5e5 !important;
+    max-width: 750px;
+    margin: 0.8rem auto 1.8rem auto !important;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+}
+
+.syndicate-passkey-form {
+    max-width: 580px;
+    margin: 1.5rem auto 0;
+    pointer-events: auto;
+}
+
+.passkey-input-wrapper {
+    display: flex;
+    align-items: stretch;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.25);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.passkey-icon {
+    display: flex;
+    align-items: center;
+    padding: 0 1.2rem;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#syndicate-passkey-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 1rem 0.8rem;
+    text-transform: uppercase;
+}
+
+#syndicate-passkey-input::placeholder {
+    color: #777;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.btn-syndicate-unlock {
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 0 1.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-syndicate-unlock:hover {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+.syndicate-status-msg {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    min-height: 1.5rem;
+}
+
+.syndicate-status-msg.success {
+    color: #25d366;
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+}
+
+.syndicate-status-msg.error {
+    color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+}
+
+@media (max-width: 768px) {
+    .passkey-input-wrapper {
+        flex-direction: column;
+    }
+    .btn-syndicate-unlock {
+        padding: 0.9rem;
+        justify-content: center;
+    }
+}
+
+
 

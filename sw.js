@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v15';
+const CACHE_NAME = 'capo-store-v16';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -14,7 +14,12 @@ const ASSETS_TO_CACHE = [
     './assets/fondo-3-poster.webp',
     './assets/capo-showcase-poster.webp',
     './assets/capo-showcase-2-poster.webp',
+    './assets/capo-showcase-3-poster.webp',
     './assets/capo-joggers-heritage.webp',
+    './assets/capo-leggings-femme.webp',
+    './assets/capo-crop-top-femme.webp',
+    './assets/capo-biker-femme.webp',
+    './assets/capo-blusa-relaxed-femme.webp',
     './assets/og-capo-store.jpg',
     './assets/og-capo-square.jpg',
     './assets/Gemini_Generated_Image_bnc88lbnc88lbnc8.webp',

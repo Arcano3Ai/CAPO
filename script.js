@@ -1296,6 +1296,114 @@ document.addEventListener('DOMContentLoaded', () => {
                             "bolsillos": "2 laterales reforzados + 1 trasero con broche magnético oculto",
                             "origen": "Cotton Heritage M2480 Fleece Jogger Blank"
                     }
+            },
+            {
+                    "id": "capo-leggings-femme",
+                    "sku": "CP-LG-045",
+                    "name": "LEGGINGS TIRO ALTO COMPRESIÓN FEMME",
+                    "category": "mujer",
+                    "categoryLabel": "LÍNEA FEMME",
+                    "collection": "imperio",
+                    "collectionLabel": "IMPERIO FEMME",
+                    "printfulBlank": "Printful Women's Recycled High-Waisted Leggings",
+                    "price": 999,
+                    "originalPrice": 1299,
+                    "stock": 8,
+                    "badge": "FEMME EXCLUSIVE",
+                    "images": [
+                            "assets/capo-leggings-femme.webp"
+                    ],
+                    "rating": 5,
+                    "reviewCount": 29,
+                    "description": "Leggings técnicos de compresión progresiva y tiro alto moldeador. Confeccionados en tejido ultrasuave anti-transparencia (Squat-Proof) con acabado negro mate aterciopelado. Monograma CAPO dorado sutil termofijado en la parte posterior de la pretina para un estilo urbano y atlético de alta costura.",
+                    "specs": {
+                            "material": "82% Poliéster Reciclado / 18% Elastano (230 GSM)",
+                            "tiro": "Cintura extra alta anatómica sin elásticos rígidos (Efecto moldeador)",
+                            "acabado": "Squat-Proof 100% opaco con microfibra anti-fricción",
+                            "detalles": "Monograma CAPO en oro mate en pretina posterior",
+                            "origen": "Printful Women's Recycled Yoga Leggings Blank"
+                    }
+            },
+            {
+                    "id": "capo-crop-top-femme",
+                    "sku": "CP-CT-046",
+                    "name": "BLUSA CROP TOP SIGNATURE ORO",
+                    "category": "mujer",
+                    "categoryLabel": "LÍNEA FEMME",
+                    "collection": "noir-gold",
+                    "collectionLabel": "NOIR & GOLD FEMME",
+                    "printfulBlank": "Bella + Canvas 6681 Women's Crop Tee",
+                    "price": 699,
+                    "originalPrice": 899,
+                    "stock": 10,
+                    "badge": "NOIR & GOLD",
+                    "images": [
+                            "assets/capo-crop-top-femme.webp"
+                    ],
+                    "rating": 5,
+                    "reviewCount": 34,
+                    "description": "Crop top estructurado de cuello redondo y mangas entalladas, confeccionado en algodón peinado hilado en anillo de alta suavidad. Logotipo frontal CAPO centrado en relieve sutil de hilo dorado metalizado. Caída impecable y resistencia tras cada lavado.",
+                    "specs": {
+                            "silueta": "Bella + Canvas 6681 Slim Fit Crop Tee",
+                            "material": "100% Algodón Peinado Ringspun (142 GSM)",
+                            "corte": "Largo recortado contemporáneo a la altura de la cintura",
+                            "acabado": "Bordado / estampado CAPO en dorado mate líquido",
+                            "origen": "Bella + Canvas 6681 Blank"
+                    }
+            },
+            {
+                    "id": "capo-biker-femme",
+                    "sku": "CP-BK-047",
+                    "name": "BIKER SHORTS COMPRESIÓN FEMME",
+                    "category": "mujer",
+                    "categoryLabel": "LÍNEA FEMME",
+                    "collection": "syndicate",
+                    "collectionLabel": "SYNDICATE STREET",
+                    "printfulBlank": "Printful All-Over Print Biker Shorts",
+                    "price": 799,
+                    "originalPrice": 999,
+                    "stock": 6,
+                    "badge": "STREETWEAR",
+                    "images": [
+                            "assets/capo-biker-femme.webp"
+                    ],
+                    "rating": 5,
+                    "reviewCount": 21,
+                    "description": "Shorts tipo biker de longitud media con pretina anatómica de compresión alta y costuras planas ergonómicas anti-rozaduras. Estampado minimalista CAPO en transfer dorado mate sobre muslo lateral.",
+                    "specs": {
+                            "material": "82% Poliéster / 18% Spandex (224 GSM)",
+                            "pretina": "Alta anatómica con costuras flatlock de alta resistencia",
+                            "corte": "Largo medio encima de rodilla (20 cm de entrepierna)",
+                            "detalles": "Logo CAPO lateral dorado de alta densidad",
+                            "origen": "Printful Women's Compression Biker Blank"
+                    }
+            },
+            {
+                    "id": "capo-blusa-relaxed-femme",
+                    "sku": "CP-BL-048",
+                    "name": "BLUSA OVERSIZE LUXE RELAXED FEMME",
+                    "category": "mujer",
+                    "categoryLabel": "LÍNEA FEMME",
+                    "collection": "imperio",
+                    "collectionLabel": "IMPERIO TEXTIL",
+                    "printfulBlank": "Bella + Canvas 6400 Women's Relaxed T-Shirt",
+                    "price": 749,
+                    "originalPrice": 950,
+                    "stock": 7,
+                    "badge": "NUEVO",
+                    "images": [
+                            "assets/capo-blusa-relaxed-femme.webp"
+                    ],
+                    "rating": 5,
+                    "reviewCount": 17,
+                    "description": "Blusa de silueta relajada con caída fluida elegante y tacto ultrasuave. Monograma CAPO en dorado mate sutil sobre el pecho izquierdo y cuello acanalado fino de perfil bajo.",
+                    "specs": {
+                            "silueta": "Bella + Canvas 6400 Relaxed Fit",
+                            "material": "100% Algodón Peinado Airlume (145 GSM)",
+                            "estilo": "Corte drapeado relajado con mangas descolgadas",
+                            "detalles": "Monograma CAPO en foil dorado mate",
+                            "origen": "Bella + Canvas 6400 Blank"
+                    }
             }
     ];
 
@@ -1529,6 +1637,8 @@ document.addEventListener('DOMContentLoaded', () => {
         secondaryGrid: document.getElementById('secondary-product-grid'),
         breakSection2: document.getElementById('cinematic-break-section-2'),
         tertiaryGrid: document.getElementById('tertiary-product-grid'),
+        breakSection3: document.getElementById('cinematic-break-section-3'),
+        quaternaryGrid: document.getElementById('quaternary-product-grid'),
         filterTabs: document.querySelectorAll('.filter-tab'),
         sortSelect: document.getElementById('catalog-sort-select'),
         countBadge: document.getElementById('catalog-count-badge'),
@@ -1576,10 +1686,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 0; // featured default
             });
 
-            // Slicing in 3 tiers: 1-10 -> Video 1 -> 11-20 -> Video 2 -> 21+
+            // Slicing in 4 tiers: 1-10 -> Video 1 -> 11-20 -> Video 2 -> 21-30 -> Video 3 (Syndicate) -> 31+
             const batch1 = filtered.slice(0, 10);
             const batch2 = filtered.slice(10, 20);
-            const batch3 = filtered.slice(20);
+            const batch3 = filtered.slice(20, 30);
+            const batch4 = filtered.slice(30);
 
             // Tier 1: Primeros 10 productos
             this.mainGrid.innerHTML = batch1.map(p => this.renderCardHTML(p)).join('');
@@ -1598,7 +1709,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Tier 3: Video Break 2 + Productos 21 en adelante
+            // Tier 3: Video Break 2 + Productos 21 al 30
             if (this.breakSection2) {
                 this.breakSection2.style.display = batch3.length > 0 ? '' : 'none';
             }
@@ -1611,6 +1722,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.tertiaryGrid.style.display = 'none';
                 }
             }
+
+            // Tier 4: Video Break 3 (ZONA CAPO SYNDICATE) + Productos 31 en adelante
+            if (this.breakSection3) {
+                // Se muestra siempre si hay más de 20 productos o si estamos en vista general / syndicate
+                this.breakSection3.style.display = (batch3.length > 0 || this.currentFilter === 'all' || this.currentFilter === 'syndicate') ? '' : 'none';
+            }
+            if (this.quaternaryGrid) {
+                if (batch4.length > 0) {
+                    this.quaternaryGrid.style.display = '';
+                    this.quaternaryGrid.innerHTML = batch4.map(p => this.renderCardHTML(p)).join('');
+                } else {
+                    this.quaternaryGrid.innerHTML = '';
+                    this.quaternaryGrid.style.display = 'none';
+                }
+            }
+
+            if (this.countBadge) {
+                this.countBadge.textContent = `MOSTRANDO ${filtered.length} ${filtered.length === 1 ? 'PIEZA' : 'PIEZAS'}`;
+            }
+
+            WishlistState.syncUI();
+        },
 
             if (this.countBadge) {
                 this.countBadge.textContent = `MOSTRANDO ${filtered.length} ${filtered.length === 1 ? 'PIEZA' : 'PIEZAS'}`;
@@ -3751,6 +3884,81 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // =========================================================
+    // 16.5. ZONA CAPO SYNDICATE ENGINE ("LA ENTRADA NO SE OTORGA. SE CONCEDE.")
+    // =========================================================
+    const SyndicateZoneEngine = {
+        input: document.getElementById('syndicate-passkey-input'),
+        unlockBtn: document.getElementById('syndicate-unlock-btn'),
+        statusMsg: document.getElementById('syndicate-status-msg'),
+        authorizedKeys: ['CONSEJERO', 'LEGADO', 'CAPO', 'PATRON', 'IMPERIO', 'SYNDICATE', '2026', 'DON'],
+
+        init() {
+            if (!this.unlockBtn || !this.input) return;
+
+            // Check if already unlocked in this session
+            if (localStorage.getItem('capo_syndicate_member') === 'granted') {
+                this.renderGrantedState(true);
+            }
+
+            this.unlockBtn.addEventListener('click', () => this.validateAccess());
+            this.input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.validateAccess();
+                }
+            });
+        },
+
+        validateAccess() {
+            const raw = (this.input.value || '').trim().toUpperCase();
+            if (!raw) {
+                this.showStatus('INGRESA UNA CLAVE DE ACCESO.', 'error');
+                return;
+            }
+
+            if (this.authorizedKeys.includes(raw)) {
+                localStorage.setItem('capo_syndicate_member', 'granted');
+                CartState.appliedCoupon = 'CONSEJERO15';
+                try {
+                    localStorage.setItem(COUPON_STORAGE_KEY, 'CONSEJERO15');
+                } catch(e) {}
+                CartState.syncUI();
+                this.renderGrantedState();
+                Toast.show('👑 ACCESO CONCEDIDO: MEMBRESÍA SYNDICATE ACTIVA (15% OFF VIP APLICADO)');
+            } else {
+                this.showStatus('✕ ACCESO DENEGADO: Tu folio ha sido remitido al Consejo para evaluación.', 'error');
+                if (this.input) {
+                    this.input.style.animation = 'shake 0.4s ease';
+                    setTimeout(() => { this.input.style.animation = ''; }, 400);
+                }
+            }
+        },
+
+        renderGrantedState(silent = false) {
+            if (this.statusMsg) {
+                this.statusMsg.className = 'syndicate-status-msg success';
+                this.statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> ACCESO CONCEDIDO // MEMBRESÍA SYNDICATE ACTIVA. 15% OFF VIP APLICADO AUTOMÁTICAMENTE.';
+            }
+            if (this.input) {
+                this.input.value = 'MIEMBRO VERIFICADO';
+                this.input.disabled = true;
+            }
+            if (this.unlockBtn) {
+                this.unlockBtn.innerHTML = '<span>CONCEDIDO</span> <i class="fas fa-crown"></i>';
+                this.unlockBtn.style.background = '#25d366';
+                this.unlockBtn.style.color = '#000';
+                this.unlockBtn.disabled = true;
+            }
+        },
+
+        showStatus(msg, type) {
+            if (!this.statusMsg) return;
+            this.statusMsg.className = `syndicate-status-msg ${type}`;
+            this.statusMsg.textContent = msg;
+        }
+    };
+
+    // =========================================================
     // 17. INITIALIZE MODULES
     // =========================================================
     CurrencyUI.init();
@@ -3760,6 +3968,7 @@ document.addEventListener('DOMContentLoaded', () => {
     CartState.init();
     CartUI.init();
     CatalogEngine.init();
+    SyndicateZoneEngine.init();
     QuickViewModal.init();
     CheckoutModal.init();
     ReceiptModal.init();

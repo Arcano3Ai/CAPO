@@ -168,6 +168,7 @@
         <ul class="nav-links" id="nav-menu">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#cinematic-break-section-3"><i class="fas fa-fingerprint" style="color:var(--accent-color);"></i> Syndicate</a></li>
             <li><a href="#rastreo">Rastreo</a></li>
             <li><a href="#reputacion">Reputación</a></li>
             <li><a href="#contacto">Contacto</a></li>
@@ -261,16 +262,17 @@
         <div class="container-fluid">
             <div class="collection-header-row">
                 <h2 class="section-title">COLECCIÓN <span class="text-outline">IMPERIO</span></h2>
-                <span class="section-count" id="catalog-count-badge">MOSTRANDO 44 PIEZAS</span>
+                <span class="section-count" id="catalog-count-badge">MOSTRANDO 48 PIEZAS</span>
             </div>
 
             <!-- Interactive Catalog Filter & Sorter Toolbar -->
             <div class="catalog-toolbar">
                 <div class="filter-tabs" id="catalog-filter-tabs">
-                    <button class="filter-tab active" data-filter="all">TODAS (44)</button>
+                    <button class="filter-tab active" data-filter="all">TODAS (48)</button>
+                    <button class="filter-tab" data-filter="mujer"><i class="fas fa-venus"></i> LÍNEA FEMME (4)</button>
                     <button class="filter-tab" data-filter="pulseras"><i class="fas fa-circle-nodes"></i> PULSERAS 8MM (20)</button>
                     <button class="filter-tab" data-filter="noir-gold"><i class="fas fa-crown"></i> NOIR & GOLD</button>
-                    <button class="filter-tab" data-filter="syndicate"><i class="fas fa-fire"></i> SYNDICATE STREET</button>
+                    <button class="filter-tab" data-filter="syndicate"><i class="fas fa-fingerprint"></i> SYNDICATE</button>
                     <button class="filter-tab" data-filter="imperio"><i class="fas fa-shield-alt"></i> IMPERIO TEXTIL</button>
                     <button class="filter-tab" data-filter="stealth"><i class="fas fa-mask"></i> STEALTH TACTICAL</button>
                     <button class="filter-tab" data-filter="textil"><i class="fas fa-tshirt"></i> HOODIES & TEXTIL</button>
@@ -327,8 +329,37 @@
                 </div>
             </div>
 
-            <!-- Dynamic Grid: Resto de los productos (21 en adelante) -->
+            <!-- Dynamic Grid: Siguientes 10 productos (21 al 30) -->
             <div class="product-grid" id="tertiary-product-grid">
+                <!-- Products injected dynamically from products.json -->
+            </div>
+
+            <!-- Interstitial Video Showcase 3 / ZONA CAPO SYNDICATE: Video Project 49 sin opacidad -->
+            <div class="cinematic-break syndicate-portal" id="cinematic-break-section-3">
+                <div class="cinematic-break-video-wrap">
+                    <video class="cinematic-break-video building-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/capo-showcase-3-poster.webp">
+                        <source src="assets/capo-showcase-3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cinematic-break-content syndicate-content">
+                    <span class="cinematic-break-tag syndicate-badge"><i class="fas fa-fingerprint"></i> CÍRCULO INTERNO // CAPO SYNDICATE</span>
+                    <h2 class="syndicate-title">LA ENTRADA NO SE OTORGA.<br><span class="highlight">SE CONCEDE.</span></h2>
+                    <p class="syndicate-subtitle">ACCESO RESERVADO ÚNICAMENTE A POSEEDORES DE PIEZAS SERIADAS Y MIEMBROS DE LA ORDEN</p>
+                    <div class="syndicate-passkey-form" id="syndicate-passkey-form">
+                        <div class="passkey-input-wrapper">
+                            <i class="fas fa-key passkey-icon"></i>
+                            <input type="text" id="syndicate-passkey-input" placeholder="INGRESA TU CLAVE DE ACCESO VIP..." autocomplete="off">
+                            <button type="button" class="btn-syndicate-unlock" id="syndicate-unlock-btn">
+                                <span>CONCEDER ACCESO</span> <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="syndicate-status-msg" id="syndicate-status-msg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Grid: Resto de los productos (31 en adelante) -->
+            <div class="product-grid" id="quaternary-product-grid">
                 <!-- Products injected dynamically from products.json -->
             </div>
         </div>
