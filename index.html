@@ -128,18 +128,20 @@
         </audio>
         <script>
             (function() {
-                var playSong = function() {
+                var bgAudio = document.getElementById('bg-music');
+                if (!bgAudio) return;
+                bgAudio.volume = 0.65;
+                var playAttempt = function() {
                     try {
-                        var bgAudio = document.getElementById('bg-music');
-                        if (bgAudio && bgAudio.paused) {
-                            bgAudio.volume = 0.65;
+                        if (bgAudio.paused) {
                             var p = bgAudio.play();
                             if (p !== undefined) p.catch(function(){});
                         }
                     } catch(e) {}
                 };
-                // Iniciar la canción exactamente 1 segundo después de entrar sin tocar
-                setTimeout(playSong, 1000);
+                playAttempt();
+                setTimeout(playAttempt, 500);
+                setTimeout(playAttempt, 1000);
             })();
         </script>
         <div class="player-controls">

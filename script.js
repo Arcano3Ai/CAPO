@@ -3397,7 +3397,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.addEventListener('play', () => updateAudioState(true));
         audio.addEventListener('pause', () => updateAudioState(false));
 
-        const unlockEvents = ['scroll', 'wheel', 'mousemove', 'pointermove', 'click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'keydown'];
+        const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'pointerup', 'click', 'keydown'];
 
         const removeListeners = () => {
             unlockEvents.forEach(evt => {
@@ -3428,14 +3428,16 @@ document.addEventListener('DOMContentLoaded', () => {
             tryPlay();
         }
 
-        // 1. Iniciar la canción exactamente 1 segundo después de entrar sin tocar
+        // 1. Intentos progresivos de inicio automático (inmediato, 500ms y 1000ms)
+        tryPlay();
+        setTimeout(tryPlay, 500);
         setTimeout(tryPlay, 1000);
 
-        // 2. Intentos complementarios a la carga y navegación a 1 segundo
+        // 2. Intentos complementarios en eventos de ventana
         window.addEventListener('load', () => setTimeout(tryPlay, 1000), { once: true });
         window.addEventListener('pageshow', () => setTimeout(tryPlay, 1000), { once: true });
 
-        // 3. Activación transparente en scroll, movimiento o interacción si el navegador restringe audio
+        // 3. Activación inmediata al primer toque o interacción
         unlockEvents.forEach(evt => {
             window.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
             document.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
