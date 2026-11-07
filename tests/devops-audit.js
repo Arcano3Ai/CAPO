@@ -86,11 +86,12 @@ assertAudit(allAssetsExist, 'Todas las imágenes del catálogo existen en el dis
 const video1 = path.join(rootDir, 'assets/fondo-1.mp4');
 const video2 = path.join(rootDir, 'assets/fondo-2.mp4');
 const video3 = path.join(rootDir, 'assets/fondo-3.mp4');
-const videoShowcase = path.join(rootDir, 'assets/capo-showcase.mp4');
+const videoShowcase1 = path.join(rootDir, 'assets/capo-showcase.mp4');
+const videoShowcase2 = path.join(rootDir, 'assets/capo-showcase-2.mp4');
 const audioMp3 = path.join(rootDir, 'assets/modo-patron-activado.mp3');
 
-const allVideosExist = [video1, video2, video3, videoShowcase].every(v => fs.existsSync(v) && fs.statSync(v).size > 1000000);
-assertAudit(allVideosExist, '4 Videos de fondo (edificio 1-3 y showcase intermedio) verificados y disponibles');
+const allVideosExist = [video1, video2, video3, videoShowcase1, videoShowcase2].every(v => fs.existsSync(v) && fs.statSync(v).size > 1000000);
+assertAudit(allVideosExist, '5 Videos de fondo (edificio 1-3 y 2 showcases intermedios) verificados y disponibles');
 assertAudit(fs.existsSync(audioMp3) && fs.statSync(audioMp3).size > 500000, 'Soundtrack oficial "Modo Patrón Activado" MP3 verificado');
 
 // 3. Auditoría PWA y Service Worker

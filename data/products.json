@@ -1221,5 +1221,32 @@
       "talla": "Ajustable Universal (18 a 20 cm de muñeca)",
       "mantenimiento": "Limpiar con paño suave seco; resistente al agua dulce"
     }
+  },
+  {
+    "id": "capo-joggers-heritage",
+    "sku": "CP-JG-031",
+    "name": "PANTALÓN JOGGER HEAVYWEIGHT HERITAGE",
+    "category": "textil",
+    "categoryLabel": "HOODIES & TEXTIL",
+    "collection": "imperio",
+    "collectionLabel": "IMPERIO TEXTIL",
+    "printfulBlank": "Cotton Heritage M2480 Heavyweight Fleece Joggers",
+    "price": 1399,
+    "originalPrice": 1699,
+    "stock": 5,
+    "badge": "NUEVO",
+    "images": [
+      "assets/capo-joggers-heritage.webp"
+    ],
+    "rating": 5,
+    "reviewCount": 18,
+    "description": "Pantalón jogger premium heavyweight de 380 GSM con corte cónico (tapered athletic fit), confeccionado con felpa perchada ultrasuave de 3 hilos. Incluye bordado 'CAPO' sutil en hilo dorado mate sobre el muslo izquierdo, cordones de ajuste planos de algodón con ojillos y terminales metálicas doradas grabadas al láser, y bolsillos laterales profundos con cierre invisible.",
+    "specs": {
+      "material": "80% Algodón Peinado Ringspun / 20% Poliéster (380 GSM)",
+      "corte": "Tapered Athletic Fit con puños de canalé 2x1",
+      "detalles": "Bordado CAPO hilo oro mate + herrajes metálicos dorados",
+      "bolsillos": "2 laterales reforzados + 1 trasero con broche magnético oculto",
+      "origen": "Cotton Heritage M2480 Fleece Jogger Blank"
+    }
   }
 ]
