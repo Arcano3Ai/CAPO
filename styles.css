@@ -725,11 +725,11 @@ button {
 }
 
 .filter-tab {
-    padding: 0.8rem 1.6rem;
+    padding: 0.95rem 1.85rem;
     background: #141414;
     border: 1px solid #2a2a2a;
     color: #ccc;
-    font-size: 1rem;
+    font-size: 1.25rem; /* +25% aumentado para máxima legibilidad y presencia */
     font-weight: 900;
     letter-spacing: 2px;
     cursor: pointer;
@@ -2710,8 +2710,8 @@ footer {
     }
 
     .filter-tab {
-        font-size: 0.88rem;
-        padding: 0.65rem 1.1rem;
+        font-size: 1.1rem; /* +25% aumentado en móviles (era 0.88rem) */
+        padding: 0.8rem 1.35rem;
         letter-spacing: 1.5px;
     }
 

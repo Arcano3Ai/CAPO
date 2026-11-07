@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capo-store-v14';
+const CACHE_NAME = 'capo-store-v15';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

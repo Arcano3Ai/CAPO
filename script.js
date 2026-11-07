@@ -3264,7 +3264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.addEventListener('play', () => updateAudioState(true));
         audio.addEventListener('pause', () => updateAudioState(false));
 
-        const unlockEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'keydown'];
+        const unlockEvents = ['scroll', 'wheel', 'mousemove', 'pointermove', 'click', 'touchstart', 'touchend', 'pointerdown', 'pointerup', 'keydown'];
 
         const removeListeners = () => {
             unlockEvents.forEach(evt => {
@@ -3295,14 +3295,14 @@ document.addEventListener('DOMContentLoaded', () => {
             tryPlay();
         }
 
-        // 1. Intento inmediato al cargar
-        tryPlay();
+        // 1. Iniciar la canción exactamente 1 segundo después de entrar sin tocar
+        setTimeout(tryPlay, 1000);
 
-        // 2. Intentos al completar la carga y navegación
-        window.addEventListener('load', tryPlay, { once: true });
-        window.addEventListener('pageshow', tryPlay, { once: true });
+        // 2. Intentos complementarios a la carga y navegación a 1 segundo
+        window.addEventListener('load', () => setTimeout(tryPlay, 1000), { once: true });
+        window.addEventListener('pageshow', () => setTimeout(tryPlay, 1000), { once: true });
 
-        // 3. Activación garantizada en el primer contacto táctil o clic
+        // 3. Activación transparente en scroll, movimiento o interacción si el navegador restringe audio
         unlockEvents.forEach(evt => {
             window.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });
             document.addEventListener(evt, handleGestureAutoplay, { capture: true, passive: true });

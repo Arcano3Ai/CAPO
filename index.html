@@ -132,14 +132,20 @@
             <source src="assets/modo-patron-activado.mp3" type="audio/mpeg">
         </audio>
         <script>
-            try {
-                var bgAudio = document.getElementById('bg-music');
-                if (bgAudio) {
-                    bgAudio.volume = 0.65;
-                    var p = bgAudio.play();
-                    if (p !== undefined) p.catch(function(){});
-                }
-            } catch(e) {}
+            (function() {
+                var playSong = function() {
+                    try {
+                        var bgAudio = document.getElementById('bg-music');
+                        if (bgAudio && bgAudio.paused) {
+                            bgAudio.volume = 0.65;
+                            var p = bgAudio.play();
+                            if (p !== undefined) p.catch(function(){});
+                        }
+                    } catch(e) {}
+                };
+                // Iniciar la canción exactamente 1 segundo después de entrar sin tocar
+                setTimeout(playSong, 1000);
+            })();
         </script>
         <div class="player-controls">
             <button id="play-btn" class="btn-audio" aria-label="Reproducir o pausar soundtrack">
